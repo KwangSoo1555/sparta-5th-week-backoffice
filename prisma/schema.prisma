@@ -16,16 +16,15 @@ datasource db {
 
 model User {
   userid Int @id @default(autoincrement()) @map("user_id") 
-  password String  @map("password")
-   name String @map("username")
-  email String @map("email")
-  phone String @map("phone")
-  grade gradeType @map("grade")
-  point Int @default(1000000) @map("point")
-  role role  @map("userrole")
-  createddate DateTime
-  updateddate DateTime
-  diib dib[]
+  password String 
+  username String @map("user_name")
+  email String 
+  phone Int 
+  grade gradeType 
+  point Int @default(1000000) 
+  userrole role  @map("user_role")
+  createddate DateTime @default(now()) @map("created_at")
+  updateddate DateTime @updatedAt @map("udated_at")
 }
 
 model Store {
