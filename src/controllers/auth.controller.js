@@ -100,7 +100,7 @@ export class AuthController {
       return res.status(HTTP_STATUS.CREATED).json({
         status: HTTP_STATUS.CREATED,
         message: MESSAGES.AUTH.SIGN_UP.SUCCEED,
-        signUpUser,
+        data: signUpUser,
       });
     } catch (error) {
       next(error);
@@ -112,12 +112,17 @@ export class AuthController {
     try {
       const { email, password } = req.body;
 
-      const accessToken = await this.authService.signIn(email, password);
+      const issueToken = await this.authService.signIn(
+        email,
+        password,
+        req.ip,
+        req.get("User-Agent"),
+      );
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_IN.SUCCEED,
-        data: { accessToken },
+        data: issueToken,
       });
     } catch (error) {
       next(error);
@@ -127,22 +132,15 @@ export class AuthController {
   // 로그아웃 API /api/auth/sign-out
   signOut = async (req, res, next) => {
     try {
-      const userId = req.user.id;
-
-      // if (!userId) {
-      //   return res.status(HTTP_STATUS.FORBIDDEN).json({
-      //     status: HTTP_STATUS.FORBIDDEN,
-      //     message: MESSAGES.AUTH.COMMON.UNAUTHORIZED,
-      //     data: { id: userId },
-      //   });
-      // }
+      // const refreshToken = req.headers
+      console.log(req.headers)
 
       const signOutUser = await this.authService.signOut(userId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
-        data: { signOutUser },
+        data: signOutUser,
       });
     } catch (error) {
       next(error);
