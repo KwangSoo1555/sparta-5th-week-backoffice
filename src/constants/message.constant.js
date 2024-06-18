@@ -32,6 +32,8 @@ export const MESSAGES = {
     SIGN_UP: {
       EMAIL: {
         DUPLICATED: '이메일이나 별명이 이미 존재합니다.',
+        FAIL: '메일 전송에 실패했습니다.',
+        SUCCEED: '메일 전송에 성공했습니다.'
       },
       VERIFICATION_CODE: {
         BASE: '이메일 인증 코드는 정수입니다.',
@@ -41,7 +43,6 @@ export const MESSAGES = {
         SUCCEED: '메일 인증이 완료되었습니다.',
       },
       SUCCEED: "회원가입에 성공했습니다.",
-      FAIL: '메일 전송에 실패했습니다.',
     },
     SIGN_IN: {
       SUCCEED: "로그인에 성공했습니다.",
