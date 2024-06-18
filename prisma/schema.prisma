@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  user_id Int @id @default(autoincrement()) @map("user_id") 
+  userid Int @id @default(autoincrement()) @map("user_id") 
   password String  @map("password")
    name String @map("username")
   email String @map("email")
@@ -23,23 +23,23 @@ model User {
   grade gradeType @default(APPLY) @map("grade")
   point Int @default(1000000) @map("point")
   role role @default(role) @map("userrole")
-  created_date DateTime
-  updated_date DateTime
-  diib diib[]
+  createddate DateTime
+  updateddate DateTime
+  diib dib[]
 }
 
-model store {
+model Store {
   store_id Int
   storename String
   category String
   address String
   phone String
   content String
-  rating rating[]
+  rating Int
   
 }
 
-model diib {
+model dib {
   author User @relation(fields: [user_id],references: [user_id])
 
   created_date DateTime
@@ -47,12 +47,16 @@ model diib {
 }
 
 
-// enum gradeType {
+ enum gradeType {
+   a
+   b
+   c
+   d
 //   고마운분
 //   귀한분
 //   더귀한분
 //   천생연분
-// }
+  }
 
 enum role {
   CUSTOMER
