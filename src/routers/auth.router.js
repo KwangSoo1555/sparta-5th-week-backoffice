@@ -12,6 +12,9 @@ const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
 const authController = new AuthController(authService);
 
+// 이메일 인증 API /api/auth/auth-email
+authRouter.post("/auth-email", authController.sendAuthEmail);
+
 // 회원가입 API /api/auth/sign-up
 authRouter.post("/sign-up", signUpValidator, authController.signUp);
 
