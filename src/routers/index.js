@@ -19,7 +19,7 @@ const authService = new AuthService(usersRepository);
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/users", usersRouter);
-// apiRouter.use("/stores");
+// apiRouter.use("/stores", storesRouter); 아직 미구현 삭제 금지, 손님 가게 crud
 apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use("/owners", [storesRouter, menusRouter]);
 

@@ -43,8 +43,8 @@ export const requireAccessToken = (authService) => {
       try {
         // AccessToken보내면 service에서 사용자 정보 줌.
         const user = await authService.verifyAccessToken(accessToken);
-        //
         req.user = user;
+        
         next();
       } catch (error) {
         return res.status(HTTP_STATUS.UNAUTHORIZED).json({

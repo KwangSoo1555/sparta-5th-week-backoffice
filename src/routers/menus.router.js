@@ -19,17 +19,9 @@ menusRouter.get("/menus/:store_id", menusController.getMenus);
 
 menusRouter.get("/menus/:store_id/:menu_id", menusController.getMenuDetail);
 
-menusRouter.post(
-  "/menus/:store_id",
-  createMenuValidator,
-  menusController.postMenus,
-);
+menusRouter.post("/menus/:store_id", createMenuValidator, menusController.postMenus);
 
-menusRouter.patch(
-  "/menus/:store_id/:menu_id",
-  updateMenuValidator,
-  menusController.patchMenus,
-);
+menusRouter.patch("/menus/:store_id/:menu_id", updateMenuValidator, menusController.patchMenus);
 
 menusRouter.delete("/menus/:store_id/:menu_id", menusController.deleteMenus);
 

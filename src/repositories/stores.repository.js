@@ -98,6 +98,5 @@ export class StoresRepository {
     return deletedStore;
   };
 }
-}
   
 
