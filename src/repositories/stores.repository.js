@@ -5,25 +5,25 @@ export class StoresRepository {
     }
   
     // 가게 생성
-    createStore = async (storeid,name, category, address, storepictureurl, phone, content, dibscount, reviewcount, createddate, updateddate, status, rating) => {
+    createStore = async (storeid,name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
       const createdStore = await this.prisma.stores.create({
         data: {
-          storeid,
-          name,
-          category,
-          address,
-          storepictureurl,
-          phone,
-          content,
-          dibscount,
-          reviewcount,
-          createddate,
-          updateddate,
-          status,
-          rating,
+         storeid,
+         name,
+         category,
+         address,
+         storePictureUrl,
+         phone,
+         content,
+         dibsCount,
+         reviewCount,
+         createdDate,
+         updatedDate,
+         status,
+         rating,
         },
       });
-  
+
       return createdStore;
     };
 
@@ -38,7 +38,7 @@ export class StoresRepository {
     };
    
     // 가게 수정
-    updateStore = async (storeid, name, category, address, storepictureurl, phone, content, dibscount, reviewcount, createddate, updateddate, status, rating) => {
+    updateStore = async (storeid, name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
       const updatedStore = await this.prisma.stores.update({
         where: { storeid: +id ,storeid },
         data: {
@@ -46,13 +46,13 @@ export class StoresRepository {
           ...(name && { name }),
           ...(category && { category }),
           ...(address && { address }),
-          ...(storepictureurl && { storepictureurl }),
+          ...(storePictureUrl && { storePictureUrl }),
           ...(phone && { phone }),
           ...(content && { content }),
-          ...(dibscount && { dibscount }),
-          ...(reviewcount && { reviewcount }),
-          ...(createddate && { createddate }),
-          ...(updateddate && { updateddate }),
+          ...(dibsCount && { dibsCount }),
+          ...(reviewCount && { reviewCount }),
+          ...(createdDate && { createdDate }),
+          ...(updatedDate && { updatedDate }),
           ...(status && { status }),
           ...(rating && { rating }),
         },
