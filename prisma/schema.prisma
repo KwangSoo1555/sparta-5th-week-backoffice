@@ -14,106 +14,171 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  user_id Int @id @default(autoincrement()) @map("user_id") 
-  password String  @map("password")
-   name String @map("username")
-  email String @map("email")
-  phone String @map("phone")
-  grade gradeType @default(APPLY) @map("grade")
-  point Int @default(1000000) @map("point")
-  role role @default(role) @map("userrole")
-  created_date DateTime
-  updated_date DateTime
-  diib diib[]
+model Users {
+  userId               Int        @id                @default(autoincrement()) @map("user_id")
+  password             String     @map("password")
+  name                 String     @map("name")
+  phone                String     @map("phone")
+  email                String     @map("email")
+  grade                Grade_Type @default(A)        @map("grade")
+  point                Int        @default(1000000)  @map("point")
+  role                 Role       @default(CUSTOMER) @map("role")
+  createdDate          DateTime   @default(now())    @map("created_date")
+  updatedDate          DateTime   @updatedAt         @map("updated_date")
+  isDeleted            Boolean    @default(true)     @map("is_deleted")
+  isEmailValid         Boolean    @default(false)    @map("is_email_valid")
+
+  userIdToRefreshToken RefreshToken?
+  userIdToOrders       Orders[]
+  userIdToDibs         Dibs[]
+  userIdToCeoReviews   CeoReviews?
+  userIdToReviews      Reviews[]
+
+  @@map("users")
 }
 
-model store {
-  store_id Int
-  storename String
-  category String
-  address String
-  phone String
-  content String
-  rating rating[]
-  
-}
-
-model diib {
-  author User @relation(fields: [user_id],references: [user_id])
-
-  created_date DateTime
-  updated_date DateTime
-}
-
-
-// enum gradeType {
-//   고마운분
-//   귀한분
-//   더귀한분
-//   천생연분
-// }
-
-enum role {
+enum Role {
   CUSTOMER
   MANAGER
 }
 
+enum Grade_Type {
+  A //   고마운분
+  B //   귀한분
+  C //   더귀한분
+  D //   천생연분
+}
 
+model RefreshToken {
+  tokenId       Int      @id               @default(autoincrement()) @map("token_id")
+  userId        Int      @unique           @map("user_id")
+  refreshToken  String   @map("refresh_token")
+  createdAt     DateTime @default(now())   @map("created_at")
+  updatedAt     DateTime @updatedAt        @map("updated_at")
 
+  userIdByUsers Users    @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
+  @@map("refreshtoken")
+}
 
+model Orders {
+  orderId         Int             @id               @default(autoincrement()) @map("order_id")
+  storeId         Int             @map("store_id")
+  userId          Int             @map("user_id")
+  menuId          Int             @map("menu_id")
+  paymentMethod   Payment_Method  @map("payment_method")
+  totalPrice      Int             @map("total_price")
+  requests        String          @map("requests")
+  createdAt       DateTime        @default(now())   @map("created_at")
+  updatedAt       DateTime        @updatedAt        @map("updated_at")
+  status          Order_Status    @default(WAITING)
 
+  storeIdByStores Stores          @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  userIdByUsers   Users           @relation(fields: [userId], references: [userId],  onDelete: Cascade)
+  menuIdByMenus   Menus           @relation(fields: [menuId], references: [menuId],  onDelete: Cascade)
 
+  @@map("orders")
+}
 
+enum Payment_Method {
+  CASH // 현금
+  CARD // 카드
+}
 
+enum Order_Status {
+  WAITING
+  PREPARING
+  DELIVERING
+  COMPLETE
+}
 
+model Stores {
+  storeId  Int @id @default(autoincrement()) @map("store_id")
+  name	    String
+  category  String
+  address   String
+  storePictureUrl String @db.Text @map("store_picture_url")
+  phone String
+  dibsCount  Int @map("dibs_count")
+  reviewCount  Int @map("review_count")
+  deliveryAddress  String @map("delivery_address")
+  status  StoreStatus @default(OPEN)
+  createdDate DateTime @default(now()) @map("created_date")
+  updatedDate DateTime @updatedAt @map("updated_date")
 
+  storeIdToDibs  Dibs[]
+  storeIdToOrders Orders[]
+  storeIdToMenus Menus[]
+  storeIdToReviews Reviews[]
 
+  @@map("stores")
+}
 
+enum StoreStatus {
+  OPEN
+  CLOSE
+}
 
+model Dibs{
+  dibsId             Int        @id @default(autoincrement()) @map("dibs_id")
+  storeId            Int        @map("store_id")
+  userId             Int        @map("user_id")
+  createdAt          DateTime   @default(now())   @map("created_at")
+  updatedAt          DateTime   @updatedAt        @map("updated_at")
 
+  userIdByUsers      Users      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  storeIdByStores    Stores     @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
 
+  @@map("dibs")
+}
 
+model CeoReviews{
+  ceoReviewId        Int        @id @default(autoincrement()) @map("ceo_review_id")
+  reviewId           Int        @unique           @map("review_id")
+  userId             Int        @unique           @map("user_id")
+  content            String
+  createdAt          DateTime   @default(now())   @map("created_at")
+  updatedAt          DateTime   @updatedAt        @map("updated_at")
 
+  userIdByUsers      Users      @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  reviewIdByReviews  Reviews    @relation(fields: [reviewId], references: [reviewId], onDelete: Cascade)
 
+  @@map("ceo_reviews")
+}
 
-// model User {
-//   id        Int      @id @default(autoincrement())
-//   email     String   @unique
-//   password  String
-//   name      String
-//   role      UserRole @default(APPLICANT)
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
-//   resumes   Resume[]
+model Menus {
+  menuId          Int        @id @default(autoincrement()) @map("menu_id")
+  storeId         Int        @map("store_id") 
+  name            String 
+  price           Int
+  imgUrl          String     @db.Text          @map("img_url")
+  popularity      Int
+  status          menuStatus @default(SALE)
+  createdAt       DateTime   @default(now())   @map("created_at")
+  updatedAt       DateTime   @updatedAt        @map("updated_at")
 
-//   @@map("users")
-// }
+  storeIdByStores Stores     @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
 
-// model Resume {
-//   id        Int          @id @default(autoincrement())
-//   authorId  Int          @map("author_id")
-//   title     String
-//   content   String       @db.Text
-//   status    ResumeStatus @default(APPLY)
-//   createdAt DateTime     @default(now()) @map("created_at")
-//   updatedAt DateTime     @updatedAt @map("updated_at")
-//   author    User         @relation(fields: [authorId], references: [id])
+  menuIdToOrders  Orders[]
+}
 
-//   @@map("resumes")
-// }
+enum menuStatus {
+  SALE
+  SOLE_OUT
+}
 
-// enum UserRole {
-//   APPLICANT
-//   RECRUITER
-// }
+model Reviews {
+  reviewId             Int      @id @default(autoincrement()) @map("review_id")
+  userId               Int      @map("user_id")
+  storeId              Int      @map("store_id")
+  rating               Int
+  content              String
+  imgUrl               String   @db.Text          @map("img_url")
+  createdAt            DateTime @default(now())   @map("created_at")
+  updatedAt            DateTime @updatedAt        @map("updated_at")
 
-// enum ResumeStatus {
-//   APPLY
-//   DROP
-//   PASS
-//   INTERVIEW1
-//   INTERVIEW2
-//   FINAL_PASS
-// }
+  userIdByUsers        Users    @relation(fields: [userId], references: [userId],  onDelete: Cascade)
+  storeIdByStores      Stores   @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+
+  reviewIdToCeoReviews CeoReviews?
+}
