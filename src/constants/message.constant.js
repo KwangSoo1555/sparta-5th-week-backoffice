@@ -32,6 +32,8 @@ export const MESSAGES = {
     SIGN_UP: {
       EMAIL: {
         DUPLICATED: '이메일이나 별명이 이미 존재합니다.',
+        FAIL: '메일 전송에 실패했습니다.',
+        SUCCEED: '메일 전송에 성공했습니다.'
       },
       VERIFICATION_CODE: {
         BASE: '이메일 인증 코드는 정수입니다.',
@@ -41,7 +43,6 @@ export const MESSAGES = {
         SUCCEED: '메일 인증이 완료되었습니다.',
       },
       SUCCEED: "회원가입에 성공했습니다.",
-      FAIL: '메일 전송에 실패했습니다.',
     },
     SIGN_IN: {
       SUCCEED: "로그인에 성공했습니다.",
@@ -78,6 +79,36 @@ export const MESSAGES = {
     },
     DELETE: {
       SUCCEED: "이력서 삭제에 성공했습니다.",
+    },
+  },
+  MENUS: {
+    COMMON: {
+      NAME: {
+        REQUIRED: "이름을 입력해 주세요",
+      },
+      PRICE: {
+        REQUIRED: "가격를 입력해 주세요.",
+      },
+      POPULALITY: {
+        REQUIRED: "인기여부를 입력해 주세요.",
+      },
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
+    },
+    CREATE: {
+      SUCCEED: "메뉴 생성에 성공했습니다.",
+    },
+    READ_LIST: {
+      SUCCEED: "메뉴 목록 조회에 성공했습니다.",
+    },
+    READ_DETAIL: {
+      SUCCEED: "메뉴 상세 조회에 성공했습니다.",
+    },
+    UPDATE: {
+      SUCCEED: "메뉴 수정에 성공했습니다.",
+      NO_BODY_DATA: "메뉴 할 정보를 입력해 주세요.",
+    },
+    DELETE: {
+      SUCCEED: "메뉴 삭제에 성공했습니다.",
     },
   },
 };
