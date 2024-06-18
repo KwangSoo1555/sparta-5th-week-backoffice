@@ -57,6 +57,12 @@ export class AuthService {
     return accessToken;
   };
 
+  signOut = async (userId) => {
+    const user = await this.usersRepository.toSignOutUpdateRefreshTokenToNull(userId);
+
+    return user;
+  };
+
   // Accesstoken받고 payload로 user정보 받음.
   verifyAccessToken = async (accessToken) => {
     try {
