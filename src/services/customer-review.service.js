@@ -46,7 +46,7 @@ export class ReviewsService {
     });
 
     if (!existedReview)
-      throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+      throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
 
     const data = await this.reviewsRepository.updateReview({
       reviewId,
@@ -65,7 +65,7 @@ export class ReviewsService {
     });
 
     if (!existedReview)
-      throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+      throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
 
     const data = await this.reviewsRepository.deleteReview({ reviewId });
   };

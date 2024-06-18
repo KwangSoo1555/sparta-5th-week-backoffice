@@ -23,5 +23,4 @@ apiRouter.use("/users", usersRouter);
 apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use("/owners", [storesRouter, menusRouter]);
 
-
 export { apiRouter };
