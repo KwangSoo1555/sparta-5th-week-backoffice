@@ -2,9 +2,6 @@ import Joi from "joi";
 import { MESSAGES } from "../../constants/message.constant.js";
 
 const updateStoreSchema = Joi.object({
-  storeId: Joi.number().required().messages({
-    "any.required": MESSAGES.STORES.COMMON.STOREID.REQURIED,
-  }),
   name: Joi.string().trim().required().messages({
     "any.required": MESSAGES.STORES.COMMON.NAME.REQURIED,
   }),
@@ -15,9 +12,7 @@ const updateStoreSchema = Joi.object({
   content: Joi.string().trim(),
   dibsCount: Joi.number().integer().min(0),
   reviewCount: Joi.number().integer().min(0),
-  createdDate: Joi.date().iso(),
-  updatedDate: Joi.date().iso(),
-  status: Joi.string().valid("active", "inactive"),
+  status: Joi.string().valid("open", "close"),
   rating: Joi.number().min(0).max(5),
 });
 

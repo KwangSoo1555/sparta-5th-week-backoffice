@@ -5,10 +5,9 @@ export class StoresRepository {
     }
   
     // 가게 생성
-    createStore = async (storeid,name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
+    createStore = async (name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, status, rating) => {
       const createdStore = await this.prisma.stores.create({
         data: {
-         storeid,
          name,
          category,
          address,
@@ -17,8 +16,6 @@ export class StoresRepository {
          content,
          dibsCount,
          reviewCount,
-         createdDate,
-         updatedDate,
          status,
          rating,
         },
@@ -38,11 +35,10 @@ export class StoresRepository {
     };
    
     // 가게 수정
-    updateStore = async (storeid, name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
+    updateStore = async ( name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount,  status, rating) => {
       const updatedStore = await this.prisma.stores.update({
         where: { storeid: +id ,storeid },
         data: {
-          ...(storeid && { storeid }),
           ...(name && { name }),
           ...(category && { category }),
           ...(address && { address }),
@@ -51,8 +47,6 @@ export class StoresRepository {
           ...(content && { content }),
           ...(dibsCount && { dibsCount }),
           ...(reviewCount && { reviewCount }),
-          ...(createdDate && { createdDate }),
-          ...(updatedDate && { updatedDate }),
           ...(status && { status }),
           ...(rating && { rating }),
         },

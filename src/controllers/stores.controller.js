@@ -10,7 +10,6 @@ export class StoresController {
   createStore = async (req, res, next) => {
     try {
       const {
-        storeid,
         name,
         category,
         address,
@@ -19,14 +18,11 @@ export class StoresController {
         content,
         dibsCount,
         reviewCount,
-        createdDate,
-        updatedDate,
         status,
         rating,
       } = req.body;
 
       const createdStore = await this.storesService.createStore(
-        storeid,
         name,
         category,
         address,
@@ -35,8 +31,6 @@ export class StoresController {
         content,
         dibsCount,
         reviewCount,
-        createdDate,
-        updatedDate,
         status,
         rating,
       );
@@ -68,7 +62,6 @@ export class StoresController {
 
   // 가게 수정
   updateStore = async (
-    storeid,
     name,
     category,
     address,
@@ -77,15 +70,12 @@ export class StoresController {
     content,
     dibsCount,
     reviewCount,
-    createdDate,
-    updatedDate,
     status,
     rating,
   ) => {
     const updatedStore = await this.prisma.stores.update({
       where: { store_id: +id, storeid },
       data: {
-        ...(storeid && { storeid }),
         ...(name && { name }),
         ...(category && { category }),
         ...(address && { address }),
@@ -94,8 +84,6 @@ export class StoresController {
         ...(content && { content }),
         ...(dibsCount && { dibsCount }),
         ...(reviewCount && { reviewCount }),
-        ...(createdDate && { createdDate }),
-        ...(updatedDate && { updatedDate }),
         ...(status && { status }),
         ...(rating && { rating }),
       },
