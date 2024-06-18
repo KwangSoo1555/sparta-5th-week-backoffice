@@ -5,19 +5,20 @@ export class StoresRepository {
     }
   
     // 가게 생성
-    createStore = async (name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    createStore = async (store_id,name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
       const createdStore = await this.prisma.stores.create({
         data: {
+          store_id,
           name,
           category,
           address,
-          store_picture_url,
+          storepictureurl,
           phone,
           content,
-          dibs_count,
-          review_count,
-          created_date,
-          updated_date,
+          dibscount,
+          reviewcount,
+          createddate,
+          updateddate,
           status,
           rating,
         },
@@ -28,19 +29,20 @@ export class StoresRepository {
 
   
 
-    findStoreById = async (id, name) => {
+    findStoreById = async (id, store_id) => {
       const store = await this.prisma.stores.findUnique({
-        where: { store_id: +id,name },
+        where: { store_id: +id,store_id },
       });
   
       return store;
     };
   
     // 가게 수정
-    updateStore = async (id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    updateStore = async (store_id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
       const updatedStore = await this.prisma.stores.update({
-        where: { store_id: +id ,name },
+        where: { store_id: +id ,store_id },
         data: {
+          ...(store_id && { store_id }),
           ...(name && { name }),
           ...(category && { category }),
           ...(address && { address }),
@@ -60,9 +62,9 @@ export class StoresRepository {
     };
   
     // 가게 삭제
-    deleteStore = async (id) => {
+    deleteStore = async (id, store_id) => {
       const deletedStore = await this.prisma.stores.delete({
-        where: { store_id: +id },
+        where: { store_id: +id, store_id},
       });
   
       return deletedStore;

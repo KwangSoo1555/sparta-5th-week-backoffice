@@ -9,31 +9,33 @@ export class StoresController {
     createStore = async (req, res, next) => {
       try {
         const {
+          storeid,
           name,
           category,
           address,
-          store_picture_url,
+          storepictureurl,
           phone,
           content,
-          dibs_count,
-          review_count,
-          created_date,
-          updated_date,
+          dibscount,
+          reviewcount,
+          createddate,
+          updateddate,
           status,
           rating
         } = req.body;
   
         const createdStore = await this.storesService.createStore(
+          storeid,
           name,
           category,
           address,
-          store_picture_url,
+          storepictureurl,
           phone,
           content,
-          dibs_count,
-          review_count,
-          created_date,
-          updated_date,
+          dibscount,
+          reviewcount,
+          createddate,
+          updateddate,
           status,
           rating
         );
@@ -63,20 +65,21 @@ export class StoresController {
       };
     
       // 가게 수정
-      updateStore = async (id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+      updateStore = async (storeid, name, category, address, storepictureurl, phone, content, dibs_count, reviewcount, createddate, updateddate, status, rating) => {
         const updatedStore = await this.prisma.stores.update({
-          where: { store_id: +id },
+          where: { store_id: +id ,storeid },
           data: {
+            ...(storeid && { storeid }),
             ...(name && { name }),
             ...(category && { category }),
             ...(address && { address }),
-            ...(store_picture_url && { store_picture_url }),
+            ...(storepictureurl && { storepictureurl }),
             ...(phone && { phone }),
             ...(content && { content }),
-            ...(dibs_count && { dibs_count }),
-            ...(review_count && { review_count }),
-            ...(created_date && { created_date }),
-            ...(updated_date && { updated_date }),
+            ...(dibs_count && { dibscount }),
+            ...(review_count && { reviewcount }),
+            ...(created_date && { createddate }),
+            ...(updated_date && { updateddate }),
             ...(status && { status }),
             ...(rating && { rating }),
           },
@@ -88,8 +91,8 @@ export class StoresController {
       // 가게 삭제
       deleteStore = async (req, res) => {
         try {
-          const { id } = req.params;
-          await this.storesService.deleteStore(id);
+          const { id, storeid } = req.params;
+          await this.storesService.deleteStore(id, storeid);
           res.status(204).send();
         } catch (error) {
           res.status(500).json({ error: error.message });

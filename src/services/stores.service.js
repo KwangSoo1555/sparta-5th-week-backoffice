@@ -6,8 +6,9 @@ export class StoresService {
       this.storesRepository = storesRepository;
     }
   
-    createStore = async (name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    createStore = async (store_id,name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
         const createdStore = await this.StoresRepository.createStore(
+        store_id,
         name,
         category,
         address,
@@ -26,13 +27,14 @@ export class StoresService {
     }
   
   
-    findStoreById = async (id, name) => {
-        const Store = await this.StoresRepository.findStoreById(id,name);
+    findStoreById = async (id, store_id) => {
+        const Store = await this.StoresRepository.findStoreById(id,store_id);
       
       if (!Store)
         throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
 
       const data ={
+        store_id : Store.store_id,
         name: Store.name,
         category: Store.category,
         address: Store.address,
@@ -49,9 +51,9 @@ export class StoresService {
       return createdStore;
     }
   
-    updateStore =async (id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    updateStore =async (store_id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
         const existedStore = await this.StoreRepository.findStoreById(
-        id,
+          store_id,
         name,
         category,
         address,
@@ -69,7 +71,7 @@ export class StoresService {
         throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
   
       const updatedStore = await this.StoresRepository.updateStore(
-        id,
+        store_id,
         name,
         category,
         address,
@@ -86,10 +88,10 @@ export class StoresService {
   
       return updatedStore;
     };
-      deleteStore = async (id, name) => {
+      deleteStore = async (id, store_id) => {
         let existedStore = await this.StoresRepository.findStoreById(
           id,
-          authorId,
+          store_id,
         );
     
         if (!existedStore)
@@ -97,7 +99,7 @@ export class StoresService {
     
         const deletedStore = await this.StoresRepository.deleteStore(
           id,
-          authorId,
+          store_id,
         );
     
         return deletedStore;
