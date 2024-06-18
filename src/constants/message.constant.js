@@ -81,4 +81,34 @@ export const MESSAGES = {
       SUCCEED: "이력서 삭제에 성공했습니다.",
     },
   },
+  MENUS: {
+    COMMON: {
+      NAME: {
+        REQUIRED: "이름을 입력해 주세요",
+      },
+      PRICE: {
+        REQUIRED: "가격를 입력해 주세요.",
+      },
+      POPULALITY: {
+        REQUIRED: "인기여부를 입력해 주세요.",
+      },
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
+    },
+    CREATE: {
+      SUCCEED: "메뉴 생성에 성공했습니다.",
+    },
+    READ_LIST: {
+      SUCCEED: "메뉴 목록 조회에 성공했습니다.",
+    },
+    READ_DETAIL: {
+      SUCCEED: "메뉴 상세 조회에 성공했습니다.",
+    },
+    UPDATE: {
+      SUCCEED: "메뉴 수정에 성공했습니다.",
+      NO_BODY_DATA: "메뉴 할 정보를 입력해 주세요.",
+    },
+    DELETE: {
+      SUCCEED: "메뉴 삭제에 성공했습니다.",
+    },
+  },
 };
