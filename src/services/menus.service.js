@@ -2,7 +2,7 @@ import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
 export class MenusService {
-  constructor(resumesRepository) {
+  constructor(menusRepository) {
     this.menusRepository = menusRepository;
   }
 
@@ -32,6 +32,8 @@ export class MenusService {
         storeId, 
         menuId,
     );
+    if (!menu)
+        throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
     return menu;
   };
@@ -41,7 +43,7 @@ export class MenusService {
     const menu = await this.menusRepository.postMenus(storeId, name, price, imgUrl, popularity);
 
     if (!menu)
-      throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+      throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
     const data = {
         menuId: menu.menuId,
@@ -66,9 +68,9 @@ export class MenusService {
     );
 
     if (!existedMenu)
-      throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+      throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
-    const updatedMenu = await this.resumesRepository.patchMenus(
+    const updatedMenu = await this.menusRepository.patchMenus(
         storeId, 
         menuId, 
         name, 
@@ -88,7 +90,7 @@ export class MenusService {
     );
 
     if (!existedMenu)
-      throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
+      throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
     const deletedMenu = await this.resumesRepository.deleteMenus(
         storeId,
