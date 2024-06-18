@@ -35,7 +35,7 @@ model store {
   address String
   phone String
   content String
-  rating rating[]
+  rating Int
   
 }
 
@@ -47,12 +47,16 @@ model diib {
 }
 
 
-// enum gradeType {
+ enum gradeType {
+   a
+   b
+   c
+   d
 //   고마운분
 //   귀한분
 //   더귀한분
 //   천생연분
-// }
+  }
 
 enum role {
   CUSTOMER
