@@ -4,7 +4,7 @@ import { authRouter } from "./auth.router.js";
 import { usersRouter } from "./users.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
-import { storesRouter } from "./store.router.js";
+import { storesRouter } from "./stores.router.js";
 import { UsersRepository } from "../repositories/users.repository.js";
 import { AuthService } from "../services/auth.service.js";
 
