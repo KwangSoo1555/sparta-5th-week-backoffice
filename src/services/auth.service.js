@@ -2,10 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { MESSAGES } from "../constants/message.constant.js";
 import { ACCESS_TOKEN_SECRET } from "../constants/env.constant.js";
-import {
-  ACCESS_TOKEN_EXPIRES_IN,
-  HASH_SALT_ROUNDS,
-} from "../constants/auth.constant.js";
+import { ACCESS_TOKEN_EXPIRES_IN, HASH_SALT_ROUNDS } from "../constants/auth.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
 export class AuthService {
@@ -13,9 +10,9 @@ export class AuthService {
     this.usersRepository = usersRepository;
   }
 
-  signUp = async (email, password, name) => {
+  signUp = async (email, password, name, phone, address) => {
     // 이메일이 중복됬는지 체크
-    const existedUser = await this.usersRepository.findUserByEmail(email);
+    const existedUser = await this.usersRepository.checkAuthUser({email});
     if (existedUser)
       throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
 
@@ -27,6 +24,8 @@ export class AuthService {
       email,
       hashedPassword,
       name,
+      phone, 
+      address, 
     );
 
     // 저장된 사용자 정보를 수정해서 리턴
@@ -37,7 +36,7 @@ export class AuthService {
 
   signIn = async (email, password) => {
     // 이메일과 비밀번호로 맞나 체크
-    const user = await this.usersRepository.findUserByEmail(email);
+    const user = await this.usersRepository.checkAuthUser({email});
 
     const isPasswordMatched =
       user && bcrypt.compareSync(password, user.password);
@@ -60,8 +59,9 @@ export class AuthService {
     try {
       // token받고 payload로 사용자 체크
       const payload = jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
+      console.log(payload)
 
-      const user = await this.usersRepository.findUserById(payload.id);
+      const user = await this.usersRepository.checkAuthUser(payload.id);
 
       if (!user) {
         throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.NO_USER);
