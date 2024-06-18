@@ -1,16 +1,15 @@
 import Joi from "joi";
 import { MESSAGES } from "../../constants/message.constant.js";
 
-
 const schema = Joi.object({
-    name: Joi.string().required().messages({
-    "any.required": MESSAGES.MENUS.COMMON.NAME.REQUIRED,
+  name: Joi.string().required().messages({
+    "any.required": "MESSAGES.MENUS.COMMON.NAME.REQUIRED",
   }),
   price: Joi.string().required().messages({
-    "any.required": MESSAGES.MENUS.COMMON.PRICE.REQUIRED,
+    "any.required": "MESSAGES.MENUS.COMMON.PRICE.REQUIRED",
   }),
   popularity: Joi.string().required().messages({
-    "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
+    "any.required": "MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED",
   }),
 });
 

@@ -119,6 +119,6 @@ export const MESSAGES = {
       DELETE: {
         SUCCEED: "정보 삭제에 성공했습니다.",
       },
-    }
-  }
+    },
+  },
 };

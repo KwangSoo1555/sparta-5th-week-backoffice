@@ -11,9 +11,9 @@ const menusRouter = express.Router();
 
 const menusRepository = new MenusRepository(prisma);
 
-const menusController = new MenusController(menusService);
-
 const menusService = new MenusService(menusRepository);
+
+const menusController = new MenusController(menusService);
 
 menusRouter.get(
   "/menus/:store_id",

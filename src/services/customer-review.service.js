@@ -2,13 +2,13 @@ import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
 export class ReviewsService {
-  constructor(reviewRepository) {
-    this.reviewRepository = reviewRepository;
+  constructor(reviewsRepository) {
+    this.reviewsRepository = reviewsRepository;
   }
 
   // 리뷰 생성
   createReview = async ({ storeId, userId, rating, content, imgUrl }) => {
-    const createdReview = await this.reviewRepository.createReview({
+    const createdReview = await this.reviewsRepository.createReview({
       reviewId,
       storeId,
       userId,
@@ -34,21 +34,21 @@ export class ReviewsService {
       orderBy = { rating: "desc" }; // rating 높은 순
     }
 
-    const data = await this.reviewRepository.getReviews({ storeId, orderBy });
+    const data = await this.reviewsRepository.getReviews({ storeId, orderBy });
 
     return data;
   };
 
   // 리뷰 수정
   updateReview = async ({ reviewId, rating, content, imgUrl }) => {
-    const existedReview = await this.reviewRepository.getReview({
+    const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
 
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
 
-    const data = await this.reviewRepository.updateReview({
+    const data = await this.reviewsRepository.updateReview({
       reviewId,
       rating,
       content,
@@ -60,13 +60,13 @@ export class ReviewsService {
 
   // 리뷰 삭제
   deleteReview = async ({ reviewId }) => {
-    const existedReview = await this.reviewRepository.getReview({
+    const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
 
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.RESUMES.COMMON.NOT_FOUND);
 
-    const data = await this.reviewRepository.deleteReview({ reviewId });
+    const data = await this.reviewsRepository.deleteReview({ reviewId });
   };
 }
