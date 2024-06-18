@@ -1,24 +1,22 @@
 import express from "express";
 import { prisma } from "../utils/prisma.util.js";
-import { ReviewsRepository } from "../repositories/resumes.repository.js";
-import { CustomerReviewsService } from "../services/resumes.service.js";
-import { CustomerReviewsController } from "../controllers/resumes.controller.js";
+import { ReviewsRepository } from "../repositories/reviews.repository.js";
+import { ReviewsService } from "../services/customer-review.service.js";
+import { ReviewsController } from "../controllers/customer-review.controller.js";
 
-const resumesRouter = express.Router();
+const reviewsRouter = express.Router();
 
-const ReviewsRepository = new ResumesRepository(prisma);
-const customerReviewsService = new CustomerReviewsService(ReviewsRepository);
-const customerReviewsController = new CustomerReviewsController(
-  customerReviewsService,
-);
+const reviewsRepository = new ReviewsRepository(prisma);
+const reviewsService = new ReviewsService(reviewsRepository);
+const reviewsController = new ReviewsController(reviewsService);
 
 // 리뷰 생성
-resumesRouter.post("/reviews", customerReviewsController.createReview);
+reviewsRouter.post("/reviews", reviewsController.createReview);
 // 리뷰 조회
-resumesRouter.get("/reviews", customerReviewsController.getReviews);
+reviewsRouter.get("/reviews", reviewsController.getReviews);
 // 리뷰 수정
-resumesRouter.put("/reviews/:id", customerReviewsController.updateReview);
+reviewsRouter.put("/reviews/:id", reviewsController.updateReview);
 // 리뷰 삭제
-resumesRouter.delete("/reviews/:id", customerReviewsController.deleteReview);
+reviewsRouter.delete("/reviews/:id", reviewsController.deleteReview);
 
 export { reviewsRouter };

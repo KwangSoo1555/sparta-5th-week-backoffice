@@ -1,9 +1,9 @@
 import express from "express";
 import { authRouter } from "./auth.router.js";
 import { usersRouter } from "./users.router.js";
+import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
-import { storesRouter } from "./store.router.js";
-import { resumesRouter } from "./resumes.router.js";
+import { storesRouter } from "./stores.router.js";
 import { prisma } from "../utils/prisma.util.js";
 import { requireAccessToken } from "../middlewares/require-access-token.middleware.js";
 import { UsersRepository } from "../repositories/users.repository.js";
@@ -19,8 +19,8 @@ const authService = new AuthService(usersRepository);
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/users", usersRouter);
-apiRouter.use("/stores/:store_id", menusRouter);
-apiRouter.use("/stores", storesRouter);
-
+// apiRouter.use("/stores", storesRouter); 아직 미구현 삭제 금지, 손님 가게 crud
+apiRouter.use("/reviews", reviewsRouter);
+apiRouter.use("/owners", [storesRouter, menusRouter]);
 
 export { apiRouter };
