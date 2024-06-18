@@ -4,7 +4,11 @@ import { MIN_RESUME_LENGTH } from "./resume.constant.js";
 export const MESSAGES = {
   AUTH: {
     COMMON: {
+      NAME: {
+        REQURIED: "이름을 입력해 주세요.",
+      },
       EMAIL: {
+        BASE: "이메일은 문자열입니다.",
         REQUIRED: "이메일을 입력해 주세요.",
         INVALID_FORMAT: "이메일 형식이 올바르지 않습니다.",
         DUPLICATED: "이미 가입 된 사용자입니다.",
@@ -17,8 +21,15 @@ export const MESSAGES = {
         REQURIED: "비밀번호 확인을 입력해 주세요.",
         NOT_MACHTED_WITH_PASSWORD: "입력 한 두 비밀번호가 일치하지 않습니다.",
       },
-      NAME: {
-        REQURIED: "이름을 입력해 주세요.",
+      PHONE: {
+        BASE: "전화 번호는 문자열입니다.",
+        REQURIED: "전화 번호를 입력해 주세요.",
+        INVALID_FORMAT: "전화 번호 형식이 올바르지 않습니다.",
+      },
+      ADDRESS: {
+        BASE: "주소는 문자열입니다.",
+        REQURIED: "주소를 입력해 주세요.",
+        INVALID_FORMAT: "주소 형식이 올바르지 않습니다.",
       },
       UNAUTHORIZED: "인증 정보가 유효하지 않습니다.",
       JWT: {
@@ -31,16 +42,16 @@ export const MESSAGES = {
     },
     SIGN_UP: {
       EMAIL: {
-        DUPLICATED: '이메일이나 별명이 이미 존재합니다.',
-        FAIL: '메일 전송에 실패했습니다.',
-        SUCCEED: '메일 전송에 성공했습니다.'
+        DUPLICATED: "이메일이나 별명이 이미 존재합니다.",
+        FAIL: "메일 전송에 실패했습니다.",
+        SUCCEED: "메일 전송에 성공했습니다.",
       },
       VERIFICATION_CODE: {
-        BASE: '이메일 인증 코드는 정수입니다.',
-        REQUIRED: '이메일 인증 코드를 입력해 주세요.',
-        INCONSISTENT: '발송된 인증 코드와 다릅니다.',
-        EXPIRED: '메일 인증이 만료되었습니다.', 
-        SUCCEED: '메일 인증이 완료되었습니다.',
+        BASE: "이메일 인증 코드는 정수입니다.",
+        REQUIRED: "이메일 인증 코드를 입력해 주세요.",
+        INCONSISTENT: "발송된 인증 코드와 다릅니다.",
+        EXPIRED: "메일 인증이 만료되었습니다.",
+        SUCCEED: "메일 인증이 완료되었습니다.",
       },
       SUCCEED: "회원가입에 성공했습니다.",
     },

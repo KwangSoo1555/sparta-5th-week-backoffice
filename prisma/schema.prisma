@@ -16,16 +16,17 @@ datasource db {
 
 model Users {
   userId               Int        @id                @default(autoincrement()) @map("user_id")
-  password             String     @map("password")
-  name                 String     @map("name")
-  phone                String     @map("phone")
   email                String     @map("email")
-  grade                Grade_Type @default(A)        @map("grade")
-  point                Int        @default(1000000)  @map("point")
-  role                 Role       @default(CUSTOMER) @map("role")
-  createdDate          DateTime   @default(now())    @map("created_date")
-  updatedDate          DateTime   @updatedAt         @map("updated_date")
-  isDeleted            Boolean    @default(true)     @map("is_deleted")
+  name                 String     @map("name")
+  password             String     @map("password")
+  phone                String     @map("phone")
+  address               String
+  point                Int        @default(1000000)  
+  grade                Grade_Type @default(A)        
+  role                 Role       @default(CUSTOMER) 
+  createdAt            DateTime   @default(now())    @map("created_at")
+  updatedAt            DateTime   @updatedAt         @map("updated_at")
+  isDeleted            Boolean    @default(false)     @map("is_deleted")
   isEmailValid         Boolean    @default(false)    @map("is_email_valid")
 
   userIdToRefreshToken RefreshToken?
@@ -62,13 +63,13 @@ model RefreshToken {
 }
 
 model Orders {
-  orderId         Int             @id               @default(autoincrement()) @map("order_id")
-  storeId         Int             @map("store_id")
-  userId          Int             @map("user_id")
-  menuId          Int             @map("menu_id")
-  paymentMethod   Payment_Method  @map("payment_method")
-  totalPrice      Int             @map("total_price")
-  requests        String          @map("requests")
+  orderId         Int             @id @default(autoincrement()) @map("order_id")
+  storeId         Int                               @map("store_id")
+  userId          Int                               @map("user_id")
+  menuId          Int                               @map("menu_id")
+  paymentMethod   Payment_Method                    @map("payment_method")
+  totalPrice      Int                               @map("total_price")
+  requests        String
   createdAt       DateTime        @default(now())   @map("created_at")
   updatedAt       DateTime        @updatedAt        @map("updated_at")
   status          Order_Status    @default(WAITING)
@@ -93,22 +94,22 @@ enum Order_Status {
 }
 
 model Stores {
-  storeId  Int @id @default(autoincrement()) @map("store_id")
-  name	    String
-  category  String
-  address   String
-  storePictureUrl String @db.Text @map("store_picture_url")
-  phone String
-  dibsCount  Int @map("dibs_count")
-  reviewCount  Int @map("review_count")
-  deliveryAddress  String @map("delivery_address")
-  status  StoreStatus @default(OPEN)
-  createdDate DateTime @default(now()) @map("created_date")
-  updatedDate DateTime @updatedAt @map("updated_date")
+  storeId          Int         @id @default(autoincrement()) @map("store_id")
+  name	           String
+  category         String
+  address          String
+  storePictureUrl  String      @db.Text        @map("store_picture_url")
+  phone            String
+  dibsCount        Int                         @map("dibs_count")
+  reviewCount      Int                         @map("review_count")
+  deliveryAddress  String                      @map("delivery_address")
+  status           StoreStatus @default(OPEN)
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt      @map("updated_at")
 
-  storeIdToDibs  Dibs[]
-  storeIdToOrders Orders[]
-  storeIdToMenus Menus[]
+  storeIdToDibs    Dibs[]
+  storeIdToOrders  Orders[]
+  storeIdToMenus   Menus[]
   storeIdToReviews Reviews[]
 
   @@map("stores")
@@ -121,8 +122,8 @@ enum StoreStatus {
 
 model Dibs{
   dibsId             Int        @id @default(autoincrement()) @map("dibs_id")
-  storeId            Int        @map("store_id")
-  userId             Int        @map("user_id")
+  storeId            Int                          @map("store_id")
+  userId             Int                          @map("user_id")
   createdAt          DateTime   @default(now())   @map("created_at")
   updatedAt          DateTime   @updatedAt        @map("updated_at")
 
