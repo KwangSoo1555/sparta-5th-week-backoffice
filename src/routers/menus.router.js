@@ -11,18 +11,18 @@ const menusRouter = express.Router();
 
 const menusRepository = new MenusRepository(prisma);
 
-const  menusController = new MenusController(menusService);
-
 const menusService = new MenusService(menusRepository);
 
-menusRouter.get("/menu", requireAccessToken(authService), menusController.getMenus);
+const menusController = new MenusController(menusService);
 
-menusRouter.get("/menu/:menu_id", requireAccessToken(authService), menusController.getMenuDetail);
+menusRouter.get("/menus/:store_id", menusController.getMenus);
 
-menusRouter.post("/menu", createMenuValidator, requireAccessToken(authService), menusController.postMenus);
+menusRouter.get("/menus/:store_id/:menu_id", menusController.getMenuDetail);
 
-menusRouter.patch("/menu/:menu_id", updateMenuValidator, requireAccessToken(authService), menusController.patchMenus);
+menusRouter.post("/menus/:store_id", createMenuValidator, menusController.postMenus);
 
-menusRouter.delete("/menu/:menu_id", requireAccessToken(authService), menusController.deleteMenus);
+menusRouter.patch("/menus/:store_id/:menu_id", updateMenuValidator, menusController.patchMenus);
+
+menusRouter.delete("/menus/:store_id/:menu_id", menusController.deleteMenus);
 
 export { menusRouter };

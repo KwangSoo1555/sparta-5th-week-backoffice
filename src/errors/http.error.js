@@ -1,10 +1,7 @@
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 
 export class CustomHttpError extends Error {
-  // 생성자
   constructor(message, status) {
-    // Error 클래스의 에러 메시지 처리 기능 땡겨온다?
-    // 너무 귀찮은데 super 도전
     super(message);
     this.status = status;
   }

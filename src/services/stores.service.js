@@ -6,21 +6,21 @@ export class StoresService {
       this.storesRepository = storesRepository;
     }
   
-    createStore = async (storeid,name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    createStore = async (storeId,name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
         const createdStore = await this.StoresRepository.createStore(
-        storeid,
-        name,
-        category,
-        address,
-        store_picture_url,
-        phone,
-        content,
-        dibs_count,
-        review_count,
-        created_date,
-        updated_date,
-        status,
-        rating
+          storeId,
+          name,
+          category,
+          address,
+          storePictureUrl,
+          phone,
+          content,
+          dibsCount,
+          reviewCount,
+          createdDate,
+          updatedDate,
+          status,
+          rating,
       );
 
       return createdStore;
@@ -34,36 +34,36 @@ export class StoresService {
         throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
 
       const data ={
-        storeid : Store.storeid,
+        storeId : Store.storeId,
         name: Store.name,
         category: Store.category,
         address: Store.address,
-        store_picture_url: Store.store_picture_url,
+        storePictureUrl: Store.storePictureUrl,
         phone: Store.phone,
         content: Store.content,
-        dibs_count: Store.dibs_count,
-        review_count: Store.review_count,
-        created_date: Store.created_date,
-        updated_date: Store.updated_date,
+        dibsCount: Store.dibsCount,
+        reviewCount: Store.reviewCount,
+        createdDate: Store.createdDate,
+        updatedDate: Store.updatedDate,
         status: Store.status,
         rating: Store.rating
       }
       return createdStore;
     }
   
-    updateStore =async (storeid, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    updateStore =async (storeId, name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, createdDate, updatedDate, status, rating) => {
         const existedStore = await this.StoreRepository.findStoreById(
-          storeid,
+          storeId,
         name,
         category,
         address,
-        store_picture_url,
+        storePictureUrl,
         phone,
         content,
-        dibs_count,
-        review_count,
-        created_date,
-        updated_date,
+        dibsCount,
+        reviewCount,
+        createdDate,
+        updatedDate,
         status,
         rating
       );
@@ -71,27 +71,27 @@ export class StoresService {
         throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
   
       const updatedStore = await this.StoresRepository.updateStore(
-        storeid,
+        storeId,
         name,
         category,
         address,
         store_picture_url,
         phone,
         content,
-        dibs_count,
-        review_count,
-        created_date,
-        updated_date,
+        dibsCount,
+        reviewCount,
+        createdDate,
+        updatedDate,
         status,
         rating
       );
   
       return updatedStore;
     };
-      deleteStore = async (id, storeid) => {
+      deleteStore = async (id, storeId) => {
         let existedStore = await this.StoresRepository.findStoreById(
           id,
-          storeid,
+          storeId,
         );
     
         if (!existedStore)

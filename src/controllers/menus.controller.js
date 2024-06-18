@@ -6,16 +6,14 @@ export class MenusController {
     this.menusService = menusService;
   }
 
-
   getMenus = async (req, res, next) => {
     try {
       const storeId = req.params.store_Id;
-      const menus = await this.menusService.getMenus( storeId );
-
+      const menus = await this.menusService.getMenus(storeId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.USERS.READ_ME.SUCCEED,
+        message: MESSAGES.MENUS.READ_LIST.SUCCEED,
         data: menus,
       });
     } catch (error) {
@@ -28,13 +26,12 @@ export class MenusController {
       const storeId = req.params.store_Id;
       const menuId = req.params.menu_id;
 
-      const menu = await this.menusService.getMenuDetail( storeId, menuId );
-
+      const menu = await this.menusService.getMenuDetail(storeId, menuId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.USERS.READ_ME.SUCCEED,
-        data: menu
+        message: MESSAGES.MENUS.READ_DETAIL.SUCCEED,
+        data: menu,
       });
     } catch (error) {
       next(error);
@@ -47,12 +44,18 @@ export class MenusController {
 
       const { name, price, imgUrl, popularity } = req.body;
 
-      const menus = await this.menusService.postMenus( storeId, name, price, imgUrl, popularity );
+      const menus = await this.menusService.postMenus(
+        storeId,
+        name,
+        price,
+        imgUrl,
+        popularity,
+      );
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.USERS.READ_ME.SUCCEED,
-        data: menus
+        message: MESSAGES.MENUS.CREATE.SUCCEED,
+        data: menus,
       });
     } catch (error) {
       next(error);
@@ -66,12 +69,20 @@ export class MenusController {
 
       const { name, price, imgUrl, popularity, status } = req.body;
 
-      const menus = await this.menusService.patchMenus( storeId, menuId, name, price, imgUrl, popularity, status );
+      const menus = await this.menusService.patchMenus(
+        storeId,
+        menuId,
+        name,
+        price,
+        imgUrl,
+        popularity,
+        status,
+      );
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.USERS.READ_ME.SUCCEED,
-        data: menus
+        message: MESSAGES.MENUS.UPDATE.SUCCEED,
+        data: menus,
       });
     } catch (error) {
       next(error);
@@ -83,12 +94,12 @@ export class MenusController {
       const storeId = req.params.store_Id;
       const menuId = req.params.menu_Id;
 
-      const menus = await this.menusService.deleteMenus( storeId, menuId );
+      const menus = await this.menusService.deleteMenus(storeId, menuId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.USERS.READ_ME.SUCCEED,
-        data: menus
+        message: MESSAGES.MENUS.DELETE.SUCCEED,
+        data: menus,
       });
     } catch (error) {
       next(error);

@@ -25,7 +25,7 @@ const schema = Joi.object({
     "any.required": MESSAGES.AUTH.COMMON.ADDRESS.REQURIED,
   }),
   verificationCode: Joi.number().required().messages({
-    "any.required": MESSAGES.AUTH.SIGN_UP.VERIFICATION_CODE.REQUIRED
+    "any.required": MESSAGES.AUTH.SIGN_UP.VERIFICATION_CODE.REQUIRED,
   }),
 });
 
