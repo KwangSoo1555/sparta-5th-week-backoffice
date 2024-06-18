@@ -20,9 +20,9 @@ model User {
    name String @map("username")
   email String @map("email")
   phone String @map("phone")
-  grade gradeType @default(APPLY) @map("grade")
+  grade gradeType @map("grade")
   point Int @default(1000000) @map("point")
-  role role @default(role) @map("userrole")
+  role role  @map("userrole")
   createddate DateTime
   updateddate DateTime
   diib dib[]
