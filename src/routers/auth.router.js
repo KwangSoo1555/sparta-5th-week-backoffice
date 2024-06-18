@@ -13,12 +13,12 @@ const authService = new AuthService(usersRepository);
 const authController = new AuthController(authService);
 
 // 이메일 인증 API /api/auth/auth-email
-authRouter.post("/auth-email", authController.sendAuthEmail);
+authRouter.post("/verify_emil", authController.sendAuthEmail);
 
 // 회원가입 API /api/auth/sign-up
-authRouter.post("/sign-up", signUpValidator, authController.signUp);
+authRouter.post("/sign_up", signUpValidator, authController.signUp);
 
 // 로그인 API /api/auth/sign-in
-authRouter.post("/sign-in", signInValidator, authController.signIn);
+authRouter.post("/sign_in", signInValidator, authController.signIn);
 
 export { authRouter };
