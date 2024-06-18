@@ -21,4 +21,7 @@ authRouter.post("/sign-up", signUpValidator, authController.signUp);
 // 로그인 API /api/auth/sign-in
 authRouter.post("/sign-in", signInValidator, authController.signIn);
 
+// 로그아웃 API 
+authRouter.post("/sign-out", requireAccessToken(authService), authController.signOut)
+
 export { authRouter };
