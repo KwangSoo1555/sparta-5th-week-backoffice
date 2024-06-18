@@ -25,10 +25,10 @@ model User {
   role role @default(role) @map("userrole")
   createddate DateTime
   updateddate DateTime
-  diib diib[]
+  diib dib[]
 }
 
-model store {
+model Store {
   store_id Int
   storename String
   category String
@@ -39,7 +39,7 @@ model store {
   
 }
 
-model diib {
+model dib {
   author User @relation(fields: [user_id],references: [user_id])
 
   created_date DateTime
