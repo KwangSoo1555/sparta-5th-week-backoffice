@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 import { MESSAGES } from "../constants/message.constant.js";
+import { AUTH_CONSTANT } from "../constants/auth.constant.js";
 
 export class AuthController {
   constructor(authService) {
@@ -43,7 +44,7 @@ export class AuthController {
   };
 
   // 이메일 인증 controller
-  smtpTransport = nodemailer.createTransport({
+  static smtpTransport = nodemailer.createTransport({
     pool: true,
     maxConnections: process.env.MAIL_MAX_CONNECTION,
     service: process.env.MAIL_SERVICE,
@@ -84,21 +85,39 @@ export class AuthController {
       };
 
       // 메일 보내는 로직은 await 빼기
-      smtpTransport.sendMail(mailOptions);
+      AuthController.smtpTransport.sendMail(mailOptions);
 
       console.log(EmailVerificationUtil.codes[email].code);
 
       res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.AUTH.SIGN_UP.SUCCEED,
+        message: MESSAGES.AUTH.SIGN_UP.EMAIL.SUCCEED,
         data: EmailVerificationUtil.codes,
       });
     } catch (error) {
       res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
         status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-        message: MESSAGES.AUTH.SIGN_UP.FAIL,
+        message: MESSAGES.AUTH.SIGN_UP.EMAIL.FAIL,
       });
       next(error);
     }
   };
+}
+
+class EmailVerificationUtil {
+  static codeNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  static codeIssue() {
+    return EmailVerificationUtil.codeNumber(111111, 999999);
+  }
+
+  static expirationTime = 5 * 60 * 1000; // 5분 뒤 코드 인증 만료
+
+  static isExpired(timestamp) {
+    return Date.now() > timestamp + EmailVerificationUtil.expirationTime;
+  }
+
+  static codes = {};
 }
