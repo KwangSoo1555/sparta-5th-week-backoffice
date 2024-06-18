@@ -1,5 +1,6 @@
 import express from "express";
 import { authRouter } from "./auth.router.js";
+import { reIssueRefreshTokenRouter } from "./refresh-token-reissue.router.js";
 import { usersRouter } from "./users.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
@@ -18,6 +19,7 @@ const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
 
 apiRouter.use("/auth", authRouter);
+apiRouter.use("/refreshToken", reIssueRefreshTokenRouter);
 apiRouter.use("/users", usersRouter);
 // apiRouter.use("/stores", storesRouter); 아직 미구현 삭제 금지, 손님 가게 crud
 apiRouter.use("/reviews", reviewsRouter);
