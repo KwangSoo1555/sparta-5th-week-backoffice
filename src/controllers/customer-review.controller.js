@@ -24,7 +24,7 @@ export class ReviewsController {
 
       return res.status(HTTP_STATUS.CREATED).json({
         status: HTTP_STATUS.CREATED,
-        message: MESSAGES.RESUMES.CREATE.SUCCEED,
+        message: MESSAGES.REVIEWS.CREATE.SUCCEED,
         data,
       });
     } catch (error) {
@@ -49,7 +49,7 @@ export class ReviewsController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.RESUMES.READ_LIST.SUCCEED,
+        message: MESSAGES.REVIEWS.READ_LIST.SUCCEED,
         data,
       });
     } catch (error) {
@@ -73,7 +73,7 @@ export class ReviewsController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.RESUMES.UPDATE.SUCCEED,
+        message: MESSAGES.REVIEWS.UPDATE.SUCCEED,
         data,
       });
     } catch (error) {
@@ -90,7 +90,7 @@ export class ReviewsController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.RESUMES.DELETE.SUCCEED,
+        message: MESSAGES.REVIEWS.DELETE.SUCCEED,
         data: { id: data.id },
       });
     } catch (error) {
