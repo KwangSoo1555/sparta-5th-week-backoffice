@@ -81,4 +81,33 @@ export const MESSAGES = {
       SUCCEED: "이력서 삭제에 성공했습니다.",
     },
   },
+  STORES: {
+    COMMON: {
+      STOREID: {
+        REQURIED: "아이디를 입력해 주세요.",
+      },
+      NAME: {
+        REQURIED: "이름을 입력해 주세요.",
+      },
+      CATEGORY: {
+        REQURIED: "카테고리를 설정해 주세요.",
+      },
+      ADDRESS: {
+        REQURIED: "주소를 확인해 주세요.",
+      },
+      PHONE: {
+        REQURIED: "전화번호를 입력해 주세요.",
+      },
+      CONTENT: {
+        REQURIED: "소개글을 입력해 주세요.",
+      },
+      UPDATE: {
+        SUCCEED: "정보 수정에 성공했습니다.",
+        NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+      },
+      DELETE: {
+        SUCCEED: "정보 삭제에 성공했습니다.",
+      },
+    }
+  }
 };
