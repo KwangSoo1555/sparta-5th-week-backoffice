@@ -92,34 +92,33 @@ export const MESSAGES = {
       SUCCEED: "이력서 삭제에 성공했습니다.",
     },
   },
-  MENUS: {
+  STORES: {
     COMMON: {
+      STOREID: {
+        REQURIED: "아이디를 입력해 주세요.",
+      },
       NAME: {
-        REQUIRED: "이름을 입력해 주세요",
+        REQURIED: "이름을 입력해 주세요.",
       },
-      PRICE: {
-        REQUIRED: "가격를 입력해 주세요.",
+      CATEGORY: {
+        REQURIED: "카테고리를 설정해 주세요.",
       },
-      POPULALITY: {
-        REQUIRED: "인기여부를 입력해 주세요.",
+      ADDRESS: {
+        REQURIED: "주소를 확인해 주세요.",
       },
-      NOT_FOUND: "메뉴가 존재하지 않습니다.",
-    },
-    CREATE: {
-      SUCCEED: "메뉴 생성에 성공했습니다.",
-    },
-    READ_LIST: {
-      SUCCEED: "메뉴 목록 조회에 성공했습니다.",
-    },
-    READ_DETAIL: {
-      SUCCEED: "메뉴 상세 조회에 성공했습니다.",
-    },
-    UPDATE: {
-      SUCCEED: "메뉴 수정에 성공했습니다.",
-      NO_BODY_DATA: "메뉴 할 정보를 입력해 주세요.",
-    },
-    DELETE: {
-      SUCCEED: "메뉴 삭제에 성공했습니다.",
-    },
-  },
+      PHONE: {
+        REQURIED: "전화번호를 입력해 주세요.",
+      },
+      CONTENT: {
+        REQURIED: "소개글을 입력해 주세요.",
+      },
+      UPDATE: {
+        SUCCEED: "정보 수정에 성공했습니다.",
+        NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+      },
+      DELETE: {
+        SUCCEED: "정보 삭제에 성공했습니다.",
+      },
+    }
+  }
 };

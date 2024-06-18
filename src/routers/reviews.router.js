@@ -1,6 +1,4 @@
 import express from "express";
-// import { createResumeValidator } from "../middlewares/validators/create-resume-validator.middleware.js";
-// import { updateResumeValidator } from "../middlewares/validators/updated-resume-validator.middleware.js";
 import { prisma } from "../utils/prisma.util.js";
 import { ReviewsRepository } from "../repositories/resumes.repository.js";
 import { CustomerReviewsService } from "../services/resumes.service.js";
@@ -18,8 +16,6 @@ const customerReviewsController = new CustomerReviewsController(
 resumesRouter.post("/reviews", customerReviewsController.createReview);
 // 리뷰 조회
 resumesRouter.get("/reviews", customerReviewsController.getReviews);
-// 이력서 상세 조회
-// resumesRouter.get("/reviews/:id", customerReviewsController.getReviewById);
 // 리뷰 수정
 resumesRouter.put("/reviews/:id", customerReviewsController.updateReview);
 // 리뷰 삭제
