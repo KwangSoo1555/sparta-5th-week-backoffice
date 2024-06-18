@@ -11,18 +11,40 @@ const menusRouter = express.Router();
 
 const menusRepository = new MenusRepository(prisma);
 
-const  menusController = new MenusController(menusService);
+const menusController = new MenusController(menusService);
 
 const menusService = new MenusService(menusRepository);
 
-menusRouter.get("/menu", requireAccessToken(authService), menusController.getMenus);
+menusRouter.get(
+  "/menus/:store_id",
+  requireAccessToken(authService),
+  menusController.getMenus,
+);
 
-menusRouter.get("/menu/:menu_id", requireAccessToken(authService), menusController.getMenuDetail);
+menusRouter.get(
+  "/menus/:store_id/:menu_id",
+  requireAccessToken(authService),
+  menusController.getMenuDetail,
+);
 
-menusRouter.post("/menu", createMenuValidator, requireAccessToken(authService), menusController.postMenus);
+menusRouter.post(
+  "/menus/:store_id",
+  createMenuValidator,
+  requireAccessToken(authService),
+  menusController.postMenus,
+);
 
-menusRouter.patch("/menu/:menu_id", updateMenuValidator, requireAccessToken(authService), menusController.patchMenus);
+menusRouter.patch(
+  "/menus/:store_id/:menu_id",
+  updateMenuValidator,
+  requireAccessToken(authService),
+  menusController.patchMenus,
+);
 
-menusRouter.delete("/menu/:menu_id", requireAccessToken(authService), menusController.deleteMenus);
+menusRouter.delete(
+  "/menus/:store_id/:menu_id",
+  requireAccessToken(authService),
+  menusController.deleteMenus,
+);
 
 export { menusRouter };
