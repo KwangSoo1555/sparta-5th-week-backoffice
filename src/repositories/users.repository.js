@@ -24,11 +24,31 @@ export class UsersRepository {
     return signUpUser;
   };
 
-  toSignOutUpdateRefreshTokenToNull = async (userId) => {
+  storeRefreshToken = async (userId, refreshToken, ip, userAgent) => {
+    const storedRefreshToken = await this.prisma.refreshToken.upsert({
+      where: { userId },
+      update: {
+        refreshToken,
+        ip,
+        userAgent,
+        updatedAt: new Date(),
+      },
+      create: {
+        userId,
+        refreshToken,
+        ip,
+        userAgent,
+      },
+    });
+
+    return storedRefreshToken;
+  };
+
+  BySignOutUpdateRefreshTokenToNull = async (refreshToken) => {
     const refreshTokenNull = await this.prisma.refreshToken.update({
-      where: { userId: userId },
+      where: { refreshToken: refreshToken },
       data: {
-        refreshToken: null
+        refreshToken: null,
       },
     });
 

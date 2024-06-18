@@ -1,5 +1,4 @@
-import { MIN_PASSWORD_LENGTH } from "./auth.constant.js";
-import { MIN_RESUME_LENGTH } from "./resume.constant.js";
+import { AUTH_CONSTANT } from "./auth.constant.js";
 
 export const MESSAGES = {
   AUTH: {
@@ -15,7 +14,7 @@ export const MESSAGES = {
       },
       PASSWORD: {
         REQURIED: "비밀번호를 입력해 주세요.",
-        MIN_LENGTH: `비밀번호는 ${MIN_PASSWORD_LENGTH}자리 이상이어야 합니다.`,
+        MIN_LENGTH: `비밀번호는 ${AUTH_CONSTANT.PASSWORD_MIN_LENGTH}자리 이상이어야 합니다.`,
       },
       PASSWORD_CONFIRM: {
         REQURIED: "비밀번호 확인을 입력해 주세요.",
@@ -133,7 +132,7 @@ export const MESSAGES = {
       },
       CONTENT: {
         REQUIRED: "리뷰 내용를 입력해 주세요.",
-        MIN_LENGTH: `리뷰 내용은 ${MIN_RESUME_LENGTH}자 이상 작성해야 합니다.`,
+        MIN_LENGTH: `리뷰 내용은 ${AUTH_CONSTANT.PASSWORD_MIN_LENGTH}자 이상 작성해야 합니다.`,
       },
       IMGURL: {
         REQUIRED: "이미지URL을 입력해 주세요.",
