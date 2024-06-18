@@ -5,10 +5,10 @@ export class StoresRepository {
     }
   
     // 가게 생성
-    createStore = async (store_id,name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    createStore = async (storeid,name, category, address, storepictureurl, phone, content, dibscount, reviewcount, createddate, updateddate, status, rating) => {
       const createdStore = await this.prisma.stores.create({
         data: {
-          store_id,
+          storeid,
           name,
           category,
           address,
@@ -29,30 +29,30 @@ export class StoresRepository {
 
   
 
-    findStoreById = async (id, store_id) => {
+    findStoreById = async (storeid) => {
       const store = await this.prisma.stores.findUnique({
-        where: { store_id: +id,store_id },
+        where: {storeid: +storeid },
       });
   
       return store;
     };
-  
+   
     // 가게 수정
-    updateStore = async (store_id, name, category, address, store_picture_url, phone, content, dibs_count, review_count, created_date, updated_date, status, rating) => {
+    updateStore = async (storeid, name, category, address, storepictureurl, phone, content, dibscount, reviewcount, createddate, updateddate, status, rating) => {
       const updatedStore = await this.prisma.stores.update({
-        where: { store_id: +id ,store_id },
+        where: { storeid: +id ,storeid },
         data: {
-          ...(store_id && { store_id }),
+          ...(storeid && { storeid }),
           ...(name && { name }),
           ...(category && { category }),
           ...(address && { address }),
-          ...(store_picture_url && { store_picture_url }),
+          ...(storepictureurl && { storepictureurl }),
           ...(phone && { phone }),
           ...(content && { content }),
-          ...(dibs_count && { dibs_count }),
-          ...(review_count && { review_count }),
-          ...(created_date && { created_date }),
-          ...(updated_date && { updated_date }),
+          ...(dibscount && { dibscount }),
+          ...(reviewcount && { reviewcount }),
+          ...(createddate && { createddate }),
+          ...(updateddate && { updateddate }),
           ...(status && { status }),
           ...(rating && { rating }),
         },
@@ -62,9 +62,9 @@ export class StoresRepository {
     };
   
     // 가게 삭제
-    deleteStore = async (id, store_id) => {
+    deleteStore = async (id, storeid) => {
       const deletedStore = await this.prisma.stores.delete({
-        where: { store_id: +id, store_id},
+        where: { storeid: +id, storeid},
       });
   
       return deletedStore;

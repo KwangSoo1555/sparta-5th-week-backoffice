@@ -52,8 +52,8 @@ export class StoresController {
     //가게 상세조회
     findStoreById = async (req, res, next) => {
         try {
-          const { id } = req.params;
-          const store = await this.storesService.findStoreById(id, name);
+          const { storeid } = req.params;
+          const store = await this.storesService.findStoreById(storeid);
           if (store) {
             res.status(200).json(store);
           } else {
