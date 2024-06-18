@@ -23,7 +23,7 @@ export class StoresRepository {
          rating,
         },
       });
-  
+  1
       return createdStore;
     };
 
