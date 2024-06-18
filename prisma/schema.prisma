@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  user_id Int @id @default(autoincrement()) @map("user_id") 
+  userid Int @id @default(autoincrement()) @map("user_id") 
   password String  @map("password")
    name String @map("username")
   email String @map("email")
@@ -23,8 +23,8 @@ model User {
   grade gradeType @default(APPLY) @map("grade")
   point Int @default(1000000) @map("point")
   role role @default(role) @map("userrole")
-  created_date DateTime
-  updated_date DateTime
+  createddate DateTime
+  updateddate DateTime
   diib diib[]
 }
 
