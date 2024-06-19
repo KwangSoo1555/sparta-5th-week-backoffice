@@ -192,4 +192,12 @@ export const MESSAGES = {
       SUCCEED: "메뉴 삭제에 성공했습니다.",
     },
   },
+  DIBS: {
+    CREATE:{
+       SUCCEED: "찜하였습니다.",
+    },
+    DELETE:{
+       SUCCEED: "찜을 취소하였습니다.",
+    },
+  }
 };
