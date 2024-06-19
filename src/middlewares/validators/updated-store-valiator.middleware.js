@@ -12,7 +12,7 @@ const updateStoreSchema = Joi.object({
   content: Joi.string().trim(),
   dibsCount: Joi.number().integer().min(0),
   reviewCount: Joi.number().integer().min(0),
-  status: Joi.string().valid("open", "close"),
+  status: Joi.string().valid("OPEN", "CLOSE"),
   rating: Joi.number().min(0).max(5),
 });
 
