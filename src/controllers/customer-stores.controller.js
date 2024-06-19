@@ -1,9 +1,12 @@
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 import { MESSAGES } from "../constants/message.constant.js";
+import { StoresService } from "../services/stores.service.js";
 import { CustomerStoresService } from "../services/customer-stores.service.js";
 
 export class CustomerStoresController {
   customerStoresService = new CustomerStoresService();
+  storesService = new StoresService();
+
   // 고객 가게 정보 조회
   getStoreInfo = async (req, res, next) => {
     try {
@@ -12,7 +15,7 @@ export class CustomerStoresController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: "가게 정보 조회에 성공했습니다.",
+        message: MESSAGES.STORES.COMMON.READ_DETAIL.SUCCEED,
         data: store,
       });
     } catch (error) {
@@ -23,7 +26,23 @@ export class CustomerStoresController {
   // 주문하기
   createOrder = async (req, res, next) => {
     try {
-      //
+      const userId = req.user.userId;
+      const storeId = req.params.store_id;
+      const { paymentMethod, requests, orderItems } = req.body;
+
+      const createdOrder = await customerStoresService.createOrder({
+        storeId,
+        userId,
+        paymentMethod,
+        requests,
+        orderItems,
+      });
+
+      return res.status(HTTP_STATUS.CREATED).json({
+        status: HTTP_STATUS.CREATED,
+        message: MESSAGES.ORDERS.CREATE.SUCCEED,
+        data: createdOrder,
+      });
     } catch (error) {
       next(error);
     }
