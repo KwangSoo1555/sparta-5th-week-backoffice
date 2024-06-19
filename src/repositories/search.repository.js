@@ -11,7 +11,7 @@ export class SearchRepository {
             }
          },
         orderBy: {
-          name: sort,
+          name: "asc",
         },
       });
   
@@ -26,7 +26,7 @@ export class SearchRepository {
             }
          },
         orderBy: {
-          name: sort,
+          name: "asc",
         },
       });
   
@@ -41,7 +41,7 @@ export class SearchRepository {
                 }
              },
             orderBy: {
-              name: sort,
+              name: "asc",
             },
           });
     
@@ -56,7 +56,7 @@ export class SearchRepository {
                 }
              },
             orderBy: {
-              name: sort,
+                rating: "desc",
             },
           });
     

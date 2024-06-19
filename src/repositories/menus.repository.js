@@ -22,7 +22,7 @@ export class MenusRepository {
     return menu;
   };
 
-  postMenus = async (storeId,name,price,imgUrl,popularity) => {
+  postMenus = async (storeId, name, price, imgUrl, popularity) => {
     const createdMenu = await this.prisma.menus.create({
       data: {
         storeId,
@@ -36,15 +36,7 @@ export class MenusRepository {
     return createdMenu;
   };
 
-  patchMenus = async (
-    storeId,
-    menuId,
-    name,
-    price,
-    imgUrl,
-    popularity,
-    status,
-  ) => {
+  patchMenus = async (storeId, menuId, name, price, imgUrl, popularity, status) => {
     const updatedMenu = await this.prisma.menus.update({
       where: { storeId, menuId },
       data: {
