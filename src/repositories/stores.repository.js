@@ -58,7 +58,7 @@ export class StoresRepository {
     // 가게 삭제
     deleteStore = async (id, storeId) => {
       const deletedStore = await this.prisma.stores.delete({
-        where: { storeId: +id, storeId},
+        where: {id: +id,storeId: +storeId},
       });
   
       return deletedStore;
