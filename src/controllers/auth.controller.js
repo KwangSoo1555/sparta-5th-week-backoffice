@@ -139,7 +139,13 @@ export class AuthController {
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
-        data: signOutUser,
+        data: {
+          tokenId: signOutUser.tokenId, 
+          userId: signOutUser.userId, 
+          refreshToken: signOutUser.refreshToken, 
+          ip: signOutUser.ip, 
+          userAgent: signOutUser.userAgent, 
+        },
       });
     } catch (error) {
       next(error);

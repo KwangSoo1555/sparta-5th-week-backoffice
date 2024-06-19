@@ -1,6 +1,6 @@
 import express from "express";
 import { validateCreateStore } from "../middlewares/validators/create-store-validator.middleware.js";
-import { validateUpdateStore } from "../middlewares/validators/updated-store-valiator.middleware.js";
+import { validateUpdateStore } from "../middlewares/validators/updated-store-validator.middleware.js"
 import { prisma } from "../utils/prisma.util.js";
 import { StoresRepository } from "../repositories/stores.repository.js";
 import { StoresService } from "../services/stores.service.js";

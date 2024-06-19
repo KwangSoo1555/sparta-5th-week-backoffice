@@ -5,6 +5,7 @@ export const MESSAGES = {
     COMMON: {
       NAME: {
         REQURIED: "이름을 입력해 주세요.",
+        DUPLICATED: "이미 가입 된 사용자입니다.",
       },
       EMAIL: {
         BASE: "이메일은 문자열입니다.",
@@ -19,6 +20,14 @@ export const MESSAGES = {
       PASSWORD_CONFIRM: {
         REQURIED: "비밀번호 확인을 입력해 주세요.",
         NOT_MACHTED_WITH_PASSWORD: "입력 한 두 비밀번호가 일치하지 않습니다.",
+      },
+      CURRENT_PASSWORD: {
+        REQURIED: "현재 비밀번호를 입력해 주세요.",
+        NOT_MACHTED_WITH_PASSWORD: "현재 비밀번호와 기존 비밀번호가 일치하지 않습니다.",
+      },
+      NEW_PASSWORD: {
+        REQURIED: "새로운 비밀번호를 입력해 주세요.",
+        NEW_PASSWORD_EQUAL_CURRENT_PASSWORD: "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
       },
       PHONE: {
         BASE: "전화 번호는 문자열입니다.",
@@ -60,10 +69,16 @@ export const MESSAGES = {
     SIGN_OUT: {
       SUCCEED: "로그 아웃에 성공했습니다.",
     },
+    REISSUE_TOKEN: {
+      SUCCEED: "토큰 재발급에 성공했습니다."
+    }
   },
   USERS: {
     READ_ME: {
       SUCCEED: "내 정보 조회에 성공했습니다.",
+    },
+    UPDATE_ME: {
+      SUCCEED: "내 정보 수정에 성공했습니다.",
     },
   },
   STORES: {
@@ -116,7 +131,7 @@ export const MESSAGES = {
     },
     CREATE: {
       SUCCEED: "메뉴 생성에 성공했습니다.",
-      FAILED: "메뉴 생성에 실패했습니다."
+      FAILED: "메뉴 생성에 실패했습니다.",
     },
     READ_LIST: {
       SUCCEED: "메뉴 목록 조회에 성공했습니다.",
@@ -199,11 +214,11 @@ export const MESSAGES = {
     },
   },
   DIBS: {
-    CREATE:{
-       SUCCEED: "찜하였습니다.",
+    CREATE: {
+      SUCCEED: "찜하였습니다.",
     },
-    DELETE:{
-       SUCCEED: "찜을 취소하였습니다.",
+    DELETE: {
+      SUCCEED: "찜을 취소하였습니다.",
     },
-  }
+  },
 };

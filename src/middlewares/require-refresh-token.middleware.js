@@ -38,6 +38,8 @@ export const requireRefreshToken = (authService) => {
         const user = await authService.verifyRefreshToken(refreshToken);
         req.user = user;
         req.refreshToken = refreshToken;
+
+        user.password = undefined;
         
         next();
       } catch (error) {

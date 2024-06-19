@@ -36,6 +36,9 @@ export const requireAccessToken = (authService) => {
       try {
         // AccessToken보내면 service에서 사용자 정보 줌.
         const user = await authService.verifyAccessToken(accessToken);
+
+        user.password = undefined;
+
         req.user = user;
         req.accessToken = accessToken;
         

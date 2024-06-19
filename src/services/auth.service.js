@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { MESSAGES } from "../constants/message.constant.js";
+
 import { ENV } from "../constants/env.constant.js";
 import { AUTH_CONSTANT } from "../constants/auth.constant.js";
 import { HttpError } from "../errors/http.error.js";
+import { MESSAGES } from "../constants/message.constant.js";
 
 export class AuthService {
   constructor(usersRepository) {
@@ -11,10 +12,15 @@ export class AuthService {
   }
 
   signUp = async (email, password, name, phone, address) => {
-    // 이메일이 중복됬는지 체크
-    const existedUser = await this.usersRepository.checkAuthUser({ email });
-    if (existedUser)
+    // 이메일이 중복 됐는지 체크
+    const existedUserByEmail = await this.usersRepository.checkAuthUser({ email });
+    if (existedUserByEmail)
       throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
+
+    // 이름이 중복 됐는지 체크
+    const existedUserByName = await this.usersRepository.checkAuthUser({name});
+    if (existedUserByName)
+      throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.NAME.DUPLICATED);
 
     // 비밀번호 뭉게기
     const hashedPassword = bcrypt.hashSync(
