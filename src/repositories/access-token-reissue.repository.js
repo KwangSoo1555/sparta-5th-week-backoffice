@@ -3,7 +3,7 @@ export class RefreshTokenRepository {
       this.prisma = prisma;
     }
   
-    reIssueRefreshToken = async (userId, hashedReIssueRefreshToken, ip, userAgent) => {
+    reIssueAccessTokenByRefreshToken = async (userId, hashedReIssueRefreshToken, ip, userAgent) => {
       const upsertRefreshToken = await this.prisma.refreshToken.update({
         where: { userId },
         data: {

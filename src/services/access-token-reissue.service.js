@@ -10,7 +10,7 @@ export class RefreshTokenService {
     this.refreshTokenRepository = refreshTokenRepository;
   }
 
-  reIssueRefreshToken = async (userId, refreshToken, ip, userAgent) => {
+  reIssueAccessTokenByRefreshToken = async (userId, refreshToken, ip, userAgent) => {
     const checkRefreshToken = await this.refreshTokenRepository.checkRefreshToken({ userId });
 
     const match = bcrypt.compareSync(refreshToken, checkRefreshToken.refreshToken);
@@ -33,7 +33,7 @@ export class RefreshTokenService {
     const hashedReIssueRefreshToken = bcrypt.hashSync(reIssueRefreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
     // 변수명 없이 refresh token 이 생성되는 즉시 repository 로 전달
-    await this.refreshTokenRepository.reIssueRefreshToken(
+    await this.refreshTokenRepository.reIssueAccessTokenByRefreshToken(
       userId,
       hashedReIssueRefreshToken,
       ip,

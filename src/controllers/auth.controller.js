@@ -132,8 +132,7 @@ export class AuthController {
   // 로그아웃 API /api/auth/sign-out
   signOut = async (req, res, next) => {
     try {
-      // const refreshToken = req.headers
-      console.log(req.headers)
+      const userId = req.user.userId;
 
       const signOutUser = await this.authService.signOut(userId);
 
