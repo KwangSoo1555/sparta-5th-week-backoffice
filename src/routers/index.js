@@ -2,6 +2,7 @@ import express from "express";
 import { authRouter } from "./auth.router.js";
 import { reIssueAccessTokenRouter } from "./access-token-reissue.router.js";
 import { usersRouter } from "./users.router.js";
+import { customerStoresRouter } from "./customer-stores.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
 import { storesRouter } from "./stores.router.js";
@@ -20,7 +21,7 @@ const authService = new AuthService(usersRepository);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/refreshToken", reIssueAccessTokenRouter);
 apiRouter.use("/users", usersRouter);
-// apiRouter.use("/stores", storesRouter); 아직 미구현 삭제 금지, 손님 가게 crud
+apiRouter.use("/stores", customerStoresRouter); //아직 미구현 삭제 금지, 손님 가게 api
 apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use("/owners", [storesRouter, menusRouter]);
 

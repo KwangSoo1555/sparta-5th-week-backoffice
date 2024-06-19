@@ -58,7 +58,7 @@ export const MESSAGES = {
       SUCCEED: "로그인에 성공했습니다.",
     },
     SIGN_OUT: {
-      SUCCEED: "로그 아웃에 성공했습니다.", 
+      SUCCEED: "로그 아웃에 성공했습니다.",
     },
   },
   USERS: {
@@ -86,12 +86,18 @@ export const MESSAGES = {
       CONTENT: {
         REQURIED: "소개글을 입력해 주세요.",
       },
+      CREATE: {
+        SUCCEED: "가게 생성에 성공했습니다.",
+      },
+      READ_DETAIL: {
+        SUCCEED: "가게 상세정보 조회에 성공했습니다.",
+      },
       UPDATE: {
-        SUCCEED: "정보 수정에 성공했습니다.",
+        SUCCEED: "가게 정보 수정에 성공했습니다.",
         NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
       },
       DELETE: {
-        SUCCEED: "정보 삭제에 성공했습니다.",
+        SUCCEED: "가게 정보 삭제에 성공했습니다.",
       },
     },
   },
@@ -106,10 +112,11 @@ export const MESSAGES = {
       POPULALITY: {
         REQUIRED: "인기을 입력해 주세요.",
       },
-      NOT_FOUND: "이력서가 존재하지 않습니다.",
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
     },
     CREATE: {
       SUCCEED: "메뉴 생성에 성공했습니다.",
+      FAILED: "메뉴 생성에 실패했습니다."
     },
     READ_LIST: {
       SUCCEED: "메뉴 목록 조회에 성공했습니다.",
@@ -156,4 +163,47 @@ export const MESSAGES = {
       SUCCEED: "리뷰 삭제에 성공했습니다.",
     },
   },
+  SEARCH: {
+    COMMON: {
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
+    },
+  },
+  ORDERS: {
+    COMMON: {
+      NAME: {
+        REQUIRED: "이름을 입력해 주세요.",
+      },
+      PRICE: {
+        REQUIRED: "자기소개를 입력해 주세요.",
+      },
+      POPULALITY: {
+        REQUIRED: "인기을 입력해 주세요.",
+      },
+      NOT_FOUND: "이력서가 존재하지 않습니다.",
+    },
+    CREATE: {
+      SUCCEED: "주문에 성공했습니다.",
+    },
+    READ_LIST: {
+      SUCCEED: "주문 기록 조회에 성공했습니다.",
+    },
+    READ_DETAIL: {
+      SUCCEED: "주문 상세 조회에 성공했습니다.",
+    },
+    UPDATE: {
+      SUCCEED: "주문 수정에 성공했습니다.",
+      NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+    },
+    DELETE: {
+      SUCCEED: "메뉴 삭제에 성공했습니다.",
+    },
+  },
+  DIBS: {
+    CREATE:{
+       SUCCEED: "찜하였습니다.",
+    },
+    DELETE:{
+       SUCCEED: "찜을 취소하였습니다.",
+    },
+  }
 };

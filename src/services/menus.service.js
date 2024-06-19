@@ -31,7 +31,7 @@ export class MenusService {
     return menu;
   };
 
-  postMenus = async (id, authorId) => {
+  postMenus = async (storeId,name,price,imgUrl,popularity) => {
     const menu = await this.menusRepository.postMenus(
       storeId,
       name,
@@ -40,7 +40,7 @@ export class MenusService {
       popularity,
     );
 
-    if (!menu) throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
+    if (!menu) throw new HttpError.InternalServerError(MESSAGES.MENUS.CREATE.FAILED);
 
     const data = {
       menuId: menu.menuId,
