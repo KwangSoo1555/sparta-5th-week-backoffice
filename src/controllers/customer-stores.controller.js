@@ -19,7 +19,13 @@ export class CustomerStoresController {
       next(error);
     }
   };
-  // 메뉴 목록 조회
+
   // 주문하기
-  // 메뉴 상세 조회
+  createOrder = async (req, res, next) => {
+    try {
+      //
+    } catch (error) {
+      next(error);
+    }
+  };
 }

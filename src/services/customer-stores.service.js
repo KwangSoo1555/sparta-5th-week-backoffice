@@ -10,7 +10,6 @@ export class CustomerStoresService {
   menusRepository = new MenusRepository();
   // 고객 가게 정보 조회
   getStoreInfo = async () => {};
-  // 메뉴 목록 조회
+
   // 주문하기
-  // 메뉴 상세 조회
 }

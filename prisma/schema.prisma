@@ -15,25 +15,26 @@ datasource db {
 }
 
 model Users {
-  userId               Int        @id @default(autoincrement()) @map("user_id")
-  email                String                         @map("email")
-  name                 String                         @map("name")
-  password             String                         @map("password")
-  phone                String                         @map("phone")
-  address              String
-  point                Int        @default(1000000)  
-  grade                Grade_Type @default(A)        
-  role                 Role       @default(CUSTOMER) 
-  createdAt            DateTime   @default(now())     @map("created_at")
-  updatedAt            DateTime   @updatedAt          @map("updated_at")
-  isDeleted            Boolean    @default(false)     @map("is_deleted")
-  isEmailValid         Boolean    @default(false)     @map("is_email_valid")
+  userId       Int        @id @default(autoincrement()) @map("user_id")
+  email        String     @map("email")
+  name         String     @map("name")
+  password     String     @map("password")
+  phone        String     @map("phone")
+  address      String
+  point        Int        @default(1000000)
+  grade        Grade_Type @default(A)
+  role         Role       @default(CUSTOMER)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  isDeleted    Boolean    @default(false) @map("is_deleted")
+  isEmailValid Boolean    @default(false) @map("is_email_valid")
 
   userIdToRefreshToken RefreshToken?
   userIdToOrders       Orders[]
   userIdToDibs         Dibs[]
   userIdToCeoReviews   CeoReviews?
   userIdToReviews      Reviews[]
+  userIdToOrderLogs    OrderLogs[]
 
   @@map("users")
 }
@@ -51,34 +52,34 @@ enum Grade_Type {
 }
 
 model RefreshToken {
-  tokenId       Int       @id               @default(autoincrement()) @map("token_id")
-  userId        Int       @unique           @map("user_id")
-  refreshToken  String?   @map("refresh_token")
-  ip            String
-  userAgent     String                      @map("user_agent")
-  createdAt     DateTime  @default(now())   @map("created_at")
-  updatedAt     DateTime  @updatedAt        @map("updated_at")
+  tokenId      Int      @id @default(autoincrement()) @map("token_id")
+  userId       Int      @unique @map("user_id")
+  refreshToken String?  @map("refresh_token")
+  ip           String
+  userAgent    String   @map("user_agent")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
-  userIdByUsers Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userIdByUsers Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@map("refreshtoken")
 }
 
 model Orders {
-  orderId         Int             @id @default(autoincrement()) @map("order_id")
-  storeId         Int                               @map("store_id")
-  userId          Int                               @map("user_id")
-  menuId          Int                               @map("menu_id")
-  paymentMethod   Payment_Method                    @map("payment_method")
-  totalPrice      Int                               @map("total_price")
-  requests        String
-  createdAt       DateTime        @default(now())   @map("created_at")
-  updatedAt       DateTime        @updatedAt        @map("updated_at")
-  status          Order_Status    @default(WAITING)
+  orderId       Int            @id @default(autoincrement()) @map("order_id")
+  storeId       Int            @map("store_id")
+  userId        Int            @map("user_id")
+  totalPrice    Int            @map("total_price")
+  requests      String
+  paymentMethod Payment_Method @map("payment_method")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  status        Order_Status   @default(WAITING)
 
-  storeIdByStores Stores          @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
-  userIdByUsers   Users           @relation(fields: [userId], references: [userId],  onDelete: Cascade)
-  menuIdByMenus   Menus           @relation(fields: [menuId], references: [menuId],  onDelete: Cascade)
+  storeIdByStores     Stores       @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  userIdByUsers       Users        @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  orderIdToOrderItems OrderItems[]
+  orderIdToOrderLogs  OrderLogs[]
 
   @@map("orders")
 }
@@ -86,6 +87,33 @@ model Orders {
 enum Payment_Method {
   CASH // 현금
   CARD // 카드
+}
+
+model OrderItems {
+  orderItemId Int @id @default(autoincrement()) @map("order_item_id")
+  orderId     Int @map("order_id")
+  menuId      Int @map("menu_id")
+  quantity    Int @default(1)
+  price       Int
+
+  orderIdByOrders Orders @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+  menuIdByMenus   Menus  @relation(fields: [menuId], references: [menuId], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+model OrderLogs {
+  orderLogId Int          @id @default(autoincrement()) @map("order_log_id")
+  storeId    Int          @map("store_id")
+  userId     Int          @map("user_id")
+  orderId    Int          @map("order_id")
+  status     Order_Status
+
+  storeIdByStores Stores @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  userIdByUsers   Users  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  orderIdByOrders Orders @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+
+  @@map("order_logs")
 }
 
 enum Order_Status {
@@ -96,23 +124,24 @@ enum Order_Status {
 }
 
 model Stores {
-  storeId          Int         @id @default(autoincrement()) @map("store_id")
-  name	           String
-  category         String
-  address          String
-  storePictureUrl  String      @db.Text        @map("store_picture_url")
-  phone            String
-  dibsCount        Int                         @map("dibs_count")
-  reviewCount      Int                         @map("review_count")
-  deliveryAddress  String                      @map("delivery_address")
-  status           StoreStatus @default(OPEN)
-  createdAt        DateTime    @default(now()) @map("created_at")
-  updatedAt        DateTime    @updatedAt      @map("updated_at")
+  storeId         Int         @id @default(autoincrement()) @map("store_id")
+  name            String
+  category        String
+  address         String
+  storePictureUrl String      @map("store_picture_url") @db.Text
+  phone           String
+  dibsCount       Int         @map("dibs_count")
+  reviewCount     Int         @map("review_count")
+  deliveryAddress String      @map("delivery_address")
+  status          StoreStatus @default(OPEN)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
 
-  storeIdToDibs    Dibs[]
-  storeIdToOrders  Orders[]
-  storeIdToMenus   Menus[]
-  storeIdToReviews Reviews[]
+  storeIdToDibs      Dibs[]
+  storeIdToOrders    Orders[]
+  storeIdToMenus     Menus[]
+  storeIdToReviews   Reviews[]
+  storeIdToOrderLogs OrderLogs[]
 
   @@map("stores")
 }
@@ -122,47 +151,48 @@ enum StoreStatus {
   CLOSE
 }
 
-model Dibs{
-  dibsId             Int        @id @default(autoincrement()) @map("dibs_id")
-  storeId            Int                          @map("store_id")
-  userId             Int                          @map("user_id")
-  createdAt          DateTime   @default(now())   @map("created_at")
-  updatedAt          DateTime   @updatedAt        @map("updated_at")
+model Dibs {
+  dibsId    Int      @id @default(autoincrement()) @map("dibs_id")
+  storeId   Int      @map("store_id")
+  userId    Int      @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  userIdByUsers      Users      @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  storeIdByStores    Stores     @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  userIdByUsers   Users  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  storeIdByStores Stores @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
 
   @@map("dibs")
 }
 
-model CeoReviews{
-  ceoReviewId        Int        @id @default(autoincrement()) @map("ceo_review_id")
-  reviewId           Int        @unique           @map("review_id")
-  userId             Int        @unique           @map("user_id")
-  content            String
-  createdAt          DateTime   @default(now())   @map("created_at")
-  updatedAt          DateTime   @updatedAt        @map("updated_at")
+model CeoReviews {
+  ceoReviewId Int      @id @default(autoincrement()) @map("ceo_review_id")
+  reviewId    Int      @unique @map("review_id")
+  userId      Int      @unique @map("user_id")
+  content     String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
-  userIdByUsers      Users      @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  reviewIdByReviews  Reviews    @relation(fields: [reviewId], references: [reviewId], onDelete: Cascade)
+  userIdByUsers     Users   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  reviewIdByReviews Reviews @relation(fields: [reviewId], references: [reviewId], onDelete: Cascade)
 
   @@map("ceo_reviews")
 }
 
 model Menus {
-  menuId          Int        @id @default(autoincrement()) @map("menu_id")
-  storeId         Int        @map("store_id") 
-  name            String 
-  price           Int
-  imgUrl          String     @db.Text          @map("img_url")
-  popularity      Int
-  status          menuStatus @default(SALE)
-  createdAt       DateTime   @default(now())   @map("created_at")
-  updatedAt       DateTime   @updatedAt        @map("updated_at")
+  menuId     Int        @id @default(autoincrement()) @map("menu_id")
+  storeId    Int        @map("store_id")
+  name       String
+  price      Int
+  imgUrl     String     @map("img_url") @db.Text
+  popularity Int
+  status     menuStatus @default(SALE)
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
 
-  storeIdByStores Stores     @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  storeIdByStores Stores       @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  orderItems      OrderItems[]
 
-  menuIdToOrders  Orders[]
+  @@map("menus")
 }
 
 enum menuStatus {
@@ -171,17 +201,17 @@ enum menuStatus {
 }
 
 model Reviews {
-  reviewId             Int      @id @default(autoincrement()) @map("review_id")
-  userId               Int      @map("user_id")
-  storeId              Int      @map("store_id")
-  rating               Int
-  content              String
-  imgUrl               String   @db.Text          @map("img_url")
-  createdAt            DateTime @default(now())   @map("created_at")
-  updatedAt            DateTime @updatedAt        @map("updated_at")
+  reviewId  Int      @id @default(autoincrement()) @map("review_id")
+  userId    Int      @map("user_id")
+  storeId   Int      @map("store_id")
+  rating    Int
+  content   String
+  imgUrl    String   @map("img_url") @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  userIdByUsers        Users    @relation(fields: [userId], references: [userId],  onDelete: Cascade)
-  storeIdByStores      Stores   @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
+  userIdByUsers   Users  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  storeIdByStores Stores @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
 
   reviewIdToCeoReviews CeoReviews?
 }
