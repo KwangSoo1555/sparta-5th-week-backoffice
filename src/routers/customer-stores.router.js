@@ -12,7 +12,10 @@ customerStoresRouter.get("/:store_id", customerStoresController.getStoreInfo);
 // 메뉴 목록 조회
 customerStoresRouter.get("/:store_id/menus", menusController.getMenus);
 // 주문하기
-customerStoresRouter.get("/:store_id/orders");
+customerStoresRouter.post(
+  "/:store_id/orders",
+  customerStoresController.createOrder,
+);
 // 메뉴 상세 조회
 customerStoresRouter.get("/:store_id/:menu_id", menusController.getMenuDetail);
 
