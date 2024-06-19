@@ -17,7 +17,10 @@ export class AuthService {
       throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
 
     // 비밀번호 뭉게기
-    const hashedPassword = bcrypt.hashSync(password, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+    const hashedPassword = bcrypt.hashSync(
+      password,
+      AUTH_CONSTANT.HASH_SALT_ROUNDS,
+    );
 
     // 저장소에게 사용자 저장을 요청
     const signUpUser = await this.usersRepository.createUser(
@@ -56,7 +59,10 @@ export class AuthService {
       expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
     });
 
-    const hashedRefreshToken = bcrypt.hashSync(refreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+    const hashedRefreshToken = bcrypt.hashSync(
+      refreshToken,
+      AUTH_CONSTANT.HASH_SALT_ROUNDS,
+    );
 
     // 변수명 없이 refresh token 이 생성되는 즉시 repository 로 전달
     await this.usersRepository.storeRefreshToken(
@@ -72,20 +78,20 @@ export class AuthService {
   signOut = async (userId) => {
     const user =
       await this.usersRepository.BySignOutUpdateRefreshTokenToNull(
-        refreshToken,
+        userId
       );
 
     return user;
   };
 
-  // Accesstoken받고 payload로 user정보 받음.
+  // accessToken받고 payload로 user정보 받음.
   verifyAccessToken = async (accessToken) => {
     try {
       // token받고 payload로 사용자 체크
-      const payload = jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
-      console.log(payload);
+      const payload = jwt.verify(accessToken, ENV.ACCESS_TOKEN_SECRET);
+      const userId = payload.id;
 
-      const user = await this.usersRepository.checkAuthUser(payload.id);
+      const user = await this.usersRepository.checkAuthUser({ userId });
 
       if (!user) {
         throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.NO_USER);
@@ -93,13 +99,27 @@ export class AuthService {
 
       return user;
     } catch (error) {
-      // AccessToken의 유효기한이 지난 경우
-      if (error.name === "TokenExpiredError") {
-        throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.EXPIRED);
-      } else {
-        // 그 밖의 AccessToken 검증에 실패한 경우
-        throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.INVALID);
+      throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.EXPIRED);
+    }
+  };
+
+  // refreshToken받고 payload로 user정보 받음.
+  verifyRefreshToken = async (refreshToken) => {
+    try {
+      // token받고 payload로 사용자 체크
+      const payload = jwt.verify(refreshToken, ENV.REFRESH_TOKEN_SECRET);
+      const userId = payload.id;
+
+      const user = await this.usersRepository.checkAuthUser({ userId });
+
+      if (!user) {
+        throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.NO_USER);
       }
+
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.JWT.EXPIRED);
     }
   };
 }
