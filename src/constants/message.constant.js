@@ -1,5 +1,4 @@
-import { MIN_PASSWORD_LENGTH } from "./auth.constant.js";
-import { MIN_RESUME_LENGTH } from "./resume.constant.js";
+import { AUTH_CONSTANT } from "./auth.constant.js";
 
 export const MESSAGES = {
   AUTH: {
@@ -15,7 +14,7 @@ export const MESSAGES = {
       },
       PASSWORD: {
         REQURIED: "비밀번호를 입력해 주세요.",
-        MIN_LENGTH: `비밀번호는 ${MIN_PASSWORD_LENGTH}자리 이상이어야 합니다.`,
+        MIN_LENGTH: `비밀번호는 ${AUTH_CONSTANT.PASSWORD_MIN_LENGTH}자리 이상이어야 합니다.`,
       },
       PASSWORD_CONFIRM: {
         REQURIED: "비밀번호 확인을 입력해 주세요.",
@@ -58,38 +57,13 @@ export const MESSAGES = {
     SIGN_IN: {
       SUCCEED: "로그인에 성공했습니다.",
     },
+    SIGN_OUT: {
+      SUCCEED: "로그 아웃에 성공했습니다.", 
+    },
   },
   USERS: {
     READ_ME: {
       SUCCEED: "내 정보 조회에 성공했습니다.",
-    },
-  },
-  RESUMES: {
-    COMMON: {
-      TITLE: {
-        REQUIRED: "제목을 입력해 주세요.",
-      },
-      CONTENT: {
-        REQUIRED: "자기소개를 입력해 주세요.",
-        MIN_LENGTH: `자기소개는 ${MIN_RESUME_LENGTH}자 이상 작성해야 합니다.`,
-      },
-      NOT_FOUND: "이력서가 존재하지 않습니다.",
-    },
-    CREATE: {
-      SUCCEED: "이력서 생성에 성공했습니다.",
-    },
-    READ_LIST: {
-      SUCCEED: "이력서 목록 조회에 성공했습니다.",
-    },
-    READ_DETAIL: {
-      SUCCEED: "이력서 상세 조회에 성공했습니다.",
-    },
-    UPDATE: {
-      SUCCEED: "이력서 수정에 성공했습니다.",
-      NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
-    },
-    DELETE: {
-      SUCCEED: "이력서 삭제에 성공했습니다.",
     },
   },
   STORES: {
@@ -119,6 +93,67 @@ export const MESSAGES = {
       DELETE: {
         SUCCEED: "정보 삭제에 성공했습니다.",
       },
+    },
+  },
+  MENUS: {
+    COMMON: {
+      NAME: {
+        REQUIRED: "이름을 입력해 주세요.",
+      },
+      PRICE: {
+        REQUIRED: "자기소개를 입력해 주세요.",
+      },
+      POPULALITY: {
+        REQUIRED: "인기을 입력해 주세요.",
+      },
+      NOT_FOUND: "이력서가 존재하지 않습니다.",
+    },
+    CREATE: {
+      SUCCEED: "메뉴 생성에 성공했습니다.",
+    },
+    READ_LIST: {
+      SUCCEED: "메뉴 목록 조회에 성공했습니다.",
+    },
+    READ_DETAIL: {
+      SUCCEED: "메뉴 상세 조회에 성공했습니다.",
+    },
+    UPDATE: {
+      SUCCEED: "메뉴 수정에 성공했습니다.",
+      NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+    },
+    DELETE: {
+      SUCCEED: "메뉴 삭제에 성공했습니다.",
+    },
+  },
+  REVIEWS: {
+    COMMON: {
+      RATING: {
+        REQUIRED: "별점을 입력해 주세요.",
+      },
+      CONTENT: {
+        REQUIRED: "리뷰 내용를 입력해 주세요.",
+        MIN_LENGTH: `리뷰 내용은 ${AUTH_CONSTANT.PASSWORD_MIN_LENGTH}자 이상 작성해야 합니다.`,
+      },
+      IMGURL: {
+        REQUIRED: "이미지URL을 입력해 주세요.",
+      },
+      NOT_FOUND: "리뷰가 존재하지 않습니다.",
+    },
+    CREATE: {
+      SUCCEED: "리뷰 생성에 성공했습니다.",
+    },
+    READ_LIST: {
+      SUCCEED: "리뷰 목록 조회에 성공했습니다.",
+    },
+    READ_DETAIL: {
+      SUCCEED: "리뷰 상세 조회에 성공했습니다.",
+    },
+    UPDATE: {
+      SUCCEED: "리뷰 수정에 성공했습니다.",
+      NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+    },
+    DELETE: {
+      SUCCEED: "리뷰 삭제에 성공했습니다.",
     },
   },
 };

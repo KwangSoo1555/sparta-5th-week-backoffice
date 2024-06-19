@@ -16,7 +16,7 @@ const storesController = new StoresController(storesService);
 storesRouter.post("/stores", validateCreateStore, storesController.createStore);
 
 // 가게 상세 조회
-storesRouter.get("/stores/:store_id", storesController.getStoreById);
+storesRouter.get("/stores/:store_id", storesController.findStoreById);
 
 // 가게 수정
 storesRouter.patch(

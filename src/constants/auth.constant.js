@@ -1,9 +1,8 @@
-export const HASH_SALT_ROUNDS = 10;
-export const MIN_PASSWORD_LENGTH = 6;
-export const ACCESS_TOKEN_EXPIRES_IN = '12h';
-export const REFRESH_TOKEN_EXPIRED_IN = '7d';
-
 export const AUTH_CONSTANT = {
+    ACCESS_TOKEN_EXPIRES_IN : '12h',
+    REFRESH_TOKEN_EXPIRES_IN : '7d', 
+
+    HASH_SALT_ROUNDS : 10,
     // 유효성 검사시 비밀번호 최소 길이
     PASSWORD_MIN_LENGTH: 6,
     // 유효성 검사시 이메일 형식

@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { MESSAGES } from "../constants/message.constant.js";
-import { ACCESS_TOKEN_SECRET } from "../constants/env.constant.js";
-import { ACCESS_TOKEN_EXPIRES_IN, HASH_SALT_ROUNDS } from "../constants/auth.constant.js";
+import { ENV } from "../constants/env.constant.js";
+import { AUTH_CONSTANT } from "../constants/auth.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
 export class AuthService {
@@ -12,20 +12,20 @@ export class AuthService {
 
   signUp = async (email, password, name, phone, address) => {
     // 이메일이 중복됬는지 체크
-    const existedUser = await this.usersRepository.checkAuthUser({email});
+    const existedUser = await this.usersRepository.checkAuthUser({ email });
     if (existedUser)
       throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.EMAIL.DUPLICATED);
 
     // 비밀번호 뭉게기
-    const hashedPassword = bcrypt.hashSync(password, HASH_SALT_ROUNDS);
+    const hashedPassword = bcrypt.hashSync(password, AUTH_CONSTANT.HASH_SALT_ROUNDS);
 
     // 저장소에게 사용자 저장을 요청
     const signUpUser = await this.usersRepository.createUser(
       email,
       hashedPassword,
       name,
-      phone, 
-      address, 
+      phone,
+      address,
     );
 
     // 저장된 사용자 정보를 수정해서 리턴
@@ -34,9 +34,10 @@ export class AuthService {
     return signUpUser;
   };
 
-  signIn = async (email, password) => {
+  signIn = async (email, password, ip, userAgent) => {
     // 이메일과 비밀번호로 맞나 체크
-    const user = await this.usersRepository.checkAuthUser({email});
+    const user = await this.usersRepository.checkAuthUser({ email });
+    const userId = user.userId;
 
     const isPasswordMatched =
       user && bcrypt.compareSync(password, user.password);
@@ -44,14 +45,37 @@ export class AuthService {
     if (!isPasswordMatched)
       throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.UNAUTHORIZED);
 
-    // 그 사용자 id를 payload로 해서 accesstoken 발급
-    const payload = { id: user.id };
+    // 그 사용자 id를 payload로 해서 token 발급
+    const payload = { id: userId };
 
-    const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {
-      expiresIn: ACCESS_TOKEN_EXPIRES_IN,
+    const accessToken = jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+      expiresIn: AUTH_CONSTANT.ACCESS_TOKEN_EXPIRES_IN,
     });
 
-    return accessToken;
+    const refreshToken = jwt.sign(payload, ENV.REFRESH_TOKEN_SECRET, {
+      expiresIn: AUTH_CONSTANT.REFRESH_TOKEN_EXPIRES_IN,
+    });
+
+    const hashedRefreshToken = bcrypt.hashSync(refreshToken, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+
+    // 변수명 없이 refresh token 이 생성되는 즉시 repository 로 전달
+    await this.usersRepository.storeRefreshToken(
+      userId,
+      hashedRefreshToken,
+      ip,
+      userAgent,
+    );
+
+    return { accessToken, refreshToken };
+  };
+
+  signOut = async (userId) => {
+    const user =
+      await this.usersRepository.BySignOutUpdateRefreshTokenToNull(
+        refreshToken,
+      );
+
+    return user;
   };
 
   // Accesstoken받고 payload로 user정보 받음.
@@ -59,7 +83,7 @@ export class AuthService {
     try {
       // token받고 payload로 사용자 체크
       const payload = jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
-      console.log(payload)
+      console.log(payload);
 
       const user = await this.usersRepository.checkAuthUser(payload.id);
 

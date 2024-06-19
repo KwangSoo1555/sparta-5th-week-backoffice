@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { MESSAGES } from "../../constants/message.constant.js";
-import { MIN_PASSWORD_LENGTH } from "../../constants/auth.constant.js";
+import { AUTH_CONSTANT } from "../../constants/auth.constant.js";
 
 const schema = Joi.object({
   email: Joi.string().email().required().messages({
@@ -10,7 +10,7 @@ const schema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": MESSAGES.AUTH.COMMON.NAME.REQURIED,
   }),
-  password: Joi.string().required().min(MIN_PASSWORD_LENGTH).messages({
+  password: Joi.string().required().min(AUTH_CONSTANT.PASSWORD_MIN_LENGTH).messages({
     "any.required": MESSAGES.AUTH.COMMON.PASSWORD.REQURIED,
     "string.min": MESSAGES.AUTH.COMMON.PASSWORD.MIN_LENGTH,
   }),
@@ -25,7 +25,7 @@ const schema = Joi.object({
     "any.required": MESSAGES.AUTH.COMMON.ADDRESS.REQURIED,
   }),
   verificationCode: Joi.number().required().messages({
-    "any.required": MESSAGES.AUTH.SIGN_UP.VERIFICATION_CODE.REQUIRED
+    "any.required": MESSAGES.AUTH.SIGN_UP.VERIFICATION_CODE.REQUIRED,
   }),
 });
 

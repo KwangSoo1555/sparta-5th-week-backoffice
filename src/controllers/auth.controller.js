@@ -54,7 +54,7 @@ export class AuthController {
 
       console.log(EmailVerification.codes[email].code);
 
-      res.status(HTTP_STATUS.OK).json({
+      return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_UP.EMAIL.SUCCEED,
         data: EmailVerification.codes,
@@ -68,10 +68,11 @@ export class AuthController {
     }
   };
 
-  // 회원가입 API controller
+  // 회원가입 API /api/auth/sign-up
   signUp = async (req, res, next) => {
     try {
-      const { email, name, password, phone, address, verificationCode } = req.body;
+      const { email, name, password, phone, address, verificationCode } =
+        req.body;
 
       const latestVerification = EmailVerification.codes[email];
 
@@ -93,13 +94,13 @@ export class AuthController {
         password,
         name,
         phone,
-        address, 
+        address,
       );
 
       return res.status(HTTP_STATUS.CREATED).json({
         status: HTTP_STATUS.CREATED,
         message: MESSAGES.AUTH.SIGN_UP.SUCCEED,
-        signUpUser,
+        data: signUpUser,
       });
     } catch (error) {
       next(error);
@@ -111,12 +112,35 @@ export class AuthController {
     try {
       const { email, password } = req.body;
 
-      const accessToken = await this.authService.signIn(email, password);
+      const issueToken = await this.authService.signIn(
+        email,
+        password,
+        req.ip,
+        req.get("User-Agent"),
+      );
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_IN.SUCCEED,
-        data: { accessToken },
+        data: issueToken,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 로그아웃 API /api/auth/sign-out
+  signOut = async (req, res, next) => {
+    try {
+      // const refreshToken = req.headers
+      console.log(req.headers)
+
+      const signOutUser = await this.authService.signOut(userId);
+
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
+        data: signOutUser,
       });
     } catch (error) {
       next(error);

@@ -15,36 +15,14 @@ const menusService = new MenusService(menusRepository);
 
 const menusController = new MenusController(menusService);
 
-menusRouter.get(
-  "/menus/:store_id",
-  requireAccessToken(authService),
-  menusController.getMenus,
-);
+menusRouter.get("/menus/:store_id", menusController.getMenus);
 
-menusRouter.get(
-  "/menus/:store_id/:menu_id",
-  requireAccessToken(authService),
-  menusController.getMenuDetail,
-);
+menusRouter.get("/menus/:store_id/:menu_id", menusController.getMenuDetail);
 
-menusRouter.post(
-  "/menus/:store_id",
-  createMenuValidator,
-  requireAccessToken(authService),
-  menusController.postMenus,
-);
+menusRouter.post("/menus/:store_id", createMenuValidator, menusController.postMenus);
 
-menusRouter.patch(
-  "/menus/:store_id/:menu_id",
-  updateMenuValidator,
-  requireAccessToken(authService),
-  menusController.patchMenus,
-);
+menusRouter.patch("/menus/:store_id/:menu_id", updateMenuValidator, menusController.patchMenus);
 
-menusRouter.delete(
-  "/menus/:store_id/:menu_id",
-  requireAccessToken(authService),
-  menusController.deleteMenus,
-);
+menusRouter.delete("/menus/:store_id/:menu_id", menusController.deleteMenus);
 
 export { menusRouter };
