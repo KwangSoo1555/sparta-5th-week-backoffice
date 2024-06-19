@@ -6,7 +6,7 @@ export class StoresController {
     this.storesService = storesService;
   }
 
-  //가게 생성
+  // 가게 생성
   createStore = async (req, res, next) => {
     try {
       const {
@@ -45,7 +45,7 @@ export class StoresController {
     }
   };
 
-  //가게 상세조회
+  // 가게 상세조회
   findStoreById = async (req, res, next) => {
     try {
       const storeId = req.params.store_id;
@@ -110,13 +110,34 @@ export class StoresController {
   };
 
   // 가게 삭제
-  deleteStore = async (req, res) => {
+  deleteStore = async (req, res, next) => {
     try {
       const storeId = req.params.store_id;
       await this.storesService.deleteStore(storeId);
       return res.status(HTTP_STATUS.DELETED).json({
         status: HTTP_STATUS.DELETED,
         message: MESSAGES.STORES.COMMON.DELETE,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 주문 상태 수정
+  updateOrderStatus = async (req, res, next) => {
+    try {
+      const orderId = req.params.order_id;
+      const { status } = req.body;
+
+      const updatedOrder = await this.storesService.updateOrderStatus({
+        orderId,
+        status,
+      });
+
+      return res.status(HTTP_STATUS.UPDATED).json({
+        status: HTTP_STATUS.UPDATED,
+        message: MESSAGES.ORDERS.UPDATE.SUCCEED,
+        data: updatedOrder,
       });
     } catch (error) {
       next(error);
