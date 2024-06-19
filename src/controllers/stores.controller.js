@@ -48,8 +48,8 @@ export class StoresController {
   //가게 상세조회
   findStoreById = async (req, res, next) => {
     try {
-      const { storeid } = req.params;
-      const store = await this.storesService.findStoreById(storeid);
+      const { storeId } = req.params;
+      const store = await this.storesService.findStoreById(storeId);
       if (store) {
         res.status(200).json(store);
       } else {
@@ -74,7 +74,7 @@ export class StoresController {
     rating,
   ) => {
     const updatedStore = await this.prisma.stores.update({
-      where: { store_id: +id, storeid },
+      where: { store_id: +id, storeId },
       data: {
         ...(name && { name }),
         ...(category && { category }),
@@ -95,8 +95,8 @@ export class StoresController {
   // 가게 삭제
   deleteStore = async (req, res) => {
     try {
-      const { id, storeid } = req.params;
-      await this.storesService.deleteStore(id, storeid);
+      const { id, storeId } = req.params;
+      await this.storesService.deleteStore(id, storeId);
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ error: error.message });

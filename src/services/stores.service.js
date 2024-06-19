@@ -25,7 +25,7 @@ export class StoresService {
   
   
     findStoreById = async (id) => {
-        const Store = await this.storesRepository.findStoreById(id,storeid);
+        const Store = await this.storesRepository.findStoreById(id,storeId);
       
       if (!Store)
         throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
@@ -39,6 +39,8 @@ export class StoresService {
         content: Store.content,
         dibsCount: Store.dibsCount,
         reviewCount: Store.reviewCount,
+        createdAt: Store.createdAt,
+        updatedAt: Store.updatedAt,
         status: Store.status,
         rating: Store.rating
       }

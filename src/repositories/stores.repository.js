@@ -26,9 +26,9 @@ export class StoresRepository {
 
   
 
-    findStoreById = async (storeid) => {
+    findStoreById = async (storeId) => {
       const store = await this.prisma.stores.findUnique({
-        where: {storeid: +storeid },
+        where: {storeId: +storeId },
       });
   
       return store;
@@ -37,7 +37,7 @@ export class StoresRepository {
     // 가게 수정
     updateStore = async ( name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount,  status, rating) => {
       const updatedStore = await this.prisma.stores.update({
-        where: { storeid: +id ,storeid },
+        where: { storeId: +id ,storeId },
         data: {
           ...(name && { name }),
           ...(category && { category }),
@@ -56,9 +56,9 @@ export class StoresRepository {
     };
   
     // 가게 삭제
-    deleteStore = async (id, storeid) => {
+    deleteStore = async (id, storeId) => {
       const deletedStore = await this.prisma.stores.delete({
-        where: { storeid: +id, storeid},
+        where: { storeId: +id, storeId},
       });
   
       return deletedStore;
