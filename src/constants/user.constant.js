@@ -6,8 +6,8 @@ export const USERS_CONSTANT = {
     D: "천생연분",
   },
   ROLE: {
-    USER: "USER",
-    ADMIN: "ADMIN",
+    CUSTOMER: "CUSTOMER",
+    OWNER: "OWNER",
   },
   PROVIDER: {
     LOCAL: "LOCAL",

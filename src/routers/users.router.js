@@ -1,20 +1,25 @@
 import express from "express";
-// import { requireAccessToken } from "../middlewares/require-access-token.middleware.js";
-// import { prisma } from "../utils/prisma.util.js";
-// import { UsersRepository } from "../repositories/users.repository.js";
-// import { AuthService } from "../services/auth.service.js";
+
+import { prisma } from "../utils/prisma.util.js";
+import { UsersRepository } from "../repositories/users.repository.js";
+import { UsersService } from "../services/users.service.js";
 import { UsersController } from "../controllers/users.controller.js";
 
+import { AuthService } from "../services/auth.service.js";
+import { requireAccessToken } from "../middlewares/require-access-token.middleware.js";
+
 const usersRouter = express.Router();
-// 이놈은 controller계층에서 끝나서 authService나 그런거 입력 안받아도됨
-const usersController = new UsersController();
 
-// requireAccessToken에 의존성 주입
-// UsersRepository 인스턴스 생성
-// const usersRepository = new UsersRepository(prisma);
-// AuthService 인스턴스 생성
-// const authService = new AuthService(usersRepository);
+const usersRepository = new UsersRepository(prisma);
+const usersService = new UsersService(usersRepository);
+const usersController = new UsersController(usersService);
 
-usersRouter.get("/me", usersController.getUserInfo);
+const authService = new AuthService(usersRepository);
+
+// 내 정보 조회 API api/users/me
+usersRouter.get("/me", requireAccessToken(authService), usersController.getUserInfo);
+
+// 내 정보 수정 API api/users/me
+usersRouter.patch("/me", requireAccessToken(authService), usersController.updateUserInfo);
 
 export { usersRouter };

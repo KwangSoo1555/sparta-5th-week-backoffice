@@ -18,7 +18,11 @@ export class RefreshTokenController {
           req.get("User-Agent"),
         );
 
-      return res.status(HTTP_STATUS.OK).json({ data: reIssueToken });
+      return res.status(HTTP_STATUS.OK).json({ 
+        status: HTTP_STATUS.OK, 
+        message: MESSAGES.AUTH.REISSUE_TOKEN.SUCCEED, 
+        data: reIssueToken, 
+      });
     } catch (error) {
       if (error.name === "TokenExpiredError") {
         return res.status(HTTP_STATUS.UNAUTHORIZED).json({

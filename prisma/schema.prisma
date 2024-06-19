@@ -41,7 +41,7 @@ model Users {
 
 enum Role {
   CUSTOMER
-  MANAGER
+  OWNER
 }
 
 enum Grade_Type {

@@ -54,4 +54,21 @@ export class UsersRepository {
 
     return refreshTokenNull;
   };
+
+  updateUserInfo = async (userId, email, name, password, newPassword, phone, address) => {
+    const updatedUser = await this.prisma.users.update({
+      where: { userId: userId },
+      data: {
+        ...(email && { email }),
+        ...(name && { name }),
+        ...(newPassword && { password }),
+        ...(phone && { phone }),
+        ...(address && { address }),
+        // ...(image && { imgUrl }), 나중에 이미지 칼럼 추가하면 그때 수정하는 걸로
+        updatedAt: new Date(),
+      },
+    });
+
+    return updatedUser;
+  };
 }

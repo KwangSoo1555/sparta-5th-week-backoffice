@@ -1,39 +1,41 @@
-import { prisma } from "../utils/prisma/index.js";
-
 export class DibsRepository {
+  constructor(prisma) {
+    this.prisma = prisma;
+  }
+
     findStoreById = async (storeId) => {
-    return await prisma.store.findUnique({
+    return await this.prisma.store.findUnique({
       where: { storeId: +storeId },
       include: { User: true },
     });
   }
 
   findDibsByUserAndStore = async (userId, storeId) => {
-    return await prisma.dibsLog.findFirst({
+    return await this.prisma.dibsLog.findFirst({
       where: { storeId: +storeId, userId: +userId },
     });
   }
 
   createDibs = async (userId, storeId) => {
-    return await prisma.dibsLog.create({
+    return await this.prisma.dibsLog.create({
       data: { storeId: +storeId, userId: +userId },
     });
   }
 
   deleteDibs = async (dibId) => {
-    return await prisma.dibsLog.delete({
+    return await this.prisma.dibsLog.delete({
       where: { dibId: +dibId },
     });
   }
 
   countDibsByStore = async (storeId) => {
-    return await prisma.dibsLog.count({
+    return await this.prisma.dibsLog.count({
       where: { storeId: +storeId },
     });
   }
 
   findDibsByUser = async (userId) => {
-    return await prisma.dibsLog.findMany({
+    return await this.prisma.dibsLog.findMany({
       where: { userId: +userId },
       include: {
         store: true,
@@ -42,7 +44,7 @@ export class DibsRepository {
   }
 
   findTopDibbedStore = async (startOfWeekDate, endOfWeekDate) => {
-    return await prisma.store.findFirst({
+    return await this.prisma.store.findFirst({
       where: {
         createdAt: {
           gte: startOfWeekDate,
