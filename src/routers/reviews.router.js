@@ -4,10 +4,17 @@ import { ReviewsRepository } from "../repositories/reviews.repository.js";
 import { ReviewsService } from "../services/customer-review.service.js";
 import { ReviewsController } from "../controllers/customer-review.controller.js";
 
+import { StoresRepository } from "../repositories/stores.repository.js";
+import { StoresService } from "../services/stores.service.js";
+
+
 const reviewsRouter = express.Router();
 
+const storesRepository = new StoresRepository(prisma);
+const storesService = new StoresService(storesRepository);
+
 const reviewsRepository = new ReviewsRepository(prisma);
-const reviewsService = new ReviewsService(reviewsRepository);
+const reviewsService = new ReviewsService(reviewsRepository, storesService);
 const reviewsController = new ReviewsController(reviewsService);
 
 // 리뷰 생성
