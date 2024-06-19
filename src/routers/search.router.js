@@ -18,5 +18,7 @@ searchRouter.get("/regionName/:region_name", searchController.getRegionSearch);
 searchRouter.get("/storeName/:store_name", searchController.getStoreSearch);
 // 키워드 검색
 searchRouter.get("/keyword/:keyword", searchController.getKeywordSearch);
+// 키워드 검색
+searchRouter.get("/keywordRank/:keyword", searchController.getKeywordSearchOrderedbyRate);
 
 export { searchRouter };

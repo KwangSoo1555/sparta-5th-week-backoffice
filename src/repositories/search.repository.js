@@ -33,7 +33,7 @@ export class SearchRepository {
       return findSearches;
     };
     
-    getKeywordSearch = async (keyword) => {
+    getKeywordSearch = async ({keyword}) => {
         const findSearches = await this.prisma.stores.findMany({
             where: { 
                 category : {
@@ -48,7 +48,7 @@ export class SearchRepository {
         return findSearches;
       };
 
-      getKeywordSearchOrderedbyRate = async (keyword) => {
+      getKeywordSearchOrderedbyRate = async ({keyword}) => {
         const findSearches = await this.prisma.stores.findMany({
             where: { 
                 category : {
