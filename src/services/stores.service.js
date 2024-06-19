@@ -1,9 +1,10 @@
 import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
-
+import { Order_Status } from "../constants/order-status.constant.js";
 export class StoresService {
-  constructor(storesRepository) {
+  constructor(storesRepository, ordersRepository) {
     this.storesRepository = storesRepository;
+    this.ordersRepository = ordersRepository;
   }
 
   createStore = async (
@@ -89,6 +90,7 @@ export class StoresService {
 
     return updatedStore;
   };
+
   deleteStore = async (storeId) => {
     let existedStore = await this.storesRepository.findStoreById(storeId);
 
@@ -98,5 +100,19 @@ export class StoresService {
     const deletedStore = await this.storesRepository.deleteStore(storeId);
 
     return deletedStore;
+  };
+
+  updateOrderStatus = async ({ orderId, status }) => {
+    const isValidOrderStatus = Object.values(Order_Status).includes(status);
+
+    if (!isValidOrderStatus)
+      throw new HttpError.BadRequest(MESSAGES.ORDERS.UPDATE.INVALID_STATUS);
+
+    const updatedOrder = await this.ordersRepository.updateOrder({
+      orderId,
+      status,
+    });
+
+    return updatedOrder;
   };
 }
