@@ -4,18 +4,10 @@ export class ReviewsRepository {
   }
 
   // 리뷰 생성
-  createReview = async ({
-    reviewId,
-    storeId,
-    userId,
-    rating,
-    content,
-    imgUrl,
-  }) => {
+  createReview = async ({ storeId, userId, rating, content, imgUrl }) => {
     const data = await this.prisma.reviews.create({
       data: {
-        reviewId,
-        storeId,
+        storeId: +storeId,
         userId,
         rating,
         content,
@@ -28,7 +20,7 @@ export class ReviewsRepository {
   // 리뷰 목록 조회
   getReviews = async ({ storeId, orderBy }) => {
     const reviews = await this.prisma.reviews.findMany({
-      where: { storeId },
+      where: { storeId: +storeId },
       orderBy: orderBy,
     });
 
@@ -59,7 +51,7 @@ export class ReviewsRepository {
   };
 
   // 리뷰 삭제
-  deleteReview = async (reviewId) => {
+  deleteReview = async ({ reviewId }) => {
     const data = await this.prisma.reviews.delete({
       where: { reviewId: +reviewId },
     });

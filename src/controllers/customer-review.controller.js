@@ -62,9 +62,10 @@ export class ReviewsController {
     try {
       const { rating, content, imgUrl } = req.body;
       const storeId = req.params.store_id;
-      const reviewId = req.params.id;
+      const reviewId = req.params.review_id;
 
       const data = await this.reviewsService.updateReview({
+        storeId,
         reviewId,
         rating,
         content,
@@ -84,9 +85,14 @@ export class ReviewsController {
   // 리뷰 삭제
   deleteReview = async (req, res, next) => {
     try {
-      const reviewId = req.params.id;
-
-      const data = await this.reviewsService.deleteReview({ reviewId });
+      const storeId = req.params.store_id;
+      const reviewId = req.params.review_id;
+      console.log(reviewId);
+      console.log(typeof reviewId);
+      const data = await this.reviewsService.deleteReview({
+        storeId,
+        reviewId,
+      });
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,

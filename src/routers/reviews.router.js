@@ -21,7 +21,7 @@ reviewsRouter.post("/:store_id", reviewsController.createReview);
 // 리뷰 조회
 reviewsRouter.get("/:store_id", reviewsController.getReviews);
 // 리뷰 수정
-reviewsRouter.put("/:store_id/:review_id", reviewsController.updateReview);
+reviewsRouter.patch("/:store_id/:review_id", reviewsController.updateReview);
 // 리뷰 삭제
 reviewsRouter.delete("/:store_id/:review_id", reviewsController.deleteReview);
 
