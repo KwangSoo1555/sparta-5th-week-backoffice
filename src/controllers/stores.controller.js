@@ -6,7 +6,7 @@ export class StoresController {
     this.storesService = storesService;
   }
 
-  //가게 생성
+  // 가게 생성
   createStore = async (req, res, next) => {
     try {
       const {
@@ -37,7 +37,7 @@ export class StoresController {
 
       return res.status(HTTP_STATUS.CREATED).json({
         status: HTTP_STATUS.CREATED,
-        message: MESSAGES.RESUMES.CREATE.SUCCEED,
+        message: MESSAGES.STORES.COMMON.CREATE.SUCCEED,
         createdStore,
       });
     } catch (error) {
@@ -45,15 +45,22 @@ export class StoresController {
     }
   };
 
-  //가게 상세조회
+  // 가게 상세조회
   findStoreById = async (req, res, next) => {
     try {
-      const { storeId } = req.params;
+      const storeId = req.params.store_id;
       const store = await this.storesService.findStoreById(storeId);
       if (store) {
-        res.status(200).json(store);
+        res.status(HTTP_STATUS.OK).json({
+          status: HTTP_STATUS.OK,
+          message: MESSAGES.STORES.COMMON.READ_DETAIL,
+          data: store,
+        });
       } else {
-        res.status(404).json({ message: "Store not found" });
+        res.status(HTTP_STATUS.NOT_FOUND).json({
+          status: HTTP_STATUS.NOT_FOUND,
+          message: MESSAGES.STORES.COMMON.NOT_FOUND,
+        });
       }
     } catch (error) {
       next(error);
@@ -61,45 +68,79 @@ export class StoresController {
   };
 
   // 가게 수정
-  updateStore = async (
-    name,
-    category,
-    address,
-    storePictureUrl,
-    phone,
-    content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
-  ) => {
-    const updatedStore = await this.prisma.stores.update({
-      where: { store_id: +id, storeId },
-      data: {
-        ...(name && { name }),
-        ...(category && { category }),
-        ...(address && { address }),
-        ...(storePictureUrl && { storePictureUrl }),
-        ...(phone && { phone }),
-        ...(content && { content }),
-        ...(dibsCount && { dibsCount }),
-        ...(reviewCount && { reviewCount }),
-        ...(status && { status }),
-        ...(rating && { rating }),
-      },
-    });
+  updateStore = async (req, res, next) => {
+    try {
+      const storeId = req.params.store_id;
 
-    return updatedStore;
+      const {
+        name,
+        category,
+        address,
+        storePictureUrl,
+        phone,
+        content,
+        dibsCount,
+        reviewCount,
+        status,
+        rating,
+      } = req.body;
+
+      const updatedStore = await this.storesService.updateStore(
+        storeId,
+        name,
+        category,
+        address,
+        storePictureUrl,
+        phone,
+        content,
+        dibsCount,
+        reviewCount,
+        status,
+        rating,
+      );
+
+      return res.status(HTTP_STATUS.UPDATED).json({
+        status: HTTP_STATUS.UPDATED,
+        message: MESSAGES.STORES.COMMON.UPDATE.SUCCEED,
+        data: updatedStore,
+      });
+    } catch (error) {
+      next(error);
+    }
   };
 
   // 가게 삭제
-  deleteStore = async (req, res) => {
+  deleteStore = async (req, res, next) => {
     try {
-      const { id, storeId } = req.params;
-      await this.storesService.deleteStore(id, storeId);
-      res.status(204).send();
+      const storeId = req.params.store_id;
+      await this.storesService.deleteStore(storeId);
+      return res.status(HTTP_STATUS.DELETED).json({
+        status: HTTP_STATUS.DELETED,
+        message: MESSAGES.STORES.COMMON.DELETE,
+      });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
+    }
+  };
+
+  // 주문 상태 수정
+  updateOrderStatus = async (req, res, next) => {
+    try {
+      const orderId = req.params.order_id;
+      const { status } = req.body;
+
+      const updatedOrder = await this.storesService.updateOrderStatus({
+        orderId,
+        status,
+      });
+
+      return res.status(HTTP_STATUS.UPDATED).json({
+        status: HTTP_STATUS.UPDATED,
+        message: MESSAGES.ORDERS.UPDATE.SUCCEED,
+        data: updatedOrder,
+      });
+    } catch (error) {
+      next(error);
     }
   };
 }

@@ -101,6 +101,7 @@ export const MESSAGES = {
       CONTENT: {
         REQURIED: "소개글을 입력해 주세요.",
       },
+      NOT_FOUND: "가게가 존재하지 않습니다.",
       CREATE: {
         SUCCEED: "가게 생성에 성공했습니다.",
       },
@@ -180,7 +181,7 @@ export const MESSAGES = {
   },
   SEARCH: {
     COMMON: {
-      NOT_FOUND: "메뉴가 존재하지 않습니다.",
+      NOT_FOUND: "검색결과가 존재하지 않습니다.",
     },
   },
   ORDERS: {
@@ -206,8 +207,8 @@ export const MESSAGES = {
       SUCCEED: "주문 상세 조회에 성공했습니다.",
     },
     UPDATE: {
-      SUCCEED: "주문 수정에 성공했습니다.",
-      NO_BODY_DATA: "수정 할 정보를 입력해 주세요.",
+      SUCCEED: "주문 상태 수정에 성공했습니다.",
+      INVALID_STATUS: "주문 상태를 명확히 입력해 주세요.",
     },
     DELETE: {
       SUCCEED: "메뉴 삭제에 성공했습니다.",

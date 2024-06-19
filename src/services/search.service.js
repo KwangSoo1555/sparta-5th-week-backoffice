@@ -1,7 +1,7 @@
 import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
-export class SearchRepository {
+export class SearchService {
   constructor(searchRepository) {
     this.searchRepository = searchRepository;
   }

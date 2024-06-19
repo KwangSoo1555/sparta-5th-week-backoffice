@@ -35,4 +35,12 @@ export class OrdersRepository {
     return createdOrder;
   };
   // 주문 상태 변경
+  updateOrder = async ({ orderId, status }) => {
+    const updatedOrder = await this.prisma.orders.update({
+      where: { orderId },
+      data: { status },
+    });
+
+    return updatedOrder;
+  };
 }

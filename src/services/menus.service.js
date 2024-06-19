@@ -6,8 +6,8 @@ export class MenusService {
     this.menusRepository = menusRepository;
   }
 
-  getMenu = async (storeId) => {
-    const menus = await this.menusRepository.getMenu(storeId);
+  getMenus = async (storeId) => {
+    const menus = await this.menusRepository.getMenus(storeId);
 
     return menus.map((menu) => {
       return {
@@ -93,7 +93,7 @@ export class MenusService {
     if (!existedMenu)
       throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
-    const deletedMenu = await this.resumesRepository.deleteMenus(
+    const deletedMenu = await this.menusRepository.deleteMenus(
       storeId,
       menuId,
     );

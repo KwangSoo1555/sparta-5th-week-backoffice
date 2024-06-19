@@ -5,10 +5,13 @@ const schema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": MESSAGES.MENUS.COMMON.NAME.REQUIRED,
   }),
-  price: Joi.string().required().messages({
+  price: Joi.number().required().messages({
     "any.required": MESSAGES.MENUS.COMMON.PRICE.REQUIRED,
   }),
-  popularity: Joi.string().required().messages({
+  popularity: Joi.number().required().messages({
+    "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
+  }),
+  imgUrl: Joi.string().required().messages({
     "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
   }),
 });

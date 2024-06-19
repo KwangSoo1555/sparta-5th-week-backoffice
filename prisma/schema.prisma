@@ -41,7 +41,7 @@ model Users {
 
 enum Role {
   CUSTOMER
-  MANAGER
+  OWNER
 }
 
 enum Grade_Type {
@@ -124,23 +124,24 @@ enum Order_Status {
 }
 
 model Stores {
-  storeId          Int         @id @default(autoincrement()) @map("store_id")
-  name	           String
-  category         String
-  address          String
-  storePictureUrl  String      @db.Text        @map("store_picture_url")
-  phone            String
-  dibsCount        Int                         @map("dibs_count")
-  reviewCount      Int                         @map("review_count")
-  rating           Int
-  status           StoreStatus @default(OPEN)
-  createdAt        DateTime    @default(now()) @map("created_at")
-  updatedAt        DateTime    @updatedAt      @map("updated_at")
+  storeId         Int         @id @default(autoincrement()) @map("store_id")
+  name            String
+  category        String
+  address         String
+  storePictureUrl String      @map("store_picture_url") @db.Text
+  phone           String
+  content         String?     @db.Text
+  dibsCount       Int         @map("dibs_count")
+  reviewCount     Int         @map("review_count")
+  rating          Int
+  status          StoreStatus @default(OPEN)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
 
-  storeIdToDibs    Dibs[]
-  storeIdToOrders  Orders[]
-  storeIdToMenus   Menus[]
-  storeIdToReviews Reviews[]
+  storeIdToDibs      Dibs[]
+  storeIdToOrders    Orders[]
+  storeIdToMenus     Menus[]
+  storeIdToReviews   Reviews[]
   storeIdToOrderLogs OrderLogs[]
 
   @@map("stores")

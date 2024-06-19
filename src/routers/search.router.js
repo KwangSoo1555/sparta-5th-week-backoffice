@@ -1,4 +1,5 @@
 import express from "express";
+import { requireAccessToken } from "../middlewares/require-access-token.middleware.js";
 import { prisma } from "../utils/prisma.util.js";
 import { SearchRepository } from "../repositories/search.repository.js";
 import { SearchService } from "../services/search.service.js";
@@ -12,10 +13,10 @@ const searchController = new SearchController(searchService);
 
 
 // 지역 검색
-searchRouter.get("/search/regionName/:region_name", searchController.getRegionSearch);
+searchRouter.get("/regionName/:region_name", searchController.getRegionSearch);
 // 업체 검색
-searchRouter.get("/search/storeName/:store_name", searchController.getStoreSearch);
+searchRouter.get("/storeName/:store_name", searchController.getStoreSearch);
 // 키워드 검색
-searchRouter.get("/search/keyword/:keyword", searchController.getKeywordSearch);
+searchRouter.get("/keyword/:keyword", searchController.getKeywordSearch);
 
 export { searchRouter };
