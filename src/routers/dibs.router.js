@@ -13,25 +13,31 @@ import { requireAccessToken } from "../middlewares/require-access-token.middlewa
 
 import { USERS_CONSTANT } from "../constants/user.constant.js";
 
+import { StoresService } from "../services/stores.service.js";
+import { StoresRepository } from "../repositories/stores.repository.js";
+
 const dibsRouter = express.Router();
 
-const dibsRepository = new DibsRepository();
-const dibsService = new DibsService(dibsRepository);
+const storesRepository = new StoresRepository(prisma);
+const storesService = new StoresService(storesRepository);
+
+const dibsRepository = new DibsRepository(prisma);
+const dibsService = new DibsService(dibsRepository,storesService);
 const dibsController = new DibsController(dibsService);
 
 const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
 
 // 찜 생성
-dibsRouter.post("/:store_id/dibs", requireAccessToken(authService), requireRoles([USERS_CONSTANT.ROLE.OWNER]), dibsController.createDibs);
+dibsRouter.post("/:store_id", requireAccessToken(authService), dibsController.createDibs);
 
 // 찜 삭제
-dibsRouter.delete("/:store_id/dibs", requireAccessToken(authService), dibsController.deleteDibs);
+dibsRouter.delete("/:store_id", requireAccessToken(authService), dibsController.deleteDibs);
 
 // 찜한 가게 목록 조회
-dibsRouter.get("/user/dibs", requireAccessToken(authService), dibsController.getUserDibs);
+dibsRouter.get("/user", requireAccessToken(authService), dibsController.getUserDibs);
 
 // 이번 주 찜이 가장 많은 가게 조회
-dibsRouter.get("/top-dibs", requireAccessToken(authService), dibsController.getTopDibs);
+dibsRouter.get("/top", requireAccessToken(authService), dibsController.getTopDibs);
 
 export {dibsRouter};
