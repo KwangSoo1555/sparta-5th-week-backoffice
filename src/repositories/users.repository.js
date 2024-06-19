@@ -44,9 +44,9 @@ export class UsersRepository {
     return storedRefreshToken;
   };
 
-  BySignOutUpdateRefreshTokenToNull = async (refreshToken) => {
+  BySignOutUpdateRefreshTokenToNull = async (userId) => {
     const refreshTokenNull = await this.prisma.refreshToken.update({
-      where: { refreshToken: refreshToken },
+      where: { userId: userId },
       data: {
         refreshToken: null,
       },

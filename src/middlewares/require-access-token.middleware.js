@@ -1,15 +1,8 @@
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 import { MESSAGES } from "../constants/message.constant.js";
-// import { AuthService } from "../services/auth.service.js";
-
-// authorization 받고 service 계층에 accessToken보내고
-// user정보 받음. req.user에 user넣고 next => authorization 체크
-// 의존성 주입 어떻게 해야할까... => 고차함수 (다른 함수를 인자로 받고 함수를 반환)
 
 export const requireAccessToken = (authService) => {
   return async (req, res, next) => {
-    // const authService = new AuthService();
-
     try {
       // 인증 정보 파싱
       const authorization = req.headers.authorization;
@@ -44,6 +37,7 @@ export const requireAccessToken = (authService) => {
         // AccessToken보내면 service에서 사용자 정보 줌.
         const user = await authService.verifyAccessToken(accessToken);
         req.user = user;
+        req.accessToken = accessToken;
         
         next();
       } catch (error) {
