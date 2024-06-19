@@ -7,7 +7,18 @@ export class StoresService {
     }
   
     createStore = async (name, category, address, storePictureUrl, phone, content, dibsCount, reviewCount, status, rating) => {
-        const createdStore = await this.StoresRepository.createStore(
+       console.log( 
+        name,
+        category,
+        address,
+        storePictureUrl,
+        phone,
+        content,
+        dibsCount,
+        reviewCount,
+        status,
+        rating,)
+      const createdStore = await this.storesRepository.createStore(
           name,
           category,
           address,

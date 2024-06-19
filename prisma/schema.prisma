@@ -132,7 +132,6 @@ model Stores {
   phone            String
   dibsCount        Int                         @map("dibs_count")
   reviewCount      Int                         @map("review_count")
-  deliveryAddress  String                      @map("delivery_address")
   rating           Int
   status           StoreStatus @default(OPEN)
   createdAt        DateTime    @default(now()) @map("created_at")
