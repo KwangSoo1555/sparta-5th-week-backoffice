@@ -6,6 +6,7 @@ import { customerStoresRouter } from "./customer-stores.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
 import { storesRouter } from "./stores.router.js";
+import { searchRouter } from "./search.router.js";
 import { prisma } from "../utils/prisma.util.js";
 import { UsersRepository } from "../repositories/users.repository.js";
 import { AuthService } from "../services/auth.service.js";
@@ -23,6 +24,7 @@ apiRouter.use("/refreshToken", reIssueAccessTokenRouter);
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/stores", customerStoresRouter); //아직 미구현 삭제 금지, 손님 가게 api
 apiRouter.use("/reviews", reviewsRouter);
+apiRouter.use("/search", searchRouter);
 apiRouter.use("/owners", [storesRouter, menusRouter]);
 
 export { apiRouter };

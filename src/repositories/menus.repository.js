@@ -5,9 +5,9 @@ export class MenusRepository {
 
   getMenus = async (storeId) => {
     const findMenus = await this.prisma.menus.findMany({
-      where: { storeId },
+      where: { storeId : +storeId },
       orderBy: {
-        price: sort,
+        price: "asc",
       },
     });
 
@@ -16,7 +16,9 @@ export class MenusRepository {
 
   getMenuDetail = async (storeId, menuId) => {
     const menu = await this.prisma.menus.findUnique({
-      where: { storeId, menuId },
+      where: { storeId : +storeId, 
+               menuId  : +menuId
+              },
     });
 
     return menu;
@@ -25,7 +27,7 @@ export class MenusRepository {
   postMenus = async (storeId, name, price, imgUrl, popularity) => {
     const createdMenu = await this.prisma.menus.create({
       data: {
-        storeId,
+        storeId : +storeId,
         name,
         price,
         imgUrl,
@@ -38,7 +40,8 @@ export class MenusRepository {
 
   patchMenus = async (storeId, menuId, name, price, imgUrl, popularity, status) => {
     const updatedMenu = await this.prisma.menus.update({
-      where: { storeId, menuId },
+      where: { storeId : +storeId, 
+               menuId  : +menuId },
       data: {
         name,
         price,
@@ -52,8 +55,10 @@ export class MenusRepository {
   };
 
   deleteMenus = async (storeId, menuId) => {
-    const deletedMenu = await this.prisma.menus.findUnique({
-      where: { storeId, menuId },
+    const deletedMenu = await this.prisma.menus.delete({
+      where: { storeId : +storeId, 
+               menuId  : +menuId 
+              },
     });
 
     return deletedMenu;

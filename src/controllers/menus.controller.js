@@ -8,7 +8,7 @@ export class MenusController {
 
   getMenus = async (req, res, next) => {
     try {
-      const storeId = req.params.store_Id;
+      const storeId = req.params.store_id;
       const menus = await this.menusService.getMenus(storeId);
 
       return res.status(HTTP_STATUS.OK).json({
@@ -23,7 +23,7 @@ export class MenusController {
 
   getMenuDetail = async (req, res, next) => {
     try {
-      const storeId = req.params.store_Id;
+      const storeId = req.params.store_id;
       const menuId = req.params.menu_id;
 
       const menu = await this.menusService.getMenuDetail(storeId, menuId);
@@ -40,8 +40,8 @@ export class MenusController {
 
   postMenus = async (req, res, next) => {
     try {
-      const storeId = req.params.store_Id;
-
+      const storeId = req.params.store_id;
+      console.log(storeId);
       const { name, price, imgUrl, popularity } = req.body;
 
       const menus = await this.menusService.postMenus(
@@ -64,8 +64,8 @@ export class MenusController {
 
   patchMenus = async (req, res, next) => {
     try {
-      const storeId = req.params.store_Id;
-      const menuId = req.params.menu_Id;
+      const storeId = req.params.store_id;
+      const menuId = req.params.menu_id;
 
       const { name, price, imgUrl, popularity, status } = req.body;
 
@@ -91,8 +91,8 @@ export class MenusController {
 
   deleteMenus = async (req, res, next) => {
     try {
-      const storeId = req.params.store_Id;
-      const menuId = req.params.menu_Id;
+      const storeId = req.params.store_id;
+      const menuId = req.params.menu_id;
 
       const menus = await this.menusService.deleteMenus(storeId, menuId);
 
