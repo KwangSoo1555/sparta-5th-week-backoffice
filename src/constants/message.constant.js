@@ -106,10 +106,11 @@ export const MESSAGES = {
       POPULALITY: {
         REQUIRED: "인기을 입력해 주세요.",
       },
-      NOT_FOUND: "이력서가 존재하지 않습니다.",
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
     },
     CREATE: {
       SUCCEED: "메뉴 생성에 성공했습니다.",
+      FAILED: "메뉴 생성에 실패했습니다."
     },
     READ_LIST: {
       SUCCEED: "메뉴 목록 조회에 성공했습니다.",
@@ -154,6 +155,11 @@ export const MESSAGES = {
     },
     DELETE: {
       SUCCEED: "리뷰 삭제에 성공했습니다.",
+    },
+  },
+  SEARCH: {
+    COMMON: {
+      NOT_FOUND: "메뉴가 존재하지 않습니다.",
     },
   },
 };
