@@ -43,19 +43,30 @@ export class DibsController {
   };
 
   // 사용자가 찜한 가게 목록 조회
-  getUserDibs = async (req, res, next) => {
-    try {
-        const { userId } = req.user;
-        const dibsList = await this.dibsService.getUserDibs(userId);
-        if (dibsList && dibsList.length > 0) {
-          res.status(HTTP_STATUS.OK).json(dibsList);
-        } else {
-          res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Store not found" });
-        }
-      } catch (error) {
-        next(error);
-      }
-    };
+  getUserDibs = async (userId) => {
+    const dibsList = await this.dibsService.findDibsByUser(userId);
+    
+    const result = await Promise.all(dibsList.map(async (dibs) => {
+      
+
+      if (!store) {
+        throw new Error("Store not found in dibs");
+    }
+        return {
+            id: dibs.id,
+            name: store.name,
+            category: store.category,
+            address: store.address,
+            storePictureUrl: store.storePictureUrl,
+            phone: store.phone,
+            content: store.content,
+            createdAt: dibs.createdAt,
+            updatedAt: dibs.updatedAt,
+        };
+    }));
+
+    return result;
+}
 
   // 이번 주 찜이 가장 많은 가게 조회
   getTopDibs = async (req, res, next) => {
