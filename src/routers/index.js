@@ -5,6 +5,7 @@ import { usersRouter } from "./users.router.js";
 import { customerStoresRouter } from "./customer-stores.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { menusRouter } from "./menus.router.js";
+import { dibRouter   }  from "./dibs.router.js";
 import { storesRouter } from "./stores.router.js";
 import { searchRouter } from "./search.router.js";
 import { prisma } from "../utils/prisma.util.js";
@@ -26,5 +27,6 @@ apiRouter.use("/stores", customerStoresRouter); //아직 미구현 삭제 금지
 apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use("/search", searchRouter);
 apiRouter.use("/owners", [storesRouter, menusRouter]);
+apiRouter.use("/dibs", dibRouter);
 
 export { apiRouter };
