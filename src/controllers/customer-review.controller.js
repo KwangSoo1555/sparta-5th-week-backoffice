@@ -10,7 +10,7 @@ export class ReviewsController {
   createReview = async (req, res, next) => {
     try {
       const user = req.user;
-      const userId = user.id;
+      const userId = user.userId;
       const { rating, content, imgUrl } = req.body;
       const storeId = req.params.store_id;
 
@@ -35,8 +35,8 @@ export class ReviewsController {
   // 리뷰 목록 조회
   getReviews = async (req, res, next) => {
     try {
-      //   const user = req.user;
-      //   const userId = user.id;
+      const user = req.user;
+      const userId = user.userId;
       const storeId = req.params.store_id;
 
       let sort = req.query.sort || "rating-desc";
@@ -50,7 +50,7 @@ export class ReviewsController {
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.REVIEWS.READ_LIST.SUCCEED,
-        data,
+        data: data,
       });
     } catch (error) {
       next(error);

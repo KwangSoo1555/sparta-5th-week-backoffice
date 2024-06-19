@@ -7,7 +7,6 @@ import { ReviewsController } from "../controllers/customer-review.controller.js"
 import { StoresRepository } from "../repositories/stores.repository.js";
 import { StoresService } from "../services/stores.service.js";
 
-
 const reviewsRouter = express.Router();
 
 const storesRepository = new StoresRepository(prisma);
@@ -18,12 +17,12 @@ const reviewsService = new ReviewsService(reviewsRepository, storesService);
 const reviewsController = new ReviewsController(reviewsService);
 
 // 리뷰 생성
-reviewsRouter.post("/reviews", reviewsController.createReview);
+reviewsRouter.post("/:store_id", reviewsController.createReview);
 // 리뷰 조회
-reviewsRouter.get("/reviews", reviewsController.getReviews);
+reviewsRouter.get("/:store_id", reviewsController.getReviews);
 // 리뷰 수정
-reviewsRouter.put("/reviews/:id", reviewsController.updateReview);
+reviewsRouter.put("/:store_id/:review_id", reviewsController.updateReview);
 // 리뷰 삭제
-reviewsRouter.delete("/reviews/:id", reviewsController.deleteReview);
+reviewsRouter.delete("/:store_id/:review_id", reviewsController.deleteReview);
 
 export { reviewsRouter };
