@@ -11,9 +11,9 @@ const schema = Joi.object({
   popularity: Joi.number().required().messages({
     "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
   }),
-  imgUrl: Joi.string().required().messages({
-    "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
-  }),
+  // imgUrl: Joi.string().required().messages({
+  //   "any.required": MESSAGES.MENUS.COMMON.POPULALITY.REQUIRED,
+  // }),
 });
 
 export const createMenuValidator = async (req, res, next) => {
