@@ -31,7 +31,11 @@ storesRouter.post("/stores", validateCreateStore, storesController.createStore);
 storesRouter.get("/stores/:store_id", storesController.findStoreById);
 
 // 가게 수정
-storesRouter.patch("/stores/:store_id", validateUpdateStore, storesController.updateStore);
+storesRouter.patch(
+  "/stores/:store_id",
+  validateUpdateStore,
+  storesController.updateStore,
+);
 
 // 가게 삭제
 storesRouter.delete("/stores/:store_id", storesController.deleteStore);
