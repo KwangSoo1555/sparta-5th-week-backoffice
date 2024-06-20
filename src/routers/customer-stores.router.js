@@ -24,7 +24,7 @@ const customerStoresController = new CustomerStoresController(
   customerStoresService,
 );
 
-// 고객 가게 정보 조회 : 기능 추가해야됨!!!
+// 고객 가게 정보 조회
 customerStoresRouter.get("/:store_id", customerStoresController.getStoreInfo);
 // 메뉴 목록 조회
 customerStoresRouter.get("/:store_id/menus", menusController.getMenus);

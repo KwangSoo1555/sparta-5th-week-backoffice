@@ -45,21 +45,21 @@ export class OrdersRepository {
   getOrderDetail = async ({ orderId }) => {
     const orderDetail = await this.prisma.orders.findUnique({
       where: { orderId: +orderId },
-      include: {
-        orderItems: {
-          select: {
-            menuId: true,
-            price: true,
-            quantity: true,
-            menus: {
-              select: {
-                name: true,
-                price: true,
-              },
-            },
-          },
-        },
-      },
+      // include: {
+      //   orderItems: {
+      //     select: {
+      //       menuId: true,
+      //       price: true,
+      //       quantity: true,
+      //       menus: {
+      //         select: {
+      //           name: true,
+      //           price: true,
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
     });
 
     return orderDetail;
@@ -68,7 +68,7 @@ export class OrdersRepository {
   // 주문 상태 변경
   updateOrder = async ({ orderId, status }) => {
     const updatedOrder = await this.prisma.orders.update({
-      where: { orderId },
+      where: { orderId: +orderId },
       data: { status },
     });
 
