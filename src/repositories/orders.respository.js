@@ -2,6 +2,7 @@ export class OrdersRepository {
   constructor(prisma) {
     this.prisma = prisma;
   }
+
   // 주문 생성하기
   createdOrder = async ({
     storeId,

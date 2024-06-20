@@ -87,8 +87,7 @@ export class ReviewsController {
     try {
       const storeId = req.params.store_id;
       const reviewId = req.params.review_id;
-      console.log(reviewId);
-      console.log(typeof reviewId);
+
       const data = await this.reviewsService.deleteReview({
         storeId,
         reviewId,
@@ -97,7 +96,7 @@ export class ReviewsController {
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.REVIEWS.DELETE.SUCCEED,
-        data: { id: data.id },
+        data: data,
       });
     } catch (error) {
       next(error);

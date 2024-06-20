@@ -71,14 +71,19 @@ export class ReviewsService {
   };
 
   // 리뷰 삭제
-  deleteReview = async ({ reviewId }) => {
+  deleteReview = async ({ storeId, reviewId }) => {
     const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
 
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
+    
+    if (existedReview.storeId !== +storeId)
+      throw new HttpError.NotFound("MESSAGES.REVIEWS.COMMON.NOT_FOUND");
 
-    const data = await this.reviewsRepository.deleteReview({ reviewId });
+    await this.reviewsRepository.deleteReview({ reviewId });
+
+    return existedReview;
   };
 }
