@@ -9,7 +9,7 @@ export class CustomerStoresController {
   // 고객 가게 정보 조회
   getStoreInfo = async (req, res, next) => {
     try {
-      const storeId = req.params.store_id;
+      const storeId = +req.params.store_id;
 
       const store = await this.customerStoresService.getStoreInfo(storeId);
 
