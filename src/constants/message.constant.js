@@ -23,11 +23,13 @@ export const MESSAGES = {
       },
       CURRENT_PASSWORD: {
         REQURIED: "현재 비밀번호를 입력해 주세요.",
-        NOT_MACHTED_WITH_PASSWORD: "현재 비밀번호와 기존 비밀번호가 일치하지 않습니다.",
+        NOT_MACHTED_WITH_PASSWORD:
+          "현재 비밀번호와 기존 비밀번호가 일치하지 않습니다.",
       },
       NEW_PASSWORD: {
         REQURIED: "새로운 비밀번호를 입력해 주세요.",
-        NEW_PASSWORD_EQUAL_CURRENT_PASSWORD: "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
+        NEW_PASSWORD_EQUAL_CURRENT_PASSWORD:
+          "현재 비밀번호와 새로운 비밀번호는 같을 수 없습니다.",
       },
       PHONE: {
         BASE: "전화 번호는 문자열입니다.",
@@ -70,8 +72,8 @@ export const MESSAGES = {
       SUCCEED: "로그 아웃에 성공했습니다.",
     },
     REISSUE_TOKEN: {
-      SUCCEED: "토큰 재발급에 성공했습니다."
-    }
+      SUCCEED: "토큰 재발급에 성공했습니다.",
+    },
   },
   USERS: {
     READ_ME: {
@@ -195,7 +197,7 @@ export const MESSAGES = {
       POPULALITY: {
         REQUIRED: "인기을 입력해 주세요.",
       },
-      NOT_FOUND: "이력서가 존재하지 않습니다.",
+      NOT_FOUND: "주문이 존재하지 않습니다.",
     },
     CREATE: {
       SUCCEED: "주문에 성공했습니다.",
