@@ -8,7 +8,7 @@ export class StoresService {
   }
 
   createStore = async (
-    userId, 
+    userId,
     name,
     category,
     address,
@@ -21,7 +21,7 @@ export class StoresService {
     rating,
   ) => {
     const createdStore = await this.storesRepository.createStore(
-      userId, 
+      userId,
       name,
       category,
       address,
@@ -109,6 +109,13 @@ export class StoresService {
 
     if (!isValidOrderStatus)
       throw new HttpError.BadRequest(MESSAGES.ORDERS.UPDATE.INVALID_STATUS);
+
+    const ExistedOrder = await this.ordersRepository.getOrderDetail({
+      orderId,
+    });
+
+    if (!ExistedOrder)
+      throw new HttpError.NotFound(MESSAGES.ORDERS.COMMON.NOT_FOUND);
 
     const updatedOrder = await this.ordersRepository.updateOrder({
       orderId,

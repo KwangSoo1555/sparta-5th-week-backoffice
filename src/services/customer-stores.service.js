@@ -9,7 +9,27 @@ export class CustomerStoresService {
   }
 
   // 고객 가게 정보 조회
-  getStoreInfo = async (storeId) => {};
+  getStoreInfo = async (storeId) => {
+    console.log("service:  ", storeId);
+    const storeInfo = await this.storesRepository.findStoreById(storeId);
+
+    if (!storeInfo)
+      throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
+
+    const data = {
+      name: storeInfo.name,
+      category: storeInfo.category,
+      address: storeInfo.address,
+      storePictureUrl: storeInfo.storePictureUrl,
+      phone: storeInfo.phone,
+      content: storeInfo.content,
+      dibsCount: storeInfo.dibsCount,
+      reviewCount: storeInfo.reviewCount,
+      status: storeInfo.status,
+      rating: storeInfo.rating,
+    };
+    return data;
+  };
 
   // 주문하기
   createOrder = async ({
@@ -46,13 +66,13 @@ export class CustomerStoresService {
       orderItemsWithPrice,
     });
 
-    const createdOrderId = createdOrder.orderId;
-    console.log(createdOrderId);
-    // 주문 상세 조회
-    const order = await this.ordersRepository.getOrderDetail({
-      createdOrderId,
-    });
+    // const createdOrderId = createdOrder.orderId;
+    // console.log(createdOrderId);
+    // // 주문 상세 조회
+    // const order = await this.ordersRepository.getOrderDetail({
+    //   createdOrderId,
+    // });
 
-    return createdOrderId;
+    return createdOrder;
   };
 }
