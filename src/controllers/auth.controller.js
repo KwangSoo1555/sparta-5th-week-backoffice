@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+import { ENV } from "../constants/env.constant.js";
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 import { MESSAGES } from "../constants/message.constant.js";
 import { AUTH_CONSTANT } from "../constants/auth.constant.js";
@@ -12,15 +13,15 @@ export class AuthController {
   // 이메일 인증 controller
   static smtpTransport = nodemailer.createTransport({
     pool: true,
-    maxConnections: process.env.MAIL_MAX_CONNECTION,
-    service: process.env.MAIL_SERVICE,
-    host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
+    maxConnections: ENV.MAIL_MAX_CONNECTION,
+    service: ENV.MAIL_SERVICE,
+    host: ENV.MAIL_HOST,
+    port: ENV.MAIL_PORT,
     secure: false,
     requireTLS: true,
     auth: {
-      user: process.env.MAIL_AUTH_USER,
-      pass: process.env.MAIL_AUTH_PASS,
+      user: ENV.MAIL_AUTH_USER,
+      pass: ENV.MAIL_AUTH_PASS,
     },
     tls: {
       rejectUnauthorized: false,

@@ -19,6 +19,7 @@ model Users {
   email        String     @map("email")
   name         String     @map("name")
   password     String     @map("password")
+  imgUrl       String?    @map("img_url")
   phone        String     @map("phone")
   address      String
   point        Int        @default(1000000)
