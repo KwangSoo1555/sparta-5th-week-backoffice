@@ -62,6 +62,8 @@ export class UsersService {
       userId,
     );
 
+    updatedUser.password = undefined;
+
     return updatedUser;
   };
 }
