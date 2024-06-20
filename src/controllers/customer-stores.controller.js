@@ -6,10 +6,25 @@ export class CustomerStoresController {
     this.customerStoresService = customerStoresService;
   }
 
+  // 가게 목록 조회
+  getOpenStores = async (req, res, next) => {
+    try {
+      const stores = await this.customerStoresService.getOpenStores();
+
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.STORES.COMMON.READ_LIST.SUCCEED,
+        data: stores,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   // 고객 가게 정보 조회
   getStoreInfo = async (req, res, next) => {
     try {
-      const storeId = req.params.store_id;
+      const storeId = +req.params.store_id;
 
       const store = await this.customerStoresService.getStoreInfo(storeId);
 

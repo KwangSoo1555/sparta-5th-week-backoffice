@@ -43,7 +43,7 @@ export class StoresController {
     }
   };
 
-  // 가게 상세조회
+  // 가게 상세 조회
   findStoreById = async (req, res, next) => {
     try {
       const storeId = req.params.store_id;

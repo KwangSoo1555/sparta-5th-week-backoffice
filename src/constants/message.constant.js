@@ -114,6 +114,9 @@ export const MESSAGES = {
       CREATE: {
         SUCCEED: "가게 생성에 성공했습니다.",
       },
+      READ_LIST: {
+        SUCCEED: "가게 목록 조회에 성공했습니다.",
+      },
       READ_DETAIL: {
         SUCCEED: "가게 상세정보 조회에 성공했습니다.",
       },
@@ -231,8 +234,8 @@ export const MESSAGES = {
     LIST: {
       SUCCEED: "찜 목록을 불러왔습니다.",
     },
-    TOP:{
-      SUCCEED: "찜 최고 목록을 불러왔습니다."
+    TOP: {
+      SUCCEED: "찜 최고 목록을 불러왔습니다.",
     },
     DELETE: {
       SUCCEED: "찜을 취소하였습니다.",

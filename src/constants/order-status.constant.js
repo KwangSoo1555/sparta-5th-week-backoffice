@@ -1,5 +1,5 @@
 // constants/order-status.constant.js
-export const ORDER_STATUS = {
+export const ORDERS_STATUS = {
   WAITING: "WAITING",
   PREPARING: "PREPARING",
   DELIVERING: "DELIVERING",

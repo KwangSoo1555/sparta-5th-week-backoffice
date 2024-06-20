@@ -40,7 +40,7 @@ export class MenusController {
 
   postMenus = async (req, res, next) => {
     try {
-      const storeId = req.params.store_id;
+      const storeId = +req.params.store_id;
       const imgUrl = req.file.location;
 
       const { name, price, popularity } = req.body;
@@ -48,9 +48,9 @@ export class MenusController {
       const menus = await this.menusService.postMenus(
         storeId,
         name,
-        price,
+        +price,
         imgUrl,
-        popularity,
+        +popularity,
       );
 
       return res.status(HTTP_STATUS.OK).json({

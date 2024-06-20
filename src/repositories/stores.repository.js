@@ -1,3 +1,5 @@
+import { STORE_STATUS_CONSTANT } from "../constants/store.constant.js";
+
 export class StoresRepository {
   constructor(prisma) {
     // 생성자(Constructor)에서 전달받은 Prisma 클라이언트의 의존성을 주입합니다.
@@ -25,7 +27,7 @@ export class StoresRepository {
         content,
       },
     });
-    
+
     return createdStore;
   };
 
@@ -96,5 +98,14 @@ export class StoresRepository {
     });
 
     return store;
+  };
+
+  // 열려있는 가게 목록 조회
+  getOpenStores = async () => {
+    const openStores = await this.prisma.stores.findMany({
+      where: { status: STORE_STATUS_CONSTANT.OPEN },
+    });
+
+    return openStores;
   };
 }

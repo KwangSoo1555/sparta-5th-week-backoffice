@@ -14,6 +14,13 @@ export class CustomerStoresService {
     this.usersRepository = usersRepository;
   }
 
+  // 고객 가게 목록 조회
+  getOpenStores = async () => {
+    const stores = await this.storesRepository.getOpenStores();
+
+    return stores;
+  };
+
   // 고객 가게 정보 조회
   getStoreInfo = async (storeId) => {
     console.log("service:  ", storeId);
