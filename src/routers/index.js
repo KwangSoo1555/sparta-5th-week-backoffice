@@ -9,6 +9,7 @@ import { menusRouter } from "./menus.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { searchRouter } from "./search.router.js";
 import { dibsRouter } from "./dibs.router.js";
+import { socketRouter } from './socket.router.js';
 
 import { prisma } from "../utils/prisma.util.js";
 import { UsersRepository } from "../repositories/users.repository.js";
@@ -24,6 +25,9 @@ const apiRouter = express.Router();
 
 const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
+
+apiRouter.use("/ownerOrder", socketRouter);
+apiRouter.use("/customerOrder", socketRouter);
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/users", requireAccessToken(authService), uploadImage.single("img"), usersRouter);

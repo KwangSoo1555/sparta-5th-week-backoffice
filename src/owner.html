@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Socket.IO chat</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
+  <style>
+    main { display: flex; flex-direction: column; height: 100dvh; }
+    article { flex-grow: 1; }
+  </style>
+  <script type="module">
+    import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+    const socket = io('http://localhost:3001', {
+  extraHeaders: {
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE4ODczNTU2LCJleHAiOjE3MTg5MTY3NTZ9.2brIiSDoiXYuMs-2fK82veY2wIXbTqmPPv9x6W5oDko'
+  }
+});
+
+    const ul = document.querySelector('ul');
+
+    socket.on('message', (msg) => {
+      const li = document.createElement('li');
+      console.log(msg);
+      li.textContent = msg;
+      ul.appendChild(li);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    const form = document.querySelector('form');
+    const input = document.querySelector('input');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (input.value) {
+        socket.emit('message', input.value);
+        input.value = '';
+      }
+    });
+  </script>
+</head>
+<body>
+  <main class="container">
+    <article>
+      <ul></ul>
+    </article>
+    <form>
+        <fieldset role="group">
+          <input style="height: 100px; width:1000px" placeholder="인증토큰을 입력해주세요"/>
+          <button>배달완료</button>
+        </fieldset>
+      </form>
+  </main>
+</body>
+</html>

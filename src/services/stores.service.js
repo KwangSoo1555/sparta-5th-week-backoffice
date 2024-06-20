@@ -143,7 +143,7 @@ export class StoresService {
         userId,
         totalPrice,
       });
-
+      
       return updatedOrder;
     } else {
       const updatedOrder = await this.ordersRepository.updateOrder({
@@ -152,5 +152,27 @@ export class StoresService {
       });
       return updatedOrder;
     }
+  };
+
+  findStoreByUserId = async (userId) => {
+    const store = await this.storesRepository.findStoreByUserId2(userId);
+
+    if (!store) throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
+
+    const data = {
+      name: store.name,
+      category: store.category,
+      address: store.address,
+      storePictureUrl: store.storePictureUrl,
+      phone: store.phone,
+      content: store.content,
+      dibsCount: store.dibsCount,
+      reviewCount: store.reviewCount,
+      createdAt: store.createdAt,
+      updatedAt: store.updatedAt,
+      status: store.status,
+      rating: store.rating,
+    };
+    return data;
   };
 }

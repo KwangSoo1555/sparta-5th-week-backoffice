@@ -150,4 +150,25 @@ export class StoresController {
       next(error);
     }
   };
+
+  findStoreByUserId = async (req, res) => {
+    try {
+      const storeId = req.body.userId;
+      const store = await this.storesService.findStoreByUserId(storeId);
+      if (store) {
+        res.status(HTTP_STATUS.OK).json({
+          status: HTTP_STATUS.OK,
+          message: MESSAGES.STORES.COMMON.READ_DETAIL,
+          data: store,
+        });
+      } else {
+        res.status(HTTP_STATUS.NOT_FOUND).json({
+          status: HTTP_STATUS.NOT_FOUND,
+          message: MESSAGES.STORES.COMMON.NOT_FOUND,
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
 }
