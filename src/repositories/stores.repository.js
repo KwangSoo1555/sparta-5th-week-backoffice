@@ -16,7 +16,7 @@ export class StoresRepository {
   ) => {
     const createdStore = await this.prisma.stores.create({
       data: {
-        userId, 
+        userId,
         name,
         category,
         address,
@@ -32,6 +32,15 @@ export class StoresRepository {
   findStoreById = async (storeId) => {
     const store = await this.prisma.stores.findFirst({
       where: { storeId: +storeId },
+    });
+
+    return store;
+  };
+
+  // 유저 ID로
+  findStoreByUserId2 = async (userId) => {
+    const store = await this.prisma.stores.findUnique({
+      where: { userId: +userId },
     });
 
     return store;
