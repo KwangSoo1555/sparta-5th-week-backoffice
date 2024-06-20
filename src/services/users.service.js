@@ -16,16 +16,17 @@ export class UsersService {
       if (!currentPassword)
         throw new HttpError.BadRequest(MESSAGES.AUTH.COMMON.PASSWORD.REQURIED);
 
-      const match = await bcrypt.compare(currentPassword, existedUser.password);
+      const match = bcrypt.compare(currentPassword, existedUser.password);
 
       if (!match)
         throw new HttpError.Unauthorized(MESSAGES.AUTH.COMMON.CURRENT_PASSWORD.NOT_MACHTED_WITH_PASSWORD);
 
       if (newPassword === currentPassword)
         throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.NEW_PASSWORD.NEW_PASSWORD_EQUAL_CURRENT_PASSWORD);
-
-      existedUser.password = bcrypt.hashSync(newPassword, AUTH_CONSTANT.HASH_SALT_ROUNDS);
     }
+
+    const hashedNewPassword = bcrypt.hashSync(newPassword, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+    console.log(hashedNewPassword)
 
     if (email) {
       if (email === existedUser.email)
@@ -41,8 +42,8 @@ export class UsersService {
       userId,
       email,
       name,
-      currentPassword, 
-      existedUser.password,
+      existedUser.password, 
+      hashedNewPassword, 
       phone,
       address,
     );

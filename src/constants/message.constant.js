@@ -5,13 +5,13 @@ export const MESSAGES = {
     COMMON: {
       NAME: {
         REQURIED: "이름을 입력해 주세요.",
-        DUPLICATED: "이미 가입 된 사용자입니다.",
+        DUPLICATED: "이미 존재 하는 사용자입니다.",
       },
       EMAIL: {
         BASE: "이메일은 문자열입니다.",
         REQUIRED: "이메일을 입력해 주세요.",
         INVALID_FORMAT: "이메일 형식이 올바르지 않습니다.",
-        DUPLICATED: "이미 가입 된 사용자입니다.",
+        DUPLICATED: "이미 존재 하는 사용자입니다.",
       },
       PASSWORD: {
         REQURIED: "비밀번호를 입력해 주세요.",

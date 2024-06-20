@@ -33,6 +33,13 @@ export class AuthController {
       const verificationCode = EmailVerification.codeIssue();
       const timestamp = Date.now();
 
+      if (!email) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+          status: HTTP_STATUS.BAD_REQUEST,
+          message: MESSAGES.AUTH.COMMON.EMAIL.REQUIRED,
+        });
+      }
+
       EmailVerification.codes[email] = {
         code: verificationCode,
         timestamp,
@@ -140,11 +147,11 @@ export class AuthController {
         status: HTTP_STATUS.OK,
         message: MESSAGES.AUTH.SIGN_OUT.SUCCEED,
         data: {
-          tokenId: signOutUser.tokenId, 
-          userId: signOutUser.userId, 
-          refreshToken: signOutUser.refreshToken, 
-          ip: signOutUser.ip, 
-          userAgent: signOutUser.userAgent, 
+          tokenId: signOutUser.tokenId,
+          userId: signOutUser.userId,
+          refreshToken: signOutUser.refreshToken,
+          ip: signOutUser.ip,
+          userAgent: signOutUser.userAgent,
         },
       });
     } catch (error) {
