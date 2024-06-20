@@ -2,7 +2,7 @@ import Joi from "joi";
 import { MESSAGES } from "../../constants/message.constant.js";
 
 const schema = Joi.object({
-  rating: Joi.number().required().messages({
+  rating: Joi.number().min(0).max(5).required().messages({
     "any.required": MESSAGES.REVIEWS.COMMON.RATING.REQUIRED,
   }),
   content: Joi.string().required().messages({

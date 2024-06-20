@@ -13,10 +13,6 @@ export class StoresRepository {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const createdStore = await this.prisma.stores.create({
       data: {
@@ -27,10 +23,6 @@ export class StoresRepository {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       },
     });
 
@@ -54,10 +46,6 @@ export class StoresRepository {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const updatedStore = await this.prisma.stores.update({
       where: { storeId: +storeId },
@@ -68,10 +56,6 @@ export class StoresRepository {
         ...(storePictureUrl && { storePictureUrl }),
         ...(phone && { phone }),
         ...(content && { content }),
-        ...(dibsCount && { dibsCount }),
-        ...(reviewCount && { reviewCount }),
-        ...(status && { status }),
-        ...(rating && { rating }),
       },
     });
 

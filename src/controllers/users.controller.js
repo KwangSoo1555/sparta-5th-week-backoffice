@@ -70,7 +70,7 @@ export class UsersController {
     try {
       const userId = req.user.userId;
 
-      const updatedUserInfo = await this.usersService.updateUserInfo(
+      const updatedUserInfo = await this.usersService.updateUserPermission(
         userId,
       );
 
