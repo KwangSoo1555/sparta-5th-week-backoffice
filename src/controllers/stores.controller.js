@@ -18,10 +18,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       } = req.body;
 
       const createdStore = await this.storesService.createStore(
@@ -32,10 +28,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       );
 
       return res.status(HTTP_STATUS.CREATED).json({
@@ -83,10 +75,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       } = req.body;
 
       const updatedStore = await this.storesService.updateStore(
@@ -98,10 +86,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       );
 
       return res.status(HTTP_STATUS.UPDATED).json({
