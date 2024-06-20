@@ -60,6 +60,7 @@ export class StoresService {
   };
 
   updateStore = async (
+    userId,
     storeId,
     name,
     category,
@@ -75,6 +76,10 @@ export class StoresService {
     const existedStore = await this.storesRepository.findStoreById(storeId);
     if (!existedStore)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
+
+    const ownerCheck = await this.storesRepository.findStoreByUserId(storeId,userId);
+    if (!ownerCheck)
+      throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);
 
     const updatedStore = await this.storesRepository.updateStore(
       storeId,
@@ -94,10 +99,14 @@ export class StoresService {
   };
 
   deleteStore = async (storeId) => {
-    let existedStore = await this.storesRepository.findStoreById(storeId);
+    let existedStore = await this.storesRepository.findStoreById(storeId,userId);
 
     if (!existedStore)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
+
+    const ownerCheck = await this.storesRepository.findStoreByUserId(storeId,userId);
+    if (!ownerCheck)
+      throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);
 
     const deletedStore = await this.storesRepository.deleteStore(storeId);
 

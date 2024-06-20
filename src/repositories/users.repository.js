@@ -71,4 +71,15 @@ export class UsersRepository {
 
     return updatedUser;
   };
+
+  updateUserPermission = async (userId) => {
+    const updatedUser = await this.prisma.users.update({
+      where: { userId: +userId },
+      data: {
+        role : OWNER,
+      },
+    });
+
+    return updatedUser;
+  };
 }

@@ -65,4 +65,22 @@ export class UsersController {
       next(error);
     }
   };
+
+  updateUserPermission = async (req, res, next) => {
+    try {
+      const userId = req.user.userId;
+
+      const updatedUserInfo = await this.usersService.updateUserInfo(
+        userId,
+      );
+
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.USERS.UPDATE_ME.SUCCEED,
+        data: updatedUserInfo,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

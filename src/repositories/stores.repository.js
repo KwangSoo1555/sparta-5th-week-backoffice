@@ -39,7 +39,7 @@ export class StoresRepository {
 
   findStoreById = async (storeId) => {
     const store = await this.prisma.stores.findFirst({
-      where: { storeId: storeId },
+      where: { storeId: +storeId },
     });
 
     return store;
@@ -94,4 +94,14 @@ export class StoresRepository {
       where: params,
     })
   }
+
+  findStoreByUserId = async (storeId,userId) => {
+    const store = await this.prisma.stores.findFirst({
+      where: { 
+        storeId : +storeId,
+        userId: +userId },
+    });
+
+    return store;
+  };
 }
