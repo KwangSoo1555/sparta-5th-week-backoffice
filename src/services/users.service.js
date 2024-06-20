@@ -23,10 +23,9 @@ export class UsersService {
 
       if (newPassword === currentPassword)
         throw new HttpError.Conflict(MESSAGES.AUTH.COMMON.NEW_PASSWORD.NEW_PASSWORD_EQUAL_CURRENT_PASSWORD);
-    }
 
-    const hashedNewPassword = bcrypt.hashSync(newPassword, AUTH_CONSTANT.HASH_SALT_ROUNDS);
-    console.log(hashedNewPassword)
+      existedUser.password = bcrypt.hashSync(newPassword, AUTH_CONSTANT.HASH_SALT_ROUNDS);
+    }
 
     if (email) {
       if (email === existedUser.email)
@@ -43,7 +42,7 @@ export class UsersService {
       email,
       name,
       existedUser.password, 
-      hashedNewPassword, 
+      newPassword, 
       phone,
       address,
     );
