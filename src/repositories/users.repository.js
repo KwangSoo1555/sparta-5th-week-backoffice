@@ -85,7 +85,7 @@ export class UsersRepository {
     const updatedUser = await this.prisma.users.update({
       where: { userId: +userId },
       data: {
-        role: OWNER,
+        role : "OWNER",
       },
     });
 
@@ -106,7 +106,11 @@ export class UsersRepository {
   updateUserPoint = async (userId, newPoint) => {
     await this.prisma.users.update({
       where: { userId: +userId },
-      data: { point: +newPoint },
+      data: {
+        point: {
+          increment: newPoint,
+        },
+      },
     });
   };
 }

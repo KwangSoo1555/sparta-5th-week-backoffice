@@ -4,8 +4,10 @@ export class ReviewsRepository {
   }
 
   // 리뷰 생성
-  createReview = async ({ storeId, userId, rating, content, imgUrl }) => {
-    const data = await this.prisma.reviews.create({
+  createReview = async ({ storeId, userId, rating, content, imgUrl, storeRating, storeReviewCount }) => {
+    const data = await this.prisma.$transaction([
+
+    this.prisma.reviews.create({
       data: {
         storeId: +storeId,
         userId,
@@ -13,7 +15,17 @@ export class ReviewsRepository {
         content,
         imgUrl,
       },
-    });
+    }),
+
+    this.prisma.stores.update({
+      where: { storeId: +storeId },
+      data: {
+        rating : +storeRating,
+        reviewCount : +storeReviewCount,
+      },
+    })
+
+    ]);
 
     return data;
   };

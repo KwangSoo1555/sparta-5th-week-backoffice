@@ -15,10 +15,6 @@ export class StoresService {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const createdStore = await this.storesRepository.createStore(
       userId,
@@ -28,10 +24,6 @@ export class StoresService {
       storePictureUrl,
       phone,
       content,
-      dibsCount,
-      reviewCount,
-      status,
-      rating,
     );
 
     return createdStore;
@@ -68,16 +60,15 @@ export class StoresService {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const existedStore = await this.storesRepository.findStoreById(storeId);
     if (!existedStore)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
 
-    const ownerCheck = await this.storesRepository.findStoreByUserId(storeId,userId);
+    const ownerCheck = await this.storesRepository.findStoreByUserId(
+      storeId,
+      userId,
+    );
     if (!ownerCheck)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);
 
@@ -89,22 +80,24 @@ export class StoresService {
       storePictureUrl,
       phone,
       content,
-      dibsCount,
-      reviewCount,
-      status,
-      rating,
     );
 
     return updatedStore;
   };
 
   deleteStore = async (storeId) => {
-    let existedStore = await this.storesRepository.findStoreById(storeId,userId);
+    let existedStore = await this.storesRepository.findStoreById(
+      storeId,
+      userId,
+    );
 
     if (!existedStore)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.NOT_FOUND);
 
-    const ownerCheck = await this.storesRepository.findStoreByUserId(storeId,userId);
+    const ownerCheck = await this.storesRepository.findStoreByUserId(
+      storeId,
+      userId,
+    );
     if (!ownerCheck)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);
 
@@ -113,24 +106,42 @@ export class StoresService {
     return deletedStore;
   };
 
-  updateOrderStatus = async ({ orderId, status }) => {
+  updateOrderStatus = async ({ userId, orderId, status }) => {
     const isValidOrderStatus = Object.values(Order_Status).includes(status);
 
+    // 주문 상태가 유효한지 확인
     if (!isValidOrderStatus)
       throw new HttpError.BadRequest(MESSAGES.ORDERS.UPDATE.INVALID_STATUS);
 
-    const ExistedOrder = await this.ordersRepository.getOrderDetail({
+    const existedOrder = await this.ordersRepository.getOrderDetail({
       orderId,
     });
 
-    if (!ExistedOrder)
+    // 주문이 존재하는지 확인
+    if (!existedOrder)
       throw new HttpError.NotFound(MESSAGES.ORDERS.COMMON.NOT_FOUND);
 
-    const updatedOrder = await this.ordersRepository.updateOrder({
-      orderId,
-      status,
-    });
+    // 완성 상태이면사장한테 돈주기
+    if (status === Order_Status.COMPLETE) {
+      // 주문 정보로 totalPrice
+      const totalPrice = existedOrder.totalPrice;
 
-    return updatedOrder;
+      // 트랜잭션 걸린 주문 상태변경을 실행하고
+      const updatedOrder = await this.ordersRepository.updateCompletedOrder({
+        orderId,
+        status,
+        userId,
+        totalPrice,
+      });
+
+      return updatedOrder;
+    } else {
+      // 완성 상태 변경하기
+      const updatedOrder = await this.ordersRepository.updateOrder({
+        orderId,
+        status,
+      });
+      return updatedOrder;
+    }
   };
 }

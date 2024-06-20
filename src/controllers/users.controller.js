@@ -57,7 +57,9 @@ export class UsersController {
     try {
       const userId = req.user.userId;
 
-      const updatedUserInfo = await this.usersService.updateUserInfo(userId);
+      const updatedUserInfo = await this.usersService.updateUserPermission(
+        userId,
+      );
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,

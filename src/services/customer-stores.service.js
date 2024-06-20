@@ -85,7 +85,7 @@ export class CustomerStoresService {
     });
 
     // 사용자 포인트 변경
-    await this.usersRepository.updateUserPoint(userId, userPoint - totalPrice);
+    await this.usersRepository.updateUserPoint(userId, -totalPrice);
 
     // const createdOrderId = createdOrder.orderId;
     // console.log(createdOrderId);

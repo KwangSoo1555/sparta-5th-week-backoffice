@@ -13,7 +13,7 @@ export class SearchController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.MENUS.READ_LIST.SUCCEED,
+        message: MESSAGES.SEARCH.COMMON.SUCCEED,
         data: searches,
       });
     } catch (error) {
@@ -29,7 +29,7 @@ export class SearchController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.MENUS.READ_DETAIL.SUCCEED,
+        message: MESSAGES.SEARCH.COMMON.SUCCEED,
         data: searches,
       });
     } catch (error) {
@@ -45,7 +45,7 @@ export class SearchController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.MENUS.READ_DETAIL.SUCCEED,
+        message: MESSAGES.SEARCH.COMMON.SUCCEED,
         data: searches,
       });
     } catch (error) {
@@ -61,7 +61,7 @@ export class SearchController {
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
-        message: MESSAGES.MENUS.READ_DETAIL.SUCCEED,
+        message: MESSAGES.SEARCH.COMMON.SUCCEED,
         data: searches,
       });
     } catch (error) {

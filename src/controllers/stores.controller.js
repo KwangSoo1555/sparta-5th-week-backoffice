@@ -17,10 +17,6 @@ export class StoresController {
         address,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       } = req.body;
 
       const storePictureUrl = req.file.location;
@@ -41,10 +37,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       );
 
       return res.status(HTTP_STATUS.CREATED).json({
@@ -92,10 +84,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       } = req.body;
 
       const updatedStore = await this.storesService.updateStore(
@@ -107,10 +95,6 @@ export class StoresController {
         storePictureUrl,
         phone,
         content,
-        dibsCount,
-        reviewCount,
-        status,
-        rating,
       );
 
       return res.status(HTTP_STATUS.UPDATED).json({
@@ -141,10 +125,12 @@ export class StoresController {
   // 주문 상태 수정
   updateOrderStatus = async (req, res, next) => {
     try {
+      const userId = req.user.userId;
       const orderId = req.params.order_id;
       const { status } = req.body;
 
       const updatedOrder = await this.storesService.updateOrderStatus({
+        userId,
         orderId,
         status,
       });

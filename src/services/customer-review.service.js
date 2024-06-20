@@ -2,19 +2,32 @@ import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
 
 export class ReviewsService {
-  constructor(reviewsRepository) {
+  constructor(reviewsRepository, storesService) {
     this.reviewsRepository = reviewsRepository;
+    this.storesService = storesService;
   }
 
   // 리뷰 생성
   createReview = async ({ storeId, userId, rating, content, imgUrl }) => {
+    const storeInfo = await this.storesService.findStoreById(
+      storeId
+    )
+
+    
+    const storeRating = ((storeInfo.rating * storeInfo.reviewCount) + rating ) / (storeInfo.reviewCount + 1);
+    const storeReviewCount = storeInfo.reviewCount + 1;
+    
+
     const createdReview = await this.reviewsRepository.createReview({
       storeId,
       userId,
       rating,
       content,
       imgUrl,
+      storeRating,
+      storeReviewCount,
     });
+
 
     return createdReview;
   };
@@ -59,14 +72,13 @@ export class ReviewsService {
 
   // 리뷰 삭제
   deleteReview = async ({ storeId, reviewId }) => {
-    console.log("\n\n" + storeId + "\n\n" + reviewId + "\n\n");
     const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
 
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
-
+    
     if (existedReview.storeId !== +storeId)
       throw new HttpError.NotFound("MESSAGES.REVIEWS.COMMON.NOT_FOUND");
 
