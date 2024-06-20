@@ -25,7 +25,7 @@ export class StoresController {
       } = req.body;
 
       const createdStore = await this.storesService.createStore(
-        userId, 
+        userId,
         name,
         category,
         address,
@@ -119,7 +119,7 @@ export class StoresController {
     try {
       const storeId = req.params.store_id;
       const userId = req.user.userId;
-      await this.storesService.deleteStore(storeId,userId);
+      await this.storesService.deleteStore(storeId, userId);
       return res.status(HTTP_STATUS.DELETED).json({
         status: HTTP_STATUS.DELETED,
         message: MESSAGES.STORES.COMMON.DELETE,
@@ -132,10 +132,12 @@ export class StoresController {
   // 주문 상태 수정
   updateOrderStatus = async (req, res, next) => {
     try {
+      const userId = req.user.userId;
       const orderId = req.params.order_id;
       const { status } = req.body;
 
       const updatedOrder = await this.storesService.updateOrderStatus({
+        userId,
         orderId,
         status,
       });

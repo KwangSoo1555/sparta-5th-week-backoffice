@@ -46,21 +46,9 @@ export class OrdersRepository {
   getOrderDetail = async ({ orderId }) => {
     const orderDetail = await this.prisma.orders.findUnique({
       where: { orderId: +orderId },
-      // include: {
-      //   orderItems: {
-      //     select: {
-      //       menuId: true,
-      //       price: true,
-      //       quantity: true,
-      //       menus: {
-      //         select: {
-      //           name: true,
-      //           price: true,
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
+      include: {
+        stores: true,
+      },
     });
 
     return orderDetail;
@@ -74,5 +62,29 @@ export class OrdersRepository {
     });
 
     return updatedOrder;
+  };
+
+  updateCompletedOrder = async ({ orderId, status, userId, point }) => {
+    const result = await this.prisma.$transaction(async (tx) => {
+      // 주문 상태 업데이트
+      const updatedOrder = await tx.orders.update({
+        where: { orderId: +orderId },
+        data: { status },
+      });
+
+      // 사장 포인트 업데이트
+      const updatedUser = await tx.users.update({
+        where: { userId: +userId },
+        data: {
+          point: {
+            increment: point,
+          },
+        },
+      });
+
+      return updatedOrder;
+    });
+
+    return result;
   };
 }
