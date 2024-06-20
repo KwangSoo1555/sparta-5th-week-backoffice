@@ -82,22 +82,22 @@ export class DibsService {
     return dibsList;
   };
 
-  async getTopDibs(){
-    const topDibbedStores = await this.dibsRepository.findTopDibbedStores();
+  // async getTopDibs(){
+  //   const topDibbedStores = await this.dibsRepository.findTopDibbedStores();
 
-    if (!topDibbedStores.length) {
-      throw new HttpError.NotFound("No top dibbed stores found");
-    }
+  //   if (!topDibbedStores.length) {
+  //     throw new HttpError.NotFound("No top dibbed stores found");
+  //   }
 
-    return topDibbedStores.map(store => ({
-      userId: store.user.name,
-      title: store.name,
-      content: store.content,
-      createdAt: store.createdAt,
-      dibsCount: store._count.dibs,
-      dibs: store.dibs, // Include all related dibs entries
-    }));
-  }
+  //   return topDibbedStores.map(store => ({
+  //     userId: store.user.name,
+  //     title: store.name,
+  //     content: store.content,
+  //     createdAt: store.createdAt,
+  //     dibsCount: store._count.dibs,
+  //     dibs: store.dibs, // Include all related dibs entries
+  //   }));
+  // }
 }
 
 
