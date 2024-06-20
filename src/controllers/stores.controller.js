@@ -74,6 +74,7 @@ export class StoresController {
   updateStore = async (req, res, next) => {
     try {
       const storeId = req.params.store_id;
+      const userId = req.user.userId;
 
       const {
         name,
@@ -89,6 +90,7 @@ export class StoresController {
       } = req.body;
 
       const updatedStore = await this.storesService.updateStore(
+        userId,
         storeId,
         name,
         category,
@@ -116,7 +118,8 @@ export class StoresController {
   deleteStore = async (req, res, next) => {
     try {
       const storeId = req.params.store_id;
-      await this.storesService.deleteStore(storeId);
+      const userId = req.user.userId;
+      await this.storesService.deleteStore(storeId,userId);
       return res.status(HTTP_STATUS.DELETED).json({
         status: HTTP_STATUS.DELETED,
         message: MESSAGES.STORES.COMMON.DELETE,

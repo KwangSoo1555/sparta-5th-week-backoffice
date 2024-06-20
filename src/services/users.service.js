@@ -51,4 +51,17 @@ export class UsersService {
 
     return updatedUser;
   };
+
+
+  updateUserPermission = async (userId) => {
+    const existedUser = await this.usersRepository.checkAuthUser({ userId });
+    if (!existedUser)
+      throw new HttpError.NotFound(MESSAGES.USERS.COMMON.NOT_FOUND);
+
+    const updatedUser = await this.usersRepository.updateUserPermission(
+      userId,
+    );
+
+    return updatedUser;
+  };
 }

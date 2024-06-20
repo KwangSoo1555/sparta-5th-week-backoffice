@@ -1,17 +1,16 @@
 import { HTTP_STATUS } from "../constants/http-status.constant.js";
 import { MESSAGES } from "../constants/message.constant.js";
-import { StoresService } from "../services/stores.service.js";
-import { CustomerStoresService } from "../services/customer-stores.service.js";
 
 export class CustomerStoresController {
-  customerStoresService = new CustomerStoresService();
-  storesService = new StoresService();
+  constructor(customerStoresService) {
+    this.customerStoresService = customerStoresService;
+  }
 
   // 고객 가게 정보 조회
   getStoreInfo = async (req, res, next) => {
     try {
       const storeId = req.params.store_Id;
-      const store = await customerStoresService.getStoreInfo(storeId);
+      const store = await this.customerStoresService.getStoreInfo(storeId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
@@ -30,7 +29,7 @@ export class CustomerStoresController {
       const storeId = req.params.store_id;
       const { paymentMethod, requests, orderItems } = req.body;
 
-      const createdOrder = await customerStoresService.createOrder({
+      const createdOrder = await this.customerStoresService.createOrder({
         storeId,
         userId,
         paymentMethod,
