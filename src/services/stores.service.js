@@ -15,10 +15,6 @@ export class StoresService {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const createdStore = await this.storesRepository.createStore(
       userId,
@@ -28,10 +24,6 @@ export class StoresService {
       storePictureUrl,
       phone,
       content,
-      dibsCount,
-      reviewCount,
-      status,
-      rating,
     );
 
     return createdStore;
@@ -68,10 +60,6 @@ export class StoresService {
     storePictureUrl,
     phone,
     content,
-    dibsCount,
-    reviewCount,
-    status,
-    rating,
   ) => {
     const existedStore = await this.storesRepository.findStoreById(storeId);
     if (!existedStore)
@@ -89,10 +77,6 @@ export class StoresService {
       storePictureUrl,
       phone,
       content,
-      dibsCount,
-      reviewCount,
-      status,
-      rating,
     );
 
     return updatedStore;

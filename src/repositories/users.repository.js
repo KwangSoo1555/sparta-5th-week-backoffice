@@ -76,7 +76,7 @@ export class UsersRepository {
     const updatedUser = await this.prisma.users.update({
       where: { userId: +userId },
       data: {
-        role : OWNER,
+        role : "OWNER",
       },
     });
 
