@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { MESSAGES } from "../constants/message.constant.js";
+
 import { ENV } from "../constants/env.constant.js";
 import { AUTH_CONSTANT } from "../constants/auth.constant.js";
 import { HttpError } from "../errors/http.error.js";
+import { MESSAGES } from "../constants/message.constant.js";
 
 export class RefreshTokenService {
   constructor(refreshTokenRepository) {

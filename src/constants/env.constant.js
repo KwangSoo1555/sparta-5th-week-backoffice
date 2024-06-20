@@ -21,4 +21,9 @@ export const ENV = {
   AWS_S3_ACCESS_KEY: process.env.AWS_S3_ACCESS_KEY,
   AWS_S3_SECRET_KEY: process.env.AWS_S3_SECRET_KEY,
   AWS_BUCKET: process.env.AWS_BUCKET,
+
+  // passport naver 로그인 관련
+  NAVER_CLIENT_ID: process.env.NAVER_CLIENT_ID,
+  NAVER_CLIENT_SECRET: process.env.NAVER_CLIENT_SECRET,
+  NAVER_CALLBACK_URL: process.env.NAVER_CALLBACK_URL,
 };
