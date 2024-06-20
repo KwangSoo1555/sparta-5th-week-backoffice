@@ -9,6 +9,7 @@ import { menusRouter } from "./menus.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { searchRouter } from "./search.router.js";
 import { dibsRouter } from "./dibs.router.js";
+import { passPortRouter } from "./passport.router.js"
 
 import { prisma } from "../utils/prisma.util.js";
 import { UsersRepository } from "../repositories/users.repository.js";
@@ -36,5 +37,6 @@ apiRouter.use("/owners",
   [storesRouter, menusRouter]
 );
 apiRouter.use("/dibs", requireAccessToken(authService), dibsRouter);
+apiRouter.use("/passport", passPortRouter)
 
 export { apiRouter };

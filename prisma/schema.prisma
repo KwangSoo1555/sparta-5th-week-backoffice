@@ -25,6 +25,8 @@ model Users {
   point        Int        @default(1000000)
   grade        Grade_Type @default(A)
   role         Role       @default(CUSTOMER)
+  socialId     String?    @map("social_id")
+  provider     Provider_Type @default(LOCAL)
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
   isDeleted    Boolean    @default(false) @map("is_deleted")
@@ -51,6 +53,11 @@ enum Grade_Type {
   B //   귀한분
   C //   더귀한분
   D //   천생연분
+}
+
+enum Provider_Type {
+  LOCAL
+  NAVER
 }
 
 model RefreshToken {

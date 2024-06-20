@@ -11,7 +11,6 @@ export const USERS_CONSTANT = {
   },
   PROVIDER: {
     LOCAL: "LOCAL",
-    KAKAO: "KAKAO",
     NAVER: "NAVER",
   },
 };

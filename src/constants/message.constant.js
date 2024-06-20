@@ -74,6 +74,14 @@ export const MESSAGES = {
     REISSUE_TOKEN: {
       SUCCEED: "토큰 재발급에 성공했습니다.",
     },
+    PASSPORT: {
+      COMMON: {
+        FAIL: '소셜 로그인에 실패했습니다.',
+      },
+      NAVER: {
+        SUCCEED: '네이버 로그인에 성공했습니다.',
+      },
+    },
   },
   USERS: {
     READ_ME: {
