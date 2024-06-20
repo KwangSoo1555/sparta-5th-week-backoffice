@@ -107,8 +107,8 @@ export class StoresService {
   };
 
   // 사장님 주문 목록 조회
-  getOrders = async ({ userId }) => {
-    const store = await this.storesRepository.findStoreByUserId(userId);
+  getOrders = async (userId) => {
+    const store = await this.storesRepository.findStoreByUserId2(userId);
 
     if (!store)
       throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);

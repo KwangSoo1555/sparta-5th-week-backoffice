@@ -38,8 +38,8 @@ export class StoresRepository {
   };
 
   // 유저 ID로
-  findStoreByUserId = async (userId) => {
-    const store = await this.prisma.stores.findFirst({
+  findStoreByUserId2 = async (userId) => {
+    const store = await this.prisma.stores.findUnique({
       where: { userId: +userId },
     });
 

@@ -104,9 +104,10 @@ export class StoresController {
   // 주문 목록 조회
   getOrders = async (req, res, next) => {
     try {
-      const userId = req.user.userId;
+      const user = req.user;
+      const userId = user.userId;
 
-      const orders = await this.storesService.getOrders({ userId });
+      const orders = await this.storesService.getOrders(userId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
