@@ -1,15 +1,15 @@
 import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
-import { OrdersRepository } from "../repositories/orders.respository.js";
-import { StoresRepository } from "../repositories/stores.repository.js";
-import { MenusRepository } from "../repositories/menus.repository.js";
 
 export class CustomerStoresService {
-  ordersRepository = new OrdersRepository();
-  storesRepository = new StoresRepository();
-  menusRepository = new MenusRepository();
+  constructor(ordersRepository, storesRepository, menusRepository) {
+    this.ordersRepository = ordersRepository;
+    this.storesRepository = storesRepository;
+    this.menusRepository = menusRepository;
+  }
+
   // 고객 가게 정보 조회
-  getStoreInfo = async () => {};
+  getStoreInfo = async (storeId) => {};
 
   // 주문하기
   createOrder = async ({
@@ -27,7 +27,8 @@ export class CustomerStoresService {
           item.menuId,
         );
 
-        if (!menu) throw new HttpError(MESSAGES.MENUS.COMMON.NOT_FOUND);
+        if (!menu)
+          throw new HttpError.NotFound(MESSAGES.MENUS.COMMON.NOT_FOUND);
 
         return {
           menuId: item.menuId,
@@ -36,8 +37,8 @@ export class CustomerStoresService {
         };
       }),
     );
-
-    const order = await this.ordersRepository.createOrder({
+    // 주문 생성
+    const createdOrder = await this.ordersRepository.createdOrder({
       storeId,
       userId,
       paymentMethod,
@@ -45,6 +46,13 @@ export class CustomerStoresService {
       orderItemsWithPrice,
     });
 
-    return order;
+    const createdOrderId = createdOrder.orderId;
+    console.log(createdOrderId);
+    // 주문 상세 조회
+    const order = await this.ordersRepository.getOrderDetail({
+      createdOrderId,
+    });
+
+    return createdOrderId;
   };
 }

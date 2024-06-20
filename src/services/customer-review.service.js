@@ -9,7 +9,6 @@ export class ReviewsService {
   // 리뷰 생성
   createReview = async ({ storeId, userId, rating, content, imgUrl }) => {
     const createdReview = await this.reviewsRepository.createReview({
-      reviewId,
       storeId,
       userId,
       rating,
@@ -59,7 +58,7 @@ export class ReviewsService {
   };
 
   // 리뷰 삭제
-  deleteReview = async ({ reviewId }) => {
+  deleteReview = async ({ storeId, reviewId }) => {
     const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
@@ -67,6 +66,11 @@ export class ReviewsService {
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
 
-    const data = await this.reviewsRepository.deleteReview({ reviewId });
+    if (existedReview.storeId !== storeId)
+      throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
+
+    await this.reviewsRepository.deleteReview({ reviewId });
+
+    return existedReview;
   };
 }
