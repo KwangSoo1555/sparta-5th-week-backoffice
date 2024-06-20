@@ -106,10 +106,24 @@ export class StoresService {
     return deletedStore;
   };
 
+  // 사장님 주문 목록 조회
+  getOrders = async (userId) => {
+    const store = await this.storesRepository.findStoreByUserId2(userId);
+
+    if (!store)
+      throw new HttpError.NotFound(MESSAGES.STORES.COMMON.OWNER_NOT_FOUND);
+
+    const storeId = store.storeId;
+
+    const orders = await this.ordersRepository.getOrders({ storeId });
+
+    return orders;
+  };
+
+  // 사장님 주문 상태 변경
   updateOrderStatus = async ({ userId, orderId, status }) => {
     const isValidOrderStatus = Object.values(Order_Status).includes(status);
 
-    // 주문 상태가 유효한지 확인
     if (!isValidOrderStatus)
       throw new HttpError.BadRequest(MESSAGES.ORDERS.UPDATE.INVALID_STATUS);
 
@@ -117,16 +131,12 @@ export class StoresService {
       orderId,
     });
 
-    // 주문이 존재하는지 확인
     if (!existedOrder)
       throw new HttpError.NotFound(MESSAGES.ORDERS.COMMON.NOT_FOUND);
 
-    // 완성 상태이면사장한테 돈주기
     if (status === Order_Status.COMPLETE) {
-      // 주문 정보로 totalPrice
       const totalPrice = existedOrder.totalPrice;
 
-      // 트랜잭션 걸린 주문 상태변경을 실행하고
       const updatedOrder = await this.ordersRepository.updateCompletedOrder({
         orderId,
         status,
@@ -136,7 +146,6 @@ export class StoresService {
 
       return updatedOrder;
     } else {
-      // 완성 상태 변경하기
       const updatedOrder = await this.ordersRepository.updateOrder({
         orderId,
         status,
