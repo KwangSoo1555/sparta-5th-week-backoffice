@@ -3,6 +3,13 @@ export class DibsRepository {
     this.prisma = prisma;
   }
 
+  findStoreById = async (storeId) => {
+    return await this.prisma.stores.findUnique({
+      where: { storeId: +storeId },
+      include: { User: true },
+    });
+  };
+
   findDibsByUserAndStore = async (userId, storeId) => {
     return await this.prisma.dibs.findFirst({
       where: { storeId: +storeId, userId: +userId },
@@ -11,9 +18,9 @@ export class DibsRepository {
 
   createDibs = async (userId, storeId) => {
     return await this.prisma.dibs.create({
-      data: { 
-        userId: userId, 
-        storeId: storeId 
+      data: {
+        userId: userId,
+        storeId: storeId,
       },
     });
   };
