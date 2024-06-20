@@ -59,6 +59,7 @@ export class ReviewsService {
 
   // 리뷰 삭제
   deleteReview = async ({ storeId, reviewId }) => {
+    console.log("\n\n" + storeId + "\n\n" + reviewId + "\n\n");
     const existedReview = await this.reviewsRepository.getReview({
       reviewId,
     });
@@ -66,8 +67,8 @@ export class ReviewsService {
     if (!existedReview)
       throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
 
-    if (existedReview.storeId !== storeId)
-      throw new HttpError.NotFound(MESSAGES.REVIEWS.COMMON.NOT_FOUND);
+    if (existedReview.storeId !== +storeId)
+      throw new HttpError.NotFound("MESSAGES.REVIEWS.COMMON.NOT_FOUND");
 
     await this.reviewsRepository.deleteReview({ reviewId });
 
