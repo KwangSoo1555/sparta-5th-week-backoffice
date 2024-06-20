@@ -67,8 +67,11 @@ export class MenusController {
     try {
       const storeId = req.params.store_id;
       const menuId = req.params.menu_id;
+      let imgUrl = req.file?.location;
 
-      const { name, price, imgUrl, popularity, status } = req.body;
+      imgUrl = imgUrl === undefined ? null : imgUrl;
+
+      const { name, price, popularity, status } = req.body;
 
       const menus = await this.menusService.patchMenus(
         storeId,

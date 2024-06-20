@@ -1,4 +1,4 @@
-import { StoreStatus } from "../constants/store.constant.js";
+import { STORE_STATUS_CONSTANT } from "../constants/store.constant.js";
 
 export class StoresRepository {
   constructor(prisma) {
@@ -103,7 +103,7 @@ export class StoresRepository {
   // 열려있는 가게 목록 조회
   getOpenStores = async () => {
     const openStores = await this.prisma.stores.findMany({
-      where: { status: StoreStatus.OPEN },
+      where: { status: STORE_STATUS_CONSTANT.OPEN },
     });
 
     return openStores;

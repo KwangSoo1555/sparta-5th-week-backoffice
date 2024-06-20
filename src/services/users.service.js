@@ -5,8 +5,9 @@ import { HttpError } from "../errors/http.error.js";
 import { MESSAGES } from "../constants/message.constant.js";
 
 export class UsersService {
-  constructor(usersRepository) {
+  constructor(usersRepository, ordersRepository) {
     this.usersRepository = usersRepository;
+    this.ordersRepository = ordersRepository;
   }
 
   updateUserInfo = async (userId, email, name, imgUrl, currentPassword, newPassword, phone, address) => {
@@ -53,7 +54,6 @@ export class UsersService {
     return updatedUser;
   };
 
-
   updateUserPermission = async (userId) => {
     const existedUser = await this.usersRepository.checkAuthUser({ userId });
     if (!existedUser)
@@ -67,4 +67,10 @@ export class UsersService {
 
     return updatedUser;
   };
+
+  getOrdersInfo = async (userId) => {
+    const order = await this.ordersRepository.getOrdersOnUser(userId)
+
+    return order;
+  }
 }
