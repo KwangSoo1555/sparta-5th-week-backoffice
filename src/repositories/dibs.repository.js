@@ -44,25 +44,20 @@ export class DibsRepository {
     });
   };
 
-  findTopDibbedStore = async (startOfWeekDate, endOfWeekDate) => {
-    return await this.prisma.store.findFirst({
-      where: {
-        createdAt: {
-          gte: startOfWeekDate,
-          lte: endOfWeekDate,
-        },
-      },
-      orderBy: {
-        Dibs: {
-          _count: "desc",
-        },
-      },
-      include: {
-        User: true,
-        _count: {
-          select: { Dibs: true },
-        },
-      },
-    });
-  };
+//   async findTopDibbedStores() {
+//     return await this.prisma.stores.findMany({
+//       orderBy: {
+//         dibsCount: {
+//           _count: 'desc',
+//         },
+//       },
+//       include: {
+//         users: true,
+//         _count: {
+//           select: { dibs: true },
+//         },
+//         dibs: true,
+//       },
+//     });
+//   }
 }

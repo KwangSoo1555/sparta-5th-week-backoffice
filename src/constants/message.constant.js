@@ -228,7 +228,10 @@ export const MESSAGES = {
       SUCCEED: "찜하였습니다.",
     },
     LIST: {
-      SUCCEED: "찜 목록을 불러왔습니다",
+      SUCCEED: "찜 목록을 불러왔습니다.",
+    },
+    TOP:{
+      SUCCEED: "찜 최고 목록을 불러왔습니다."
     },
     DELETE: {
       SUCCEED: "찜을 취소하였습니다.",

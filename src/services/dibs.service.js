@@ -82,25 +82,47 @@ export class DibsService {
     return dibsList;
   };
 
-  async getTopDibs() {
-    const startOfWeekDate = startOfWeek(new Date());
-    const endOfWeekDate = endOfWeek(new Date());
+  async getTopDibs(){
+    const topDibbedStores = await this.dibsRepository.findTopDibbedStores();
 
-    const topDibbedStore = await this.dibsRepository.findTopDibbedStore(
-      startOfWeekDate,
-      endOfWeekDate,
-    );
-
-    if (!topDibbedStore) {
-      throw new HttpError.NotFound("No top dibbed store found for this week");
+    if (!topDibbedStores.length) {
+      throw new HttpError.NotFound("No top dibbed stores found");
     }
 
-    return {
-      userId: topDibbedStore.User.name,
-      title: topDibbedStore.name,
-      content: topDibbedStore.content,
-      createdAt: topDibbedStore.createdAt,
-      dibsCount: topDibbedStore._count.Dibs,
-    };
+    return topDibbedStores.map(store => ({
+      userId: store.user.name,
+      title: store.name,
+      content: store.content,
+      createdAt: store.createdAt,
+      dibsCount: store._count.dibs,
+      dibs: store.dibs, // Include all related dibs entries
+    }));
   }
 }
+
+
+
+//  주간 랭킹으로 구현 하고싶어서 놔둠
+// async getTopDibs() {
+//     const dayDate = 
+//     const oneWeek = oneWeek(new Date()* 1000 * 60 * 60 * 24 * 7);
+//     const oneWeekAgo = new Date(date.oneWeek(date.getWeek() - 1));
+
+//     const topDibbedStore = await this.dibsRepository.findTopDibbedStore(
+//       startOfWeekDate,
+//       endOfWeekDate,
+//     );
+
+//     if (!topDibbedStore) {
+//       throw new HttpError.NotFound("No top dibbed store found for this week");
+//     }
+
+//     return {
+//       userId: topDibbedStore.User.name,
+//       title: topDibbedStore.name,
+//       content: topDibbedStore.content,
+//       createdAt: topDibbedStore.createdAt,
+//       dibsCount: topDibbedStore._count.Dibs,
+//     };
+//   }
+
