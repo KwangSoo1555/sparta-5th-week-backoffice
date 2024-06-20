@@ -1,6 +1,6 @@
 import { MESSAGES } from "../constants/message.constant.js";
 import { HttpError } from "../errors/http.error.js";
-import { Order_Status } from "../constants/order-status.constant.js";
+import { ORDER_STATUS } from "../constants/order-status.constant.js";
 export class StoresService {
   constructor(storesRepository, ordersRepository) {
     this.storesRepository = storesRepository;
@@ -107,7 +107,7 @@ export class StoresService {
   };
 
   updateOrderStatus = async ({ userId, orderId, status }) => {
-    const isValidOrderStatus = Object.values(Order_Status).includes(status);
+    const isValidOrderStatus = Object.values(ORDER_STATUS).includes(status);
 
     // 주문 상태가 유효한지 확인
     if (!isValidOrderStatus)
@@ -122,7 +122,7 @@ export class StoresService {
       throw new HttpError.NotFound(MESSAGES.ORDERS.COMMON.NOT_FOUND);
 
     // 완성 상태이면사장한테 돈주기
-    if (status === Order_Status.COMPLETE) {
+    if (status === ORDER_STATUS.COMPLETE) {
       // 주문 정보로 totalPrice
       const totalPrice = existedOrder.totalPrice;
 
