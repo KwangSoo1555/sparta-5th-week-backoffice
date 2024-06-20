@@ -35,6 +35,6 @@ apiRouter.use("/owners",
   requireAccessToken(authService), uploadImage.single('img'), requireRoles([USERS_CONSTANT.ROLE.OWNER]), 
   [storesRouter, menusRouter]
 );
-apiRouter.use("/dibs", requireAccessToken(authRouter), dibsRouter);
+apiRouter.use("/dibs", requireAccessToken(authService), dibsRouter);
 
 export { apiRouter };
