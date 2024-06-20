@@ -28,14 +28,21 @@ const customerStoresService = new CustomerStoresService(
   menusRepository,
   usersRepository,
 );
-const customerStoresController = new CustomerStoresController(customerStoresService);
+const customerStoresController = new CustomerStoresController(
+  customerStoresService,
+);
 
+//가게 목록 조회
+customerStoresRouter.get("/", customerStoresController.getOpenStores);
 // 고객 가게 정보 조회
 customerStoresRouter.get("/:store_id", customerStoresController.getStoreInfo);
 // 메뉴 목록 조회
 customerStoresRouter.get("/:store_id/menus", menusController.getMenus);
 // 주문하기
-customerStoresRouter.post("/:store_id/orders", customerStoresController.createOrder);
+customerStoresRouter.post(
+  "/:store_id/orders",
+  customerStoresController.createOrder,
+);
 // 메뉴 상세 조회
 customerStoresRouter.get("/:store_id/:menu_id", menusController.getMenuDetail);
 
