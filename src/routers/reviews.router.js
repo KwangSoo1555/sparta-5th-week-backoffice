@@ -1,11 +1,12 @@
 import express from "express";
+
 import { prisma } from "../utils/prisma.util.js";
+import { StoresRepository } from "../repositories/stores.repository.js";
+import { StoresService } from "../services/stores.service.js";
+
 import { ReviewsRepository } from "../repositories/reviews.repository.js";
 import { ReviewsService } from "../services/customer-review.service.js";
 import { ReviewsController } from "../controllers/customer-review.controller.js";
-
-import { StoresRepository } from "../repositories/stores.repository.js";
-import { StoresService } from "../services/stores.service.js";
 
 const reviewsRouter = express.Router();
 

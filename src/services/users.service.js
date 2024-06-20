@@ -9,7 +9,7 @@ export class UsersService {
     this.usersRepository = usersRepository;
   }
 
-  updateUserInfo = async (userId, email, name, currentPassword, newPassword, phone, address) => {
+  updateUserInfo = async (userId, email, name, imgUrl, currentPassword, newPassword, phone, address) => {
     const existedUser = await this.usersRepository.checkAuthUser({ userId });
 
     if (newPassword) {
@@ -41,6 +41,7 @@ export class UsersService {
       userId,
       email,
       name,
+      imgUrl, 
       existedUser.password, 
       newPassword, 
       phone,

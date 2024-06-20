@@ -11,8 +11,17 @@ export class StoresController {
     try {
       const userId = req.user.userId;
 
-      const { name, category, address, storePictureUrl, phone, content } =
-        req.body;
+      const { name, category, address, phone, content } = req.body;
+
+      const storePictureUrl = req.file.location;
+
+      // 이미지가 없을 때 유효성 검사
+      if (storePictureUrl.length === 0) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+          status: HTTP_STATUS.BAD_REQUEST,
+          message: "가게 사진을 등록해 주세요.",
+        });
+      }
 
       const createdStore = await this.storesService.createStore(
         userId,

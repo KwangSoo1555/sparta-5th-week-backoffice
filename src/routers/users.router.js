@@ -5,16 +5,11 @@ import { UsersRepository } from "../repositories/users.repository.js";
 import { UsersService } from "../services/users.service.js";
 import { UsersController } from "../controllers/users.controller.js";
 
-// import { AuthService } from "../services/auth.service.js";
-// import { requireAccessToken } from "../middlewares/require-access-token.middleware.js";
-
 const usersRouter = express.Router();
 
 const usersRepository = new UsersRepository(prisma);
 const usersService = new UsersService(usersRepository);
 const usersController = new UsersController(usersService);
-
-// const authService = new AuthService(usersRepository);
 
 // 내 정보 조회 API api/users/me
 usersRouter.get("/me", usersController.getUserInfo);

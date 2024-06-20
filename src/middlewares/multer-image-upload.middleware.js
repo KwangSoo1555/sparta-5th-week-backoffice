@@ -3,11 +3,13 @@ import multerS3 from 'multer-s3';
 import path from 'path';
 import aws from '@aws-sdk/client-s3';
 
+import { ENV } from '../constants/env.constant.js';
+
 const s3 = new aws.S3({
-  region: process.env.AWS_S3_REGION,
+  region: ENV.AWS_S3_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_S3_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_S3_SECRET_KEY,
+    accessKeyId: ENV.AWS_S3_ACCESS_KEY,
+    secretAccessKey: ENV.AWS_S3_SECRET_KEY,
   },
 });
 
@@ -17,7 +19,7 @@ const allowedExtensions = ['.png', '.jpg', '.jpeg', '.bmp', '.gif'];
 export const uploadImage = multer({
   storage: multerS3({
     s3: s3,
-    bucket: process.env.AWS_BUCKET,
+    bucket: ENV.AWS_BUCKET,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: (req, file, callback) => {
       const userId = req.user.id;
@@ -49,6 +51,6 @@ export const uploadImage = multer({
   }),
   // 이미지 용량 제한 (5MB)
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 10 * 1024 * 1024,
   },
 });

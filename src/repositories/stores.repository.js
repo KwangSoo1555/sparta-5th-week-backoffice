@@ -25,7 +25,7 @@ export class StoresRepository {
         content,
       },
     });
-
+    
     return createdStore;
   };
 

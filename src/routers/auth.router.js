@@ -2,6 +2,7 @@ import express from "express";
 
 import { prisma } from "../utils/prisma.util.js";
 import { UsersRepository } from "../repositories/users.repository.js";
+
 import { AuthService } from "../services/auth.service.js";
 import { AuthController } from "../controllers/auth.controller.js";
 
