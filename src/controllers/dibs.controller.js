@@ -25,30 +25,21 @@ export class DibsController {
   };
 
   // 사용자가 찜한 가게 목록 조회
-  getUserDibs = async (userId) => {
+  getUserDibs = async (req, res, next) => {
+    try {
+      const userId = req.user.userId;
+    
     const dibsList = await this.dibsService.findDibsByUser(userId);
 
-    const result = await Promise.all(
-      dibsList.map(async (dibs) => {
-        if (!store) {
-          throw new Error("Store not found in dibs");
-        }
-        return {
-          id: dibs.id,
-          name: store.name,
-          category: store.category,
-          address: store.address,
-          storePictureUrl: store.storePictureUrl,
-          phone: store.phone,
-          content: store.content,
-          createdAt: dibs.createdAt,
-          updatedAt: dibs.updatedAt,
-        };
-      }),
-    );
-
-    return result;
-  };
+    return res.status(HTTP_STATUS.OK).json({
+      status: HTTP_STATUS.OK,
+      message: MESSAGES.DIBS.LIST.SUCCEED,
+      data: dibsList,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
   // 이번 주 찜이 가장 많은 가게 조회
   getTopDibs = async (req, res, next) => {
@@ -69,7 +60,6 @@ export class DibsController {
     try {
       const { userId } = req.user;
       const storeId = parseInt(req.params.store_id, 10);
-
       const deletedDibs = await this.dibsService.deleteDibs(userId, storeId);
 
       return res.status(HTTP_STATUS.OK).json({
