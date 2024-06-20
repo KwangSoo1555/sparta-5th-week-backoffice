@@ -45,7 +45,16 @@ export class OrdersRepository {
   // 주문 목록 조회 storeId
   getOrders = async ({ storeId }) => {
     const orders = await this.prisma.orders.findMany({
-      where: { storeId: +storeId },
+      where: { storeId },
+    });
+
+    return orders;
+  };
+
+  // 유저 주문 내역 조회
+  getOrdersOnUser = async (userId) => {
+    const orders = await this.prisma.orders.findMany({
+      where: { userId },
     });
 
     return orders;

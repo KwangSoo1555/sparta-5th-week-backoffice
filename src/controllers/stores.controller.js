@@ -70,9 +70,11 @@ export class StoresController {
     try {
       const storeId = req.params.store_id;
       const userId = req.user.userId;
+      let storePictureUrl = req.file?.location;
 
-      const { name, category, address, storePictureUrl, phone, content } =
-        req.body;
+      storePictureUrl = storePictureUrl === undefined ? null : storePictureUrl;
+
+      const { name, category, address, phone, content } = req.body;
 
       const updatedStore = await this.storesService.updateStore(
         userId,

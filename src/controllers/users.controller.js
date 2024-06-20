@@ -57,14 +57,29 @@ export class UsersController {
     try {
       const userId = req.user.userId;
 
-      const updatedUserInfo = await this.usersService.updateUserPermission(
-        userId,
-      );
+      const updatedUserInfo =
+        await this.usersService.updateUserPermission(userId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.USERS.UPDATE_ME.SUCCEED,
         data: updatedUserInfo,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getOrdersInfo = async (req, res, next) => {
+    try {
+      const userId = req.user.userId;
+
+      const getOrders = await this.usersService.getOrdersInfo(userId);
+
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.SEARCH.COMMON.SUCCEED,
+        data: getOrders,
       });
     } catch (error) {
       next(error);
