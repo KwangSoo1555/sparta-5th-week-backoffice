@@ -13,18 +13,7 @@ export class UsersController {
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.USERS.READ_ME.SUCCEED,
-        data: {
-          id: data.id,
-          email: data.email,
-          name: data.name,
-          phone: data.phone,
-          address: data.address,
-          point: data.point,
-          grade: data.grade,
-          role: data.role,
-          createdAt: data.createdAt,
-          updatedAt: data.updatedAt,
-        },
+        data: { data },
       });
     } catch (error) {
       next(error);
@@ -34,12 +23,17 @@ export class UsersController {
   updateUserInfo = async (req, res, next) => {
     try {
       const userId = req.user.userId;
+      let imgUrl = req.file?.location;
+
+      imgUrl = imgUrl === undefined ? null : imgUrl;
+
       const { email, name, currentPassword, newPassword, phone, address } = req.body;
 
       const updatedUserInfo = await this.usersService.updateUserInfo(
         userId,
         email,
         name,
+        imgUrl,
         currentPassword,
         newPassword,
         phone,
@@ -52,14 +46,7 @@ export class UsersController {
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,
         message: MESSAGES.USERS.UPDATE_ME.SUCCEED,
-        data: {
-          userId: updatedUserInfo.userId, 
-          email: updatedUserInfo.email, 
-          name: updatedUserInfo.name, 
-          phone: updatedUserInfo.phone, 
-          address: updatedUserInfo.address, 
-          updatedAt: updatedUserInfo.updatedAt, 
-        },
+        data: { updatedUserInfo },
       });
     } catch (error) {
       next(error);
@@ -70,9 +57,7 @@ export class UsersController {
     try {
       const userId = req.user.userId;
 
-      const updatedUserInfo = await this.usersService.updateUserInfo(
-        userId,
-      );
+      const updatedUserInfo = await this.usersService.updateUserInfo(userId);
 
       return res.status(HTTP_STATUS.OK).json({
         status: HTTP_STATUS.OK,

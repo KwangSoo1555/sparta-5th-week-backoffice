@@ -59,6 +59,7 @@ export class UsersRepository {
     userId,
     email,
     name,
+    imgUrl, 
     password,
     newPassword,
     phone,
@@ -69,10 +70,10 @@ export class UsersRepository {
       data: {
         ...(email && { email }),
         ...(name && { name }),
+        ...(imgUrl && { imgUrl }), 
         ...(newPassword && { password }),
         ...(phone && { phone }),
         ...(address && { address }),
-        // ...(image && { imgUrl }), 나중에 이미지 칼럼 추가하면 그때 수정하는 걸로
         updatedAt: new Date(),
       },
     });

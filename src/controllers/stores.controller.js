@@ -15,7 +15,6 @@ export class StoresController {
         name,
         category,
         address,
-        storePictureUrl,
         phone,
         content,
         dibsCount,
@@ -24,8 +23,18 @@ export class StoresController {
         rating,
       } = req.body;
 
+      const storePictureUrl = req.file.location;
+
+      // 이미지가 없을 때 유효성 검사
+      if (storePictureUrl.length === 0) {
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
+          status: HTTP_STATUS.BAD_REQUEST, 
+          message: '가게 사진을 등록해 주세요.'
+        })
+      }
+
       const createdStore = await this.storesService.createStore(
-        userId, 
+        userId,
         name,
         category,
         address,
@@ -119,7 +128,7 @@ export class StoresController {
     try {
       const storeId = req.params.store_id;
       const userId = req.user.userId;
-      await this.storesService.deleteStore(storeId,userId);
+      await this.storesService.deleteStore(storeId, userId);
       return res.status(HTTP_STATUS.DELETED).json({
         status: HTTP_STATUS.DELETED,
         message: MESSAGES.STORES.COMMON.DELETE,
