@@ -2,6 +2,7 @@ import express from "express";
 import { prisma } from "../utils/prisma.util.js";
 import { StoresRepository } from "../repositories/stores.repository.js";
 import { OrdersRepository } from "../repositories/orders.respository.js";
+import { UsersRepository } from "../repositories/users.repository.js";
 import { MenusRepository } from "../repositories/menus.repository.js";
 import { MenusService } from "../services/menus.service.js";
 import { MenusController } from "../controllers/menus.controller.js";
@@ -12,6 +13,7 @@ const customerStoresRouter = express.Router();
 
 const storesRepository = new StoresRepository(prisma);
 const ordersRepository = new OrdersRepository(prisma);
+const usersRepository = new UsersRepository(prisma);
 const menusRepository = new MenusRepository(prisma);
 const menusService = new MenusService(menusRepository);
 const menusController = new MenusController(menusService);
@@ -19,6 +21,7 @@ const customerStoresService = new CustomerStoresService(
   ordersRepository,
   storesRepository,
   menusRepository,
+  usersRepository,
 );
 const customerStoresController = new CustomerStoresController(
   customerStoresService,

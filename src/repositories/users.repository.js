@@ -55,7 +55,15 @@ export class UsersRepository {
     return refreshTokenNull;
   };
 
-  updateUserInfo = async (userId, email, name, password, newPassword, phone, address) => {
+  updateUserInfo = async (
+    userId,
+    email,
+    name,
+    password,
+    newPassword,
+    phone,
+    address,
+  ) => {
     const updatedUser = await this.prisma.users.update({
       where: { userId: userId },
       data: {
@@ -76,10 +84,28 @@ export class UsersRepository {
     const updatedUser = await this.prisma.users.update({
       where: { userId: +userId },
       data: {
-        role : OWNER,
+        role: OWNER,
       },
     });
 
     return updatedUser;
+  };
+
+  // 사용자의 포인트 조회
+  getUserPoint = async (userId) => {
+    const user = await this.prisma.users.findUnique({
+      where: { userId: +userId },
+      select: { point: true },
+    });
+
+    return user.point;
+  };
+
+  // 사용자의 포인트 업데이트
+  updateUserPoint = async (userId, newPoint) => {
+    await this.prisma.users.update({
+      where: { userId: +userId },
+      data: { point: +newPoint },
+    });
   };
 }
