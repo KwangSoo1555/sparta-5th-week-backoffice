@@ -9,6 +9,8 @@ export class StoresController {
   // 가게 생성
   createStore = async (req, res, next) => {
     try {
+      const userId = req.user.userId;
+
       const {
         name,
         category,
@@ -23,6 +25,7 @@ export class StoresController {
       } = req.body;
 
       const createdStore = await this.storesService.createStore(
+        userId, 
         name,
         category,
         address,

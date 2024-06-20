@@ -18,7 +18,10 @@ export class DibsRepository {
 
   createDibs = async (userId, storeId) => {
     return await this.prisma.dibs.create({
-      data: { userId: +userId, storeId: +storeId },
+      data: {
+        userId: userId,
+        storeId: storeId,
+      },
     });
   };
 

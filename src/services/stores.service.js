@@ -8,6 +8,7 @@ export class StoresService {
   }
 
   createStore = async (
+    userId, 
     name,
     category,
     address,
@@ -20,6 +21,7 @@ export class StoresService {
     rating,
   ) => {
     const createdStore = await this.storesRepository.createStore(
+      userId, 
       name,
       category,
       address,
