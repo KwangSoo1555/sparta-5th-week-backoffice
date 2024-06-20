@@ -1,22 +1,20 @@
-import { HttpError } from '../errors/http.error.js';
+import { HttpError } from "../errors/http.error.js";
 // import { startOfWeek, endOfWeek } from "date-fns";
 
 export class DibsService {
-  constructor(dibsRepository, storesService) {
+  constructor(dibsRepository, storesRepository) {
     this.dibsRepository = dibsRepository;
-    this.storesService = storesService;
+    this.storesRepository = storesRepository;
   }
 
-  async createDibs(userId, storeId) {
-    const store = await this.storesService.findStoreById(storeId);
+  createDibs = async (userId, storeId) => {
+    const store = await this.storesRepository.checkStoreToDibsService({ storeId });
 
-    if (!store) {
+    if (!store)
       throw new HttpError.NotFound("Store not found");
-    }
 
-    if (store.userId === userId) {
+    if (store.userId === userId)
       throw new HttpError.BadRequest("You cannot dibs your own store");
-    }
 
     const existingDibs = await this.dibsRepository.findDibsByUserAndStore(userId, storeId);
 
@@ -31,13 +29,17 @@ export class DibsService {
       id: newDibs.logId,
       userId: newDibs.userId,
       dibsNumber: dibsCount,
+      dibsNumber: store.dibsCount, 
       createdAt: newDibs.createdAt,
       updatedAt: newDibs.updatedAt,
     };
-  }
+  };
 
-  async deleteDibs(userId, storeId) {
-    const dibs = await this.dibsRepository.findDibsByUserAndStore(userId, storeId);
+  deleteDibs = async (userId, storeId) => {
+    const dibs = await this.dibsRepository.findDibsByUserAndStore(
+      userId,
+      storeId,
+    );
 
     if (!dibs) {
       throw new HttpError.NotFound("Dibs not found");
@@ -57,10 +59,11 @@ export class DibsService {
 
   async getUserDibs(userId) {
     const dibsList = await this.dibsRepository.findDibsByUser(userId);
-    const findStoresByStoreId = await this.dibsRepository.findStoreById(storeId);
-    console.log(findStoresByStoreId)
+    const findStoresByStoreId =
+      await this.dibsRepository.findStoreById(storeId);
+    console.log(findStoresByStoreId);
 
-    return dibsList.map(dibs => ({
+    return dibsList.map((dibs) => ({
       id: dibs.store.storeId,
       name: dibs.store.name,
       category: dibs.store.category,
@@ -73,17 +76,20 @@ export class DibsService {
     }));
   }
 
-  findDibsByUser = async(userId) => {
+  findDibsByUser = async (userId) => {
     const dibsList = await this.dibsRepository.findDibsByUser(userId);
-    
-    return dibsList
-  }
+
+    return dibsList;
+  };
 
   async getTopDibs() {
     const startOfWeekDate = startOfWeek(new Date());
     const endOfWeekDate = endOfWeek(new Date());
 
-    const topDibbedStore = await this.dibsRepository.findTopDibbedStore(startOfWeekDate, endOfWeekDate);
+    const topDibbedStore = await this.dibsRepository.findTopDibbedStore(
+      startOfWeekDate,
+      endOfWeekDate,
+    );
 
     if (!topDibbedStore) {
       throw new HttpError.NotFound("No top dibbed store found for this week");

@@ -19,10 +19,9 @@ import { StoresRepository } from "../repositories/stores.repository.js";
 const dibsRouter = express.Router();
 
 const storesRepository = new StoresRepository(prisma);
-const storesService = new StoresService(storesRepository);
 
 const dibsRepository = new DibsRepository(prisma);
-const dibsService = new DibsService(dibsRepository,storesService);
+const dibsService = new DibsService(dibsRepository, storesRepository);
 const dibsController = new DibsController(dibsService);
 
 const usersRepository = new UsersRepository(prisma);

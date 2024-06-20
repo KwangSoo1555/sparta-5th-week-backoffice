@@ -35,6 +35,7 @@ model Users {
   userIdToCeoReviews   CeoReviews?
   userIdToReviews      Reviews[]
   userIdToOrderLogs    OrderLogs[]
+  userIdToStores       Stores[]
 
   @@map("users")
 }
@@ -125,15 +126,16 @@ enum Order_Status {
 
 model Stores {
   storeId         Int         @id @default(autoincrement()) @map("store_id")
+  userId          Int         @unique @map("user_id")
   name            String
   category        String
   address         String
-  storePictureUrl String      @map("store_picture_url") @db.Text
+  storePictureUrl String      @db.Text @map("store_picture_url")
   phone           String
   content         String?     @db.Text
-  dibsCount       Int         @map("dibs_count")
-  reviewCount     Int         @map("review_count")
-  rating          Int
+  dibsCount       Int         @default(1) @map("dibs_count")
+  reviewCount     Int         @default(1) @map("review_count")
+  rating          Int?
   status          StoreStatus @default(OPEN)
   createdAt       DateTime    @default(now()) @map("created_at")
   updatedAt       DateTime    @updatedAt @map("updated_at")
@@ -143,6 +145,8 @@ model Stores {
   storeIdToMenus     Menus[]
   storeIdToReviews   Reviews[]
   storeIdToOrderLogs OrderLogs[]
+
+  userIdByUsers Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@map("stores")
 }
