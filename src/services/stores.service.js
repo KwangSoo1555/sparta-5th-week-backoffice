@@ -127,6 +127,14 @@ export class StoresService {
       const totalPrice = existedOrder.totalPrice;
 
       // 트랜잭션 걸린 주문 상태변경을 실행하고
+      const updatedOrder = await this.ordersRepository.updateCompletedOrder({
+        orderId,
+        status,
+        userId,
+        totalPrice,
+      });
+
+      return updatedOrder;
     } else {
       // 완성 상태 변경하기
       const updatedOrder = await this.ordersRepository.updateOrder({

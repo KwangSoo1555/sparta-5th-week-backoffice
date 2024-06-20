@@ -47,7 +47,7 @@ export class OrdersRepository {
     const orderDetail = await this.prisma.orders.findUnique({
       where: { orderId: +orderId },
       include: {
-        stores: true,
+        storeIdByStores: true,
       },
     });
 
@@ -64,7 +64,8 @@ export class OrdersRepository {
     return updatedOrder;
   };
 
-  updateCompletedOrder = async ({ orderId, status, userId, point }) => {
+  // COMPLETE로 주문 상태 변경
+  updateCompletedOrder = async ({ orderId, status, userId, totalPrice }) => {
     const result = await this.prisma.$transaction(async (tx) => {
       // 주문 상태 업데이트
       const updatedOrder = await tx.orders.update({
@@ -77,7 +78,7 @@ export class OrdersRepository {
         where: { userId: +userId },
         data: {
           point: {
-            increment: point,
+            increment: totalPrice,
           },
         },
       });
