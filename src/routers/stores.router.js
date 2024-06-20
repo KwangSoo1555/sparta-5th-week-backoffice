@@ -1,6 +1,6 @@
 import express from "express";
 import { validateCreateStore } from "../middlewares/validators/create-store-validator.middleware.js";
-import { validateUpdateStore } from "../middlewares/validators/updated-store-validator.middleware.js"
+import { validateUpdateStore } from "../middlewares/validators/updated-store-validator.middleware.js";
 import { prisma } from "../utils/prisma.util.js";
 import { OrdersRepository } from "../repositories/orders.respository.js";
 import { StoresRepository } from "../repositories/stores.repository.js";
@@ -15,18 +15,21 @@ const storesRouter = express.Router();
 
 const ordersRepository = new OrdersRepository(prisma);
 const storesRepository = new StoresRepository(prisma);
+const usersRepository = new UsersRepository(prisma);
 const storesService = new StoresService(storesRepository, ordersRepository);
 const storesController = new StoresController(storesService);
-
-const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
-
 
 // 주문 상태 수정
 storesRouter.patch("/orders/:order_id", storesController.updateOrderStatus);
 
 // 가게 생성
-storesRouter.post("/stores", validateCreateStore, requireAccessToken(authService), storesController.createStore);
+storesRouter.post(
+  "/stores",
+  validateCreateStore,
+  requireAccessToken(authService),
+  storesController.createStore,
+);
 
 // 가게 상세 조회
 storesRouter.get("/stores/:store_id", storesController.findStoreById);
