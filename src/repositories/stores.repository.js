@@ -6,7 +6,7 @@ export class StoresRepository {
 
   // 가게 생성
   createStore = async (
-    userId, 
+    userId,
     name,
     category,
     address,
@@ -16,7 +16,7 @@ export class StoresRepository {
   ) => {
     const createdStore = await this.prisma.stores.create({
       data: {
-        userId, 
+        userId,
         name,
         category,
         address,
@@ -32,6 +32,15 @@ export class StoresRepository {
   findStoreById = async (storeId) => {
     const store = await this.prisma.stores.findFirst({
       where: { storeId: +storeId },
+    });
+
+    return store;
+  };
+
+  // 유저 ID로
+  findStoreByUserId = async (userId) => {
+    const store = await this.prisma.stores.findFirst({
+      where: { userId: +userId },
     });
 
     return store;
@@ -71,19 +80,19 @@ export class StoresRepository {
     return deletedStore;
   };
 
-
   // dibsService 로 stores 테이블 정보 넘김.
   checkStoreToDibsService = async (params) => {
     return await this.prisma.stores.findFirst({
       where: params,
-    })
-  }
+    });
+  };
 
-  findStoreByUserId = async (storeId,userId) => {
+  findStoreByUserId = async (storeId, userId) => {
     const store = await this.prisma.stores.findFirst({
-      where: { 
-        storeId : +storeId,
-        userId: +userId },
+      where: {
+        storeId: +storeId,
+        userId: +userId,
+      },
     });
 
     return store;

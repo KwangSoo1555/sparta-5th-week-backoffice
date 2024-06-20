@@ -42,6 +42,15 @@ export class OrdersRepository {
     return createdOrder;
   };
 
+  // 주문 목록 조회 storeId
+  getOrders = async ({ storeId }) => {
+    const orders = await this.prisma.orders.findMany({
+      where: { storeId: +storeId },
+    });
+
+    return orders;
+  };
+
   // 주문 상세 내역 조회
   getOrderDetail = async ({ orderId }) => {
     const orderDetail = await this.prisma.orders.findUnique({

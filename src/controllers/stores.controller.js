@@ -11,14 +11,8 @@ export class StoresController {
     try {
       const userId = req.user.userId;
 
-      const {
-        name,
-        category,
-        address,
-        storePictureUrl,
-        phone,
-        content,
-      } = req.body;
+      const { name, category, address, storePictureUrl, phone, content } =
+        req.body;
 
       const createdStore = await this.storesService.createStore(
         userId,
@@ -68,14 +62,8 @@ export class StoresController {
       const storeId = req.params.store_id;
       const userId = req.user.userId;
 
-      const {
-        name,
-        category,
-        address,
-        storePictureUrl,
-        phone,
-        content,
-      } = req.body;
+      const { name, category, address, storePictureUrl, phone, content } =
+        req.body;
 
       const updatedStore = await this.storesService.updateStore(
         userId,
@@ -107,6 +95,23 @@ export class StoresController {
       return res.status(HTTP_STATUS.DELETED).json({
         status: HTTP_STATUS.DELETED,
         message: MESSAGES.STORES.COMMON.DELETE,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 주문 목록 조회
+  getOrders = async (req, res, next) => {
+    try {
+      const userId = req.user.userId;
+
+      const orders = await this.storesService.getOrders({ userId });
+
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.ORDERS.READ_LIST,
+        data: orders,
       });
     } catch (error) {
       next(error);

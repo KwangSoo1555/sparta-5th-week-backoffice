@@ -23,6 +23,9 @@ const authService = new AuthService(usersRepository);
 // 주문 상태 수정
 storesRouter.patch("/orders/:order_id", storesController.updateOrderStatus);
 
+// 주문 목록 조회
+storesRouter.get("/orders", storesController.getOrders);
+
 // 가게 생성
 storesRouter.post(
   "/stores",
