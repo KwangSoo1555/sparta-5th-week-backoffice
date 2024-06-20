@@ -33,7 +33,7 @@ const customerStoresController = new CustomerStoresController(
 );
 
 //가게 목록 조회
-customerStoresRouter.get("/open", customerStoresController.getOpenStores);
+customerStoresRouter.get("/", customerStoresController.getOpenStores);
 // 고객 가게 정보 조회
 customerStoresRouter.get("/:store_id", customerStoresController.getStoreInfo);
 // 메뉴 목록 조회
