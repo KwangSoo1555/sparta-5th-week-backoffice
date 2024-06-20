@@ -45,11 +45,11 @@ export class DibsService {
       throw new HttpError.NotFound("Dibs not found");
     }
 
-    await this.dibsRepository.deleteDibs(dibs.logId);
+    await this.dibsRepository.deleteDibs(dibs.dibsId);
     const dibsCount = await this.dibsRepository.countDibsByStore(storeId);
 
     return {
-      id: dibs.logId,
+      id: dibs.dibsId,
       userId: dibs.userId,
       dibsNumber: dibsCount,
       createdAt: dibs.createdAt,

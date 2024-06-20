@@ -22,4 +22,7 @@ usersRouter.get("/me", usersController.getUserInfo);
 // 내 정보 수정 API api/users/me
 usersRouter.patch("/me", usersController.updateUserInfo);
 
+// 내 정보 권한 수정 API api/users/me
+usersRouter.patch("/me/toOwner", usersController.updateUserPermission);
+
 export { usersRouter };

@@ -18,16 +18,17 @@ export class DibsRepository {
 
   createDibs = async (userId, storeId) => {
     return await this.prisma.dibs.create({
-      data: {
-        userId: userId,
-        storeId: storeId,
+      data: { 
+        userId: userId, 
+        storeId: storeId 
       },
     });
   };
 
-  deleteDibs = async (dibId) => {
+  deleteDibs = async (dibsId) => {
     return await this.prisma.dibs.delete({
-      where: { dibId: +dibId },
+      where: { dibsId: +dibsId          
+       },
     });
   };
 

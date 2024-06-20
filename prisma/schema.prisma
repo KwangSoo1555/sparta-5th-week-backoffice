@@ -133,8 +133,8 @@ model Stores {
   storePictureUrl String      @db.Text @map("store_picture_url")
   phone           String
   content         String?     @db.Text
-  dibsCount       Int         @default(1) @map("dibs_count")
-  reviewCount     Int         @default(1) @map("review_count")
+  dibsCount       Int         @default(0) @map("dibs_count")
+  reviewCount     Int         @default(0) @map("review_count")
   rating          Int?
   status          StoreStatus @default(OPEN)
   createdAt       DateTime    @default(now()) @map("created_at")
