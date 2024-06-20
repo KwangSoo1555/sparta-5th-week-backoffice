@@ -191,6 +191,7 @@ export const MESSAGES = {
   SEARCH: {
     COMMON: {
       NOT_FOUND: "검색결과가 존재하지 않습니다.",
+      SUCCEED: "검색이 완료되었습니다.",
     },
   },
   ORDERS: {
