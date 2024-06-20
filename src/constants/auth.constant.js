@@ -17,7 +17,7 @@ export const AUTH_CONSTANT = {
     },
     PASSPORT: {
       COMMON: {
-        FAILURE_REDIRECT: '/api/passport/fail'
+        FAILURE_REDIRECT: '/api/auth/fail'
       },
       NAVER: {
         NAME: 'naver',
