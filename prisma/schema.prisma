@@ -17,11 +17,11 @@ datasource db {
 model Users {
   userId       Int        @id @default(autoincrement()) @map("user_id")
   email        String     @map("email")
-  name         String     @map("name")
-  password     String     @map("password")
+  name         String     @map("name")   
+  password     String?    @map("password")
   imgUrl       String?    @map("img_url")
-  phone        String     @map("phone")
-  address      String
+  phone        String?    @map("phone")
+  address      String?
   point        Int        @default(1000000)
   grade        Grade_Type @default(A)
   role         Role       @default(CUSTOMER)

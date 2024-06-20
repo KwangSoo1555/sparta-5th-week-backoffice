@@ -26,7 +26,7 @@ const apiRouter = express.Router();
 const usersRepository = new UsersRepository(prisma);
 const authService = new AuthService(usersRepository);
 
-apiRouter.use("/auth", authRouter);
+apiRouter.use("/auth", authRouter, passPortRouter);
 apiRouter.use("/users", requireAccessToken(authService), uploadImage.single("img"), usersRouter);
 apiRouter.use("/refreshToken", requireRefreshToken(authService), reIssueAccessTokenRouter);
 apiRouter.use("/stores", requireAccessToken(authService), customerStoresRouter);
@@ -37,6 +37,5 @@ apiRouter.use("/owners",
   [storesRouter, menusRouter]
 );
 apiRouter.use("/dibs", requireAccessToken(authService), dibsRouter);
-apiRouter.use("/passport", passPortRouter)
 
 export { apiRouter };

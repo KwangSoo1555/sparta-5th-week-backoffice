@@ -23,10 +23,12 @@ export class PassPortController {
         },
         async (accessToken, refreshToken, profile, done) => {
           try {
-            console.log(profile)
+            console.log('Profile received:', profile);
             let user = await this.passPortService.findOrCreateUser(profile);
+            console.log('User after findOrCreateUser:', user);
             return done(null, user);
           } catch (error) {
+            console.error('Error in NaverStrategy:', error);
             return done(error);
           }
         },
@@ -34,12 +36,14 @@ export class PassPortController {
     );
 
     passport.serializeUser((user, done) => {
+      console.log('Serialize user:', user);
       done(null, user.userId);
     });
 
     passport.deserializeUser(async (userId, done) => {
       try {
         const user = await this.passPortService.findUserById(userId);
+        console.log('Deserialize user:', user);
         done(null, user);
       } catch (error) {
         done(error);
@@ -56,18 +60,21 @@ export class PassPortController {
       failureRedirect: AUTH_CONSTANT.PASSPORT.COMMON.FAILURE_REDIRECT,
     })
     (req, res, async () => {
-      const user = req.user;
-      const payload = { id: user.id };
-      console.log(user)
-      console.log(payload)
+      console.log('req.user:', req.user)
 
-      if (!user || !user.id) { // Check for user and user.id
+      if (!req.user || !req.user.id) {
+        console.error('Authentication failed: req.user is null');
         return res.status(HTTP_STATUS.UNAUTHORIZED).json({
           status: HTTP_STATUS.UNAUTHORIZED,
           message: MESSAGES.AUTH.PASSPORT.COMMON.FAIL,
         });
       }
 
+      const user = req.user;
+      console.log('User after authentication:', user);
+      
+      const payload = { id: user.id };
+      console.log('Payload:', payload);
       const data = await this.passPortService.jwt(payload);
 
       res.status(HTTP_STATUS.OK).json({

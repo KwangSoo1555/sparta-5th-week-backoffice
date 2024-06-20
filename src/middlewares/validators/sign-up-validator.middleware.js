@@ -10,18 +10,18 @@ const schema = Joi.object({
   name: Joi.string().required().messages({
     "any.required": MESSAGES.AUTH.COMMON.NAME.REQURIED,
   }),
-  password: Joi.string().required().min(AUTH_CONSTANT.PASSWORD_MIN_LENGTH).messages({
+  password: Joi.string().min(AUTH_CONSTANT.PASSWORD_MIN_LENGTH).messages({
     "any.required": MESSAGES.AUTH.COMMON.PASSWORD.REQURIED,
     "string.min": MESSAGES.AUTH.COMMON.PASSWORD.MIN_LENGTH,
   }),
-  passwordConfirm: Joi.string().required().valid(Joi.ref("password")).messages({
+  passwordConfirm: Joi.string().valid(Joi.ref("password")).messages({
     "any.required": MESSAGES.AUTH.COMMON.PASSWORD_CONFIRM.REQURIED,
     "any.only": MESSAGES.AUTH.COMMON.PASSWORD_CONFIRM.NOT_MACHTED_WITH_PASSWORD,
   }),
-  phone: Joi.string().required().messages({
+  phone: Joi.string().messages({
     "any.required": MESSAGES.AUTH.COMMON.PHONE.REQURIED,
   }),
-  address: Joi.string().required().messages({
+  address: Joi.string().messages({
     "any.required": MESSAGES.AUTH.COMMON.ADDRESS.REQURIED,
   }),
   verificationCode: Joi.number().required().messages({
