@@ -41,15 +41,17 @@ export class DibsController {
   }
 };
 
-  // 이번 주 찜이 가장 많은 가게 조회
+  // 찜이 가장 많은 가게 조회
   getTopDibs = async (req, res, next) => {
     try {
+
       const topDibbedStore = await this.dibsService.getTopDibs();
-      if (topDibbedStore) {
-        res.status(HTTP_STATUS.OK).json(topDibbedStore);
-      } else {
-        res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Store not found" });
-      }
+      
+      return res.status(HTTP_STATUS.OK).json({
+        status: HTTP_STATUS.OK,
+        message: MESSAGES.DIBS.TOP.SUCCEED,
+        data: topDibbedStores,
+      });
     } catch (error) {
       next(error);
     }
