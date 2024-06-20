@@ -80,6 +80,9 @@ export const MESSAGES = {
     UPDATE_ME: {
       SUCCEED: "내 정보 수정에 성공했습니다.",
     },
+    COMMON: {
+      NOT_FOUND: "유저가 존재하지 않습니다.",
+    },
   },
   STORES: {
     COMMON: {
@@ -102,6 +105,7 @@ export const MESSAGES = {
         REQURIED: "소개글을 입력해 주세요.",
       },
       NOT_FOUND: "가게가 존재하지 않습니다.",
+      OWNER_NOT_FOUND:"본인 소유의 가게가 존재하지 않습니다.",
       CREATE: {
         SUCCEED: "가게 생성에 성공했습니다.",
       },
