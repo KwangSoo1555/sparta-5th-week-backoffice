@@ -1,6 +1,7 @@
 import express from "express";
 
 import { authRouter } from "./auth.router.js";
+import { passPortRouter } from "./passport.router.js"
 import { usersRouter } from "./users.router.js";
 import { reIssueAccessTokenRouter } from "./access-token-reissue.router.js";
 import { storesRouter } from "./stores.router.js";
@@ -9,7 +10,7 @@ import { menusRouter } from "./menus.router.js";
 import { reviewsRouter } from "./reviews.router.js";
 import { searchRouter } from "./search.router.js";
 import { dibsRouter } from "./dibs.router.js";
-import { passPortRouter } from "./passport.router.js"
+import { ownersReviewsRouter } from "./owners-reviews.router.js";
 
 import { prisma } from "../utils/prisma.util.js";
 import { UsersRepository } from "../repositories/users.repository.js";
@@ -34,7 +35,7 @@ apiRouter.use("/reviews", requireAccessToken(authService), reviewsRouter);
 apiRouter.use("/search", requireAccessToken(authService), searchRouter);
 apiRouter.use("/owners", 
   requireAccessToken(authService), uploadImage.single('img'), requireRoles([USERS_CONSTANT.ROLE.OWNER]), 
-  [storesRouter, menusRouter]
+  [storesRouter, menusRouter, ownersReviewsRouter]
 );
 apiRouter.use("/dibs", requireAccessToken(authService), dibsRouter);
 
