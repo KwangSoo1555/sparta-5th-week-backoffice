@@ -4,27 +4,33 @@ export class ReviewsRepository {
   }
 
   // 리뷰 생성
-  createReview = async ({ storeId, userId, rating, content, imgUrl, storeRating, storeReviewCount }) => {
+  createReview = async ({
+    storeId,
+    userId,
+    rating,
+    content,
+    imgUrl,
+    storeRating,
+    storeReviewCount,
+  }) => {
     const data = await this.prisma.$transaction([
+      this.prisma.reviews.create({
+        data: {
+          storeId: +storeId,
+          userId,
+          rating,
+          content,
+          imgUrl,
+        },
+      }),
 
-    this.prisma.reviews.create({
-      data: {
-        storeId: +storeId,
-        userId,
-        rating,
-        content,
-        imgUrl,
-      },
-    }),
-
-    this.prisma.stores.update({
-      where: { storeId: +storeId },
-      data: {
-        rating : +storeRating,
-        reviewCount : +storeReviewCount,
-      },
-    })
-
+      this.prisma.stores.update({
+        where: { storeId: +storeId },
+        data: {
+          rating: +storeRating,
+          reviewCount: +storeReviewCount,
+        },
+      }),
     ]);
 
     return data;
@@ -69,5 +75,11 @@ export class ReviewsRepository {
     });
 
     return data;
+  };
+
+  findReviewById = async (reviewId) => {
+    return await this.prisma.reviews.findFirst({
+      where: { reviewId },
+    });
   };
 }

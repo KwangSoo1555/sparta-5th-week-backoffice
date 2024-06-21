@@ -20,8 +20,8 @@ model Users {
   name         String     @map("name")   
   password     String?    @map("password")
   imgUrl       String?    @map("img_url")
-  phone        String?    @map("phone")
-  address      String?
+  phone        String     @map("phone")
+  address      String
   point        Int        @default(1000000)
   grade        Grade_Type @default(A)
   role         Role       @default(CUSTOMER)
@@ -32,13 +32,12 @@ model Users {
   isDeleted    Boolean    @default(false) @map("is_deleted")
   isEmailValid Boolean    @default(false) @map("is_email_valid")
 
-  userIdToRefreshToken RefreshToken?
-  userIdToOrders       Orders[]
-  userIdToDibs         Dibs[]
-  userIdToCeoReviews   CeoReviews?
-  userIdToReviews      Reviews[]
-  userIdToOrderLogs    OrderLogs[]
-  userIdToStores       Stores[]
+  userIdToRefreshToken   RefreshToken?
+  userIdToOrders         Orders[]
+  userIdToDibs           Dibs[]
+  userIdToOwnersReviews  OwnersReviews?
+  userIdToReviews        Reviews[]
+  userIdToStores         Stores[]
 
   @@map("users")
 }
@@ -81,14 +80,13 @@ model Orders {
   totalPrice    Int            @map("total_price")
   requests      String
   paymentMethod Payment_Method @map("payment_method")
+  status        Order_Status   @default(WAITING)
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime       @updatedAt @map("updated_at")
-  status        Order_Status   @default(WAITING)
 
   storeIdByStores     Stores       @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
   userIdByUsers       Users        @relation(fields: [userId], references: [userId], onDelete: Cascade)
   orderIdToOrderItems OrderItems[]
-  orderIdToOrderLogs  OrderLogs[]
 
   @@map("orders")
 }
@@ -96,6 +94,13 @@ model Orders {
 enum Payment_Method {
   CASH // 현금
   CARD // 카드
+}
+
+enum Order_Status {
+  WAITING
+  PREPARING
+  DELIVERING
+  COMPLETE
 }
 
 model OrderItems {
@@ -109,27 +114,6 @@ model OrderItems {
   menuIdByMenus   Menus  @relation(fields: [menuId], references: [menuId], onDelete: Cascade)
 
   @@map("order_items")
-}
-
-model OrderLogs {
-  orderLogId Int          @id @default(autoincrement()) @map("order_log_id")
-  storeId    Int          @map("store_id")
-  userId     Int          @map("user_id")
-  orderId    Int          @map("order_id")
-  status     Order_Status
-
-  storeIdByStores Stores @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
-  userIdByUsers   Users  @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  orderIdByOrders Orders @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
-
-  @@map("order_logs")
-}
-
-enum Order_Status {
-  WAITING
-  PREPARING
-  DELIVERING
-  COMPLETE
 }
 
 model Stores {
@@ -152,7 +136,6 @@ model Stores {
   storeIdToOrders    Orders[]
   storeIdToMenus     Menus[]
   storeIdToReviews   Reviews[]
-  storeIdToOrderLogs OrderLogs[]
 
   userIdByUsers Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
@@ -177,13 +160,13 @@ model Dibs {
   @@map("dibs")
 }
 
-model CeoReviews {
-  ceoReviewId Int      @id @default(autoincrement()) @map("ceo_review_id")
-  reviewId    Int      @unique @map("review_id")
-  userId      Int      @unique @map("user_id")
-  content     String
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+model OwnersReviews {
+  ownersReviewId  Int       @id @default(autoincrement()) @map("ceo_review_id")
+  reviewId        Int       @unique @map("review_id")
+  userId          Int       @unique @map("user_id")
+  content         String
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
 
   userIdByUsers     Users   @relation(fields: [userId], references: [userId], onDelete: Cascade)
   reviewIdByReviews Reviews @relation(fields: [reviewId], references: [reviewId], onDelete: Cascade)
@@ -226,5 +209,5 @@ model Reviews {
   userIdByUsers   Users  @relation(fields: [userId], references: [userId], onDelete: Cascade)
   storeIdByStores Stores @relation(fields: [storeId], references: [storeId], onDelete: Cascade)
 
-  reviewIdToCeoReviews CeoReviews?
+  reviewIdToOwnersReviews OwnersReviews?
 }
