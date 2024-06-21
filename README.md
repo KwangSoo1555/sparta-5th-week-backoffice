@@ -1,15 +1,13 @@
 # 팀 차르봄바 - 50Mt으로 너에게 닿기를의 백오피스 프로젝트
 
-![썸네일](./imgs/thumbnail.png)
-
 ## 프로젝트 소개
 
 - 프로젝트 이름 : 너집앞 (너네 집 앞으로 50Mt의 정성으로 간다)
-- 내용 : 현재 서비스 중인 “당근 마켓” 사이트를 오마주 하여 뉴스피드 프로젝트
+- 내용 : 배달의 민족 서비스를 클론 코딩하여 데이터 베이스 설계부터 서비스 구현 까지 마침.
 - 구분 : 팀 프로젝트
 - GitHub : https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed
-- 시연 영상 : https://youtu.be/Uo9lumzJrsI
-- 배포 : https://currypang.shop/
+- 시연 영상 : https://www.youtube.com/watch?v=ffhGHyPA7eg
+- 배포 : 
 
 <br>
 
@@ -35,7 +33,7 @@
 - FrontEnd : X
 - BackEnd : Node.js, Express, MySQL(Prisma), socket.io
 - Tool : Visual Studio Code, Insomnia
-- Publish : PM2, AWS/RDS, AWS/EC2, AWS/load balancer, AWS/S3
+- Publish : PM2, AWS/RDS, AWS/EC2, AWS/S3
 
 <br>
 
@@ -72,7 +70,9 @@
 - ERD : https://www.erdcloud.com/d/MmTMgZ2oNvapcnbJj
 - 와이어프레임 : https://www.figma.com/design/AB9wrnnmUfue8ReWL9VpMZ/5th-backoffice?node-id=0-1&t=Do5HTd2i4ItIbx92-1
 
-![와이어프레임](./imgs/wireframe.jpg)
+![와이어프레임](./imgs/frame1.png)
+![와이어프레임](./imgs/frame2.png)
+![와이어프레임](./imgs/frame3.png)
 
 <br>
 
@@ -90,7 +90,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/auth.router.js#L19
 
-![회원가입 이메일 인증](./imgs/2-sign-up-email.png)
+![회원가입 이메일 인증](./imgs/1.%20이메일%20인증%20(공통%20권한).png)
 
 <br>
 
@@ -102,7 +102,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/auth.router.js#L23
 
-![회원가입 API](./imgs/1-sign-up.png)
+![회원가입 API](./imgs/2.%20회원가입%20(공통%20권한).png)
 
 <br>
 
@@ -118,7 +118,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/auth.router.js#L26
 
-![로그인 API](./imgs/3-sign-in.png)
+![로그인 API](./imgs/3.%20로그인%20(공통%20권한).png)
 
 <br>
 
@@ -139,7 +139,10 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/passport.router.js
 
-![네이버 소셜 로그인 API](./imgs/5-naver-social.png)
+![네이버 소셜 로그인 API](./imgs/4-1.%20소셜%20로그인%201%20(네이버).png)
+![네이버 소셜 로그인 API](./imgs/4-2.%20소셜%20로그인%202%20(네이버).png)
+![네이버 소셜 로그인 API](./imgs/4-3.%20소셜%20로그인%203%20(네이버).png)
+![네이버 소셜 로그인 API](./imgs/4-4.%20소셜%20로그인%204%20(네이버).png)
 
 <br>
 
@@ -153,7 +156,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/middlewares/require-refresh-token.middleware.js
 
-![토큰 재발급 API](./imgs/8-token-reissue.png)
+![토큰 재발급 API](./imgs/6.%20토큰%20재발급%20(공통%20권한).png)
 
 <br>
 
@@ -169,7 +172,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/auth.router.js#L29
 
-![로그 아웃 API](./imgs/9-sign-out.png)
+![로그 아웃 API](./imgs/5.%20로그아웃%20(공통%20권한).png)
 
 <br>
 
@@ -185,7 +188,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L19
 
-![사용자 조회 API](./imgs/6-user-information.png)
+![사용자 조회 API](./imgs/7.%20유저%20정보%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -201,7 +204,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L21
 
-![사용자 정보 수정 API](./imgs/7-user-update.png)
+![사용자 정보 수정 API](./imgs/8.%20유저%20정보%20수정%20(공통%20권한).png)
 
 <br>
 
@@ -215,7 +218,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L25
 
-![사용자 정보 권한 수정 API](./imgs/7-user-update.png)
+![사용자 정보 권한 수정 API](./imgs/9.%20유저%20권한%20부여.png)
 
 <br>
 
@@ -229,7 +232,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L28
 
-![주문 내역 조회 API](./imgs/7-user-update.png)
+![주문 내역 조회 API](./imgs/10.%20주문%20내역%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -243,7 +246,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L15
 
-![지역 검색 API](./imgs/12-trade-create.png)
+![지역 검색 API](./imgs/11.%20지역%20별%20가게%20목록%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -257,7 +260,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L17
 
-![업체명 검색 API](./imgs/12-trade-create.png)
+![업체명 검색 API](./imgs/12.%20가게%20명%20가게%20목록%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -271,7 +274,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L19
 
-![키워드 검색 API](./imgs/12-trade-create.png)
+![키워드 검색 API](./imgs/13.%20키워드%20별%20가게%20목록%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -285,7 +288,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L21
 
-![키워드 별 평점 랭킹 API](./imgs/12-trade-create.png)
+![키워드 별 평점 랭킹 API](./imgs/14.%20평점%20별%20목록%20조회%20(공통%20권한).png)
 
 <br>
 
@@ -300,7 +303,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L22
 
-![주문상태 수정 API](./imgs/12-trade-create.png)
+![주문상태 수정 API](./imgs/21.%20주문%20상태%20변경%20(사장%20권한).png)
 
 <br>
 
@@ -310,7 +313,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L25
 
-![주문 목록 조회 API](./imgs/12-trade-create.png)
+![주문 목록 조회 API](./imgs/20.%20주문%20목록%20조회%20(사장%20권한).png)
 
 <br>
 
@@ -325,7 +328,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L28
 
-![가게 생성 API](./imgs/12-trade-create.png)
+![가게 생성 API](./imgs/15.%20가게%20생성%20(사장%20권한).png)
 
 <br>
 
@@ -337,7 +340,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L30
 
-![가게 상세조회 API](./imgs/12-trade-create.png)
+![가게 상세조회 API](./imgs/16.%20가게%20조회%20(사장%20권한).png)
 
 <br>
 
@@ -351,7 +354,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L34
 
-![가게 수정 API](./imgs/12-trade-create.png)
+![가게 수정 API](./imgs/17.%20가게%20정보%20수정%20(사장%20권한).png)
 
 <br>
 
@@ -363,7 +366,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L41
 
-![가게 삭제 API](./imgs/12-trade-create.png)
+![가게 삭제 API](./imgs/18.%20가게%20정보%20삭제%20(사장%20권한).png)
 
 <br>
 
@@ -377,7 +380,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L22
 
-![메뉴 생성 API](./imgs/12-trade-create.png)
+![메뉴 생성 API](./imgs/22.%20메뉴%20생성%20(사장%20권한).png)
 
 <br>
 
@@ -389,7 +392,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L18
 
-![메뉴 조회 API](./imgs/12-trade-create.png)
+![메뉴 조회 API](./imgs/23.%20메뉴%20목록%20조회%20(사장%20권한).png)
 
 <br>
 
@@ -401,7 +404,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L20
 
-![메뉴 상세조회 API](./imgs/12-trade-create.png)
+![메뉴 상세조회 API](./imgs/24.%20메뉴%20상세%20조회%20(사장%20권한).png)
 
 <br>
 
@@ -415,7 +418,9 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L24
 
-![메뉴 수정 API](./imgs/12-trade-create.png)
+![메뉴 수정 API](./imgs/)
+<br>
+이미지 파일이 깨짐..
 
 <br>
 
@@ -427,7 +432,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L26
 
-![메뉴 삭제 API](./imgs/12-trade-create.png)
+![메뉴 삭제 API](./imgs/26.%20메뉴%20삭제%20(사장%20권한).png)
 
 <br>
 
@@ -437,7 +442,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L36
 
-![(고객) 가게 목록 조회 API](./imgs/12-trade-create.png)
+![(고객) 가게 목록 조회 API](./imgs/27.%20가게%20목록%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -449,7 +454,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L38
 
-![(고객) 가게 정보 상세 조회 API](./imgs/12-trade-create.png)
+![(고객) 가게 정보 상세 조회 API](./imgs/28.%20가게%20정보%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -462,7 +467,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L40
 
-![(고객) 메뉴 목록 조회 API](./imgs/12-trade-create.png)
+![(고객) 메뉴 목록 조회 API](./imgs/29.%20메뉴%20목록%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -474,7 +479,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L47
 
-![(고객) 메뉴 상세 조회 API](./imgs/12-trade-create.png)
+![(고객) 메뉴 상세 조회 API](./imgs/30%20메뉴%20상세%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -486,7 +491,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L47
 
-![(고객) 메뉴 상세 조회 API](./imgs/12-trade-create.png)
+![(고객) 메뉴 상세 조회 API](./imgs/30%20메뉴%20상세%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -501,7 +506,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L42
 
-![(고객) 주문하기 API](./imgs/12-trade-create.png)
+![(고객) 주문하기 API](./imgs/19.%20주문하기%20(고객%20권한).png)
 
 <br>
 
@@ -515,7 +520,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L21
 
-![고객 리뷰 생성 API](./imgs/12-trade-create.png)
+![고객 리뷰 생성 API](./imgs/34.%20리뷰%20작성%20(고객%20권한).png)
 
 <br>
 
@@ -531,7 +536,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L23
 
-![고객 리뷰 조회 API](./imgs/12-trade-create.png)
+![고객 리뷰 조회 API](./imgs/35.%20리뷰%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -545,7 +550,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L25
 
-![고객 리뷰 수정 API](./imgs/12-trade-create.png)
+![고객 리뷰 수정 API](./imgs/36.%20리뷰%20수정%20(고객%20권한).png)
 
 <br>
 
@@ -559,7 +564,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L27
 
-![고객 리뷰 삭제 API](./imgs/12-trade-create.png)
+![고객 리뷰 삭제 API](./imgs/37.%20리뷰%20삭제%20(고객%20권한).png)
 
 <br>
 
@@ -572,7 +577,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L19
 
-![찜 생성 API](./imgs/12-trade-create.png)
+![찜 생성 API](./imgs/31.%20가게%20찜%20생성%20(고객%20권한).png)
 
 <br>
 
@@ -586,7 +591,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L22
 
-![사용자가 찜한 가게 목록 조회 API](./imgs/12-trade-create.png)
+![사용자가 찜한 가게 목록 조회 API](./imgs/32.%20찜%20가게%20목록%20조회%20(고객%20권한).png)
 
 <br>
 
@@ -600,4 +605,4 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L28
 
-![찜 해제 API](./imgs/12-trade-create.png)
+![찜 해제 API](./imgs/33.%20가게%20찜%20삭제%20(고객%20권한).png)

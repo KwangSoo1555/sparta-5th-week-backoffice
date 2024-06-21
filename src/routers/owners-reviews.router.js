@@ -23,7 +23,7 @@ ownersReviewsRouter.post("/reviews/:store_id/:review_id", ownersReviewsControlle
 // // 리뷰 조회
 ownersReviewsRouter.get("/reviews/:store_id", ownersReviewsController.getOwnersReviews);
 // // 리뷰 수정
-// ownersReviewsRouter.patch("/:store_id/:review_id", ownersReviewsController.updateOwnersReview);
+ownersReviewsRouter.patch("reviews/:store_id/:review_id/owner_review_id", ownersReviewsController.updateOwnersReview);
 // // 리뷰 삭제
 // ownersReviewsRouter.delete("/:store_id/:review_id", ownersReviewsController.deleteOwnersReview);
 
