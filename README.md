@@ -215,7 +215,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L25
 
-![사용자 정보 수정 API](./imgs/7-user-update.png)
+![사용자 정보 권한 수정 API](./imgs/7-user-update.png)
 
 <br>
 
@@ -229,7 +229,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/users.router.js#L28
 
-![사용자 정보 수정 API](./imgs/7-user-update.png)
+![주문 내역 조회 API](./imgs/7-user-update.png)
 
 <br>
 
@@ -243,7 +243,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L15
 
-![게시물 생성 API](./imgs/12-trade-create.png)
+![지역 검색 API](./imgs/12-trade-create.png)
 
 <br>
 
@@ -257,7 +257,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L17
 
-![게시물 생성 API](./imgs/12-trade-create.png)
+![업체명 검색 API](./imgs/12-trade-create.png)
 
 <br>
 
@@ -271,7 +271,7 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L19
 
-![게시물 생성 API](./imgs/12-trade-create.png)
+![키워드 검색 API](./imgs/12-trade-create.png)
 
 <br>
 
@@ -285,162 +285,271 @@
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/search.router.js#L21
 
-![게시물 생성 API](./imgs/12-trade-create.png)
+![키워드 별 평점 랭킹 API](./imgs/12-trade-create.png)
 
 <br>
 
 
 ### 5-15. 주문상태 수정 API
 
-- 판매할 상품의 정보를 입력 받아 게시물을 생성하는 API입니다.
-
-- `주문 id, 게시물 내용, 상품 가격, 판매 지역`을 `req.body`를 통해 받아옵니다.
+- 사장님이 주문 id를 입력바아 주문의 상태를 변경하는 API입니다.
 
 - `주문 id`을 `req.param`를 통해 받아옵니다.
 
-- `상품 사진`들은 파일을 업로드해서 보내면 `multer 객체`를 통해 `AWS S3에 URL 형태`로 저장됩니다.
-
-- `상품 사진의 URL`은 `req.files`를 통해서 가져옵니다.
-
-- 상품 사진은 필수로 첨부해야 합니다.
+- 주문 상태는 WAITING, PREPARING ,DELIVERING ,COMPLETE로 변경 가능하다.
 
 - https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L22
 
-![게시물 생성 API](./imgs/12-trade-create.png)
+![주문상태 수정 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-11. 게시물 목록 조회 API
+### 5-16. 주문 목록 조회 API
 
-- 판매 등록된 상품의 정보 목록을 조회하는 API입니다.
+- 사장님이 현재까지 들어온 주문의 목록을 조회하는 API입니다.
 
-- 일종의 `뉴스피드`, 모든 사용자들이 올리는 게시물을 보는 기능입니다.
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L25
 
-- 기본적으로는 `시간 순`으로 정렬되며, `like 쿼리`를 통해 `좋아요 순`으로 정렬이 가능합니다.
-
-- 상품들의 데이터 조회 시 관계가 설정된 `tradePicture 테이블`에서 `이미지 URL`를 반복해서 가져옵니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L67
-
-![게시물 목록조회-기본값 API](./imgs/13-trade-list-default.png)
-![게시물 목록조회 - sort API](./imgs/14-trade-list-sort.png)
-![게시물 목록조회 - like API](./imgs/15-trade-list-like.png)
-![게시물 목록조회 - follow API](./imgs/16-trade-list-follow.png)
+![주문 목록 조회 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-12. 게시물 상세 조회 API
 
-- 게시물의 상세한 정보를 조회하는 API입니다.
+### 5-17. 가게 생성 API
 
-- 목록 조회와는 다르게 게시물의 `내용`도 포함하여 출력합니다.
+- 사장님이 가게 정보를 입력받아 가게 정보를 생성하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- `이름, 주소, 키워드, 썸네일 이미지 주소, 전화번호, 소개글`을 `req.body`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L28
+
+![가게 생성 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-18. 가게 상세조회 API
+
+- 사장님이 가게 id를 입력받아 가게 정보를 상세조회하는 API입니다.
+
+- `가게 id`을 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L30
+
+![가게 상세조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-19. 가게 수정 API
+
+- 사장님이 가게 정보를 입력받아 가게 정보를 수정하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- `이름, 주소, 키워드, 썸네일 이미지 주소, 전화번호, 소개글`을 `req.body`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L34
+
+![가게 수정 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-20. 가게 삭제 API
+
+- 사장님이 가게 정보를 입력받아 가게 정보를 삭제하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/stores.router.js#L41
+
+![가게 삭제 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-21. 메뉴 생성 API
+
+- 사장님이 메뉴 정보를 입력받아 메뉴 정보를 생성하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- `이름, 이미지 주소, 가격, 인기여부`를 `req.body`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L22
+
+![메뉴 생성 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-22. 메뉴 조회 API
+
+- 사장님이 메뉴 정보를 입력받아 메뉴 정보를 조회하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L18
+
+![메뉴 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-23. 메뉴 상세조회 API
+
+- 사장님이 메뉴 정보를 입력받아 메뉴 정보를 상세조회하는 API입니다.
+
+- `메뉴 id, 가게 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L20
+
+![메뉴 상세조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-24. 메뉴 수정 API
+
+- 사장님이 메뉴 정보를 입력받아 메뉴 정보를 수정하는 API입니다.
+
+- `메뉴 id, 가게 id`를 `req.param`을 통해 입력받습니다.
+
+- `이름, 이미지 주소, 가격, 인기여부`를 `req.body`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L24
+
+![메뉴 수정 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-25. 메뉴 삭제 API
+
+- 사장님이 메뉴 정보를 입력받아 메뉴 정보를 삭제하는 API입니다.
+
+- `메뉴 id, 가게 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/menus.router.js#L26
+
+![메뉴 삭제 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-26. (고객) 가게 목록 조회 API
+
+- 고객이 가게 목록를 조회하는 API입니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L36
+
+![(고객) 가게 목록 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-27. (고객) 가게 정보 상세 조회 API
+
+- 고객이 가게 정보를 조회하는 API입니다.
+
+- `메뉴 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L38
+
+![(고객) 가게 정보 상세 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+
+### 5-28. (고객) 메뉴 목록 조회 API
+
+- 고객이 가게의 메뉴 목록을 조회하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L40
+
+![(고객) 메뉴 목록 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-29. (고객) 메뉴 상세 조회 API
+
+- 고객이 가게의 메뉴 목록을 조회하는 API입니다.
+
+- `가게 id, 메뉴 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L47
+
+![(고객) 메뉴 상세 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-29. (고객) 메뉴 상세 조회 API
+
+- 고객이 가게의 메뉴 목록을 조회하는 API입니다.
+
+- `가게 id, 메뉴 id`를 `req.param`을 통해 입력받습니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L47
+
+![(고객) 메뉴 상세 조회 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-30. (고객) 주문하기 API
+
+- 고객이 가게에 주문을 요청하는 API입니다.
+
+- `가게 id`를 `req.param`을 통해 입력받습니다.
+
+- `가게 id`를 `req.body`을 통해 입력받습니다.
+
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/customer-stores.router.js#L42
+
+![(고객) 주문하기 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-31. 고객 리뷰 생성 API
+
+- 해당 가게에 리뷰을 작성하는 API입니다.
+
+- `사용자 ID`는 `accessTokenValidator` 검증을 통과 한 뒤 `req.user`를 통해 받아오고, `가게 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+
+- `리뷰 평점`, `리뷰 내용`, `이미지url` 을 `req.body`를 통해 가져옵니다.
+
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L21
+
+![고객 리뷰 생성 API](./imgs/12-trade-create.png)
+
+<br>
+
+### 5-32. 고객 리뷰 조회 API
+
+- 해당 가게에 작성된 리뷰들을 조회하는 API입니다.
+
+- 본인 뿐만 아니라 **모든 사용자의 댓글**이 보입니다.
 
 - `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
 
-- 상품들의 데이터 조회 시 관계가 설정된 `tradePicture 테이블`에서 `이미지 URL`를 반복해서 가져옵니다.
+- 기본적으로 **별점 높은 리뷰가 먼저** 보입니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L131
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L23
 
-![게시물 상세 조회 API](./imgs/17-trade-detail.png)
-
-<br>
-
-### 5-13. 게시물 수정 API
-
-- 상품 게시물의 정보를 수정하는 API입니다.
-
-- 상품 게시물 작성과 마찬가지로 `게시물 제목, 게시물 내용, 상품 가격, 판매 지역`을 `req.body`를 통해 받아옵니다.
-
-- 위 내용은 필수로 받아오는 게 아니라 `일부만 수정이 가능`합니다.
-
-- `트랜젝션`을 사용해서 `게시물 데이터의 수정과 상품 사진 URL의 삭제, 새로 생성`을 진행합니다.
-
-- 이미지 개수가 다를 수도 있고 어떤 이미지가 어떤 이미지로 수정되는지 알 방법이 없기 때문입니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L167
-
-![게시물 수정 API](./imgs/18-trade-update.png)
+![고객 리뷰 조회 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-14. 게시물 삭제 API
+### 5-33. 고객 리뷰 수정 API
 
-- 상품 게시물을 선택해서 삭제하는 API입니다.
-
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 해당 ID를 조회하고 삭제를 진행합니다. `(Hard Delete)`
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L238
-
-![게시물 삭제 API](./imgs/19-trade-delete.png)
-
-<br>
-
-### 5-15. 게시물 좋아요 API
-
-- 상품 게시물에 좋아요를 할 수 있는 API입니다.
-
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 사용자 본인의 게시글에 좋아요를 누르거나, 이미 좋아요를 누른 경우 에러를 반환합니다.
-
-- `N:M 관계`를 `암시적 테이블`로 연결하기 위해 `connect 절`을 사용해서 테이블을 연결했습니다.
-
-- `좋아요 취소 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade.router.js#L271
-
-![게시물 좋아요 API](./imgs/20-trade-like.png)
-![게시물 좋아요 취소 API](./imgs/21-trade-unlike.png)
-
-<br>
-
-### 5-16. 댓글 생성 API
-
-- 해당 상품 게시물에 댓글을 작성하는 API입니다.
-
-- `accessTokenValidator 미들웨어`를 통해 생성된 `req.user`에서 로그인한 사용자의 ID를 가져옵니다.
-
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- `댓글 내용`을 `req.body`를 통해 가져옵니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L12
-
-![댓글 생성 API](./imgs/22-comment-create.png)
-
-<br>
-
-### 5-17. 댓글 조회 API
-
-- 사용자들이 게시물에 작성한 댓글들을 조회하는 API입니다.
-
-- 본인 뿐만 아니라 `모든 사용자의 댓글`이 보입니다.
-
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 기본적으로 `오래된 댓글일 수록 위에` 보입니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L66
-
-![댓글 조회 API](./imgs/24-comment-list.png)
-
-<br>
-
-### 5-18. 댓글 수정 API
-
-- 본인이 작성한 댓글을 수정하는 API입니다.
+- 본인이 작성한 리뷰를 수정하는 API입니다.
 
 - `상품 게시물의 ID, 댓글의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L120
+- `리뷰 평점`, `리뷰 내용`, `이미지url` 을 `req.body`를 통해 가져옵니다.
 
-![댓글 수정 API](./imgs/23-comment-update.png)
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L25
+
+![고객 리뷰 수정 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-19. 댓글 삭제 API
+### 5-34. 고객 리뷰 삭제 API
 
 - 본인이 작성한 댓글을 삭제하는 API입니다.
 
@@ -448,150 +557,47 @@
 
 - 해당 ID를 조회하고 삭제를 진행합니다. `(Hard Delete)`
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L358
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/reviews.router.js#L27
 
-![댓글 삭제 API](./imgs/25-comment-delete.png)
-
-<br>
-
-### 5-20. 댓글 좋아요 API
-
-- 상품 게시물 댓글에 좋아요를 할 수 있는 API입니다.
-
-- `상품 게시물의 ID, 댓글의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
-
-- 사용자 본인의 댓글에 좋아요를 누르거나, 이미 좋아요를 누른 경우 에러를 반환합니다.
-
-- `N:M 관계`를 `암시적 테이블`로 연결하기 위해 `connect 절`을 사용해서 테이블을 연결했습니다.
-
-- `댓글 좋아요 취소 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/comment.router.js#L195
-
-![댓글 좋아요 API](./imgs/26-comment-like.png)
-![댓글 좋아요 취소 API](./imgs/27-comment-unlike.png)
+![고객 리뷰 삭제 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-21. 상품 판매/구매 완료 API
+### 5-35 찜 생성 API
+- 사용자가 store를 찜 하게해주는 API 입니다.
 
-- 판매자(구매자)가 상품 판매(구매)를 완료하는 API입니다.
+- `사용자 ID`는 `accessTokenValidator` 검증을 통과한 후 `req.user`를 통해 받아오고, `storeId`는 `req.params`를 통해 URL에서 가져옵니다.
 
-- `상품 게시물의 ID`는 `req.params`를 통해 URL에서 가져옵니다.
+- 사용자가 이미 찜한 가게를 다시 찜하려고 하면 에러를 반환합니다.
 
-- 판매 완료에서는 `구매자의 ID`을, 구매 완료에서는 `매너 상태와 판매자 ID`을 `req.body`를 통해 가져옵니다.
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L19
 
-- `트랜젝션 문법`을 통해 구매 기록와 판매 기록을 `같은 트랜젝션에서 create`합니다.
-
-- `구매` 기록에는 상품 게시물의 ID와 `구매자의 ID`, 타입은 구매로 설정합니다.
-
-- `판매` 기록에는 상품 게시물의 ID와 `판매자의 ID`, 타입은 판매로 설정합니다.
-
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-complete.router.js#L12
-
-![거래 내역 생성 API](./imgs/28-make-history.png)
-![구매 완료 내역 생성 API](./imgs/29-make-purchase-history.png)
+![찜 생성 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-22. 상품 구매/판매 내역 조회 API
+### 5-36. 사용자가 찜한 가게 목록 조회 API
 
-- 이용자가 자신의 상품 거래 기록을 조회 할 수 있는 API 입니다.
+- 사용자가 찜한 모든 가게의 목록을 조회할 수 있게 해주는 API입니다.
 
-- `accessTokenValidator`를 통해서 로그인한 사용자의 `Access Token`를 검증합니다.
+- `사용자 ID`는 `accessTokenValidator` 검증을 통과한 후 `req.user`를 통해 받아옵니다.
 
-- 토큰 유효성 검사가 통과하면 `req.user`를 통해 사용자의 정보를 가져옵니다.
+- 사용자가 찜한 가게 목록을 성공적으로 조회하면 해당 데이터를 반환합니다.
 
-- 받아온 사용자 정보의 `id`를 통해 `history` 테이블의 거래기록에 접근 할 수 있고, 해당 테이블의 `type`에 따라 구매, 판매 내역을 조회 할 수 있습니다.
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L22
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/trade-history.router.js#L11
-
-![판매 내역 조회 API](./imgs/30-sell-history.png)
-![구매 내역 조회 API](./imgs/31-purchase-history.png)
+![사용자가 찜한 가게 목록 조회 API](./imgs/12-trade-create.png)
 
 <br>
 
-### 5-23. 팔로우 API
+### 5-37. 찜 해제 API
 
-- 사용자가 다른 이용자를 팔로우하고 해당 이용자를 트래킹 할 수 있게 해주는 API 입니다.
+- 사용자가 특정 가게에 대해 찜을 해제할 수 있게 해주는 API입니다.
 
-- `followerId`는 `accessTokenValidator` 검증을 통과 한 뒤 `req.user`를 통해 받아오고, `followingId`는 `req.params`를 통해 URL에서 가져옵니다.
+- `사용자 ID`는`accessTokenValidator` 검증을 통과한 후 `req.user`를 통해 받아오고, 가게ID는 `req.params`를 통해 URL에서 가져옵니다.
 
-- 팔로우 할 사용자가 이미 팔로우 되어 있는 경우 에러를 반환 합니다.
+- 사용자가 찜한 가게를 성공적으로 해제하면 해당 데이터를 반환합니다.
 
-- `언팔로우 API`는 로직이 거의 동일하기에 작성하지 않았습니다.
+- https://github.com/KwangSoo1555/sparta-5th-week-backoffice/blob/dev/src/routers/dibs.router.js#L28
 
-- https://github.com/KwangSoo1555/sparta-4nd-week-newsfeed/blob/2f60e3fe63728d35484131e85c85fd5456817e06/src/routers/follow.router.js#L10
-
-![팔로우 API](./imgs/10-follow.png)
-![언팔로우 API](./imgs/11-unfollow.png)
-
-<br>
-
-## 6. 어려웠던 점
-
-### 6-1. N:M 관계 vs 1:N 관계의 차이 (김정찬)
-
-- ERD 작성을 하면서 사용자가 게시물에 좋아요를 누를 경우에 대해서 이야기가 나왔음
-
-- 제일 먼저 떠오른 관계 방식은 N:M 방식이었음
-
-![관계 O](https://velog.velcdn.com/images/my_code/post/e082e1a6-9e9f-4565-a61f-b814ec97d58e/image.png)
-
-- 1:N, N:1 관계를 통해서 N:M 관계를 만들어 냈음
-
-- 위와 같이 user와 trade의 id를 통해 사용자가 어떤 게시물들에 좋아요를 누르는지, 그리고 어떤 사용자들이 해당 게시물에 좋아요를 눌렀는지 알기 위한 관계를 생각했음
-
-- 위와 같이 관계를 연결함으로써 복잡한 연산이 되지만 관계가 존재하기 때문에 변경 사항에 대해 유연하게 대처가 가능해짐
-
-- 즉, 관계를 형성하면 종속성을 만들 수 있어서 수정 삭제 시 조금 더 편리해짐
-
-- 두 번째로 떠오른 방식은 그냥 그냥 명시적으로trade_like를 만들고 관계를 형성하지 않는 방식을 생각했음
-
-![관계 X](https://velog.velcdn.com/images/my_code/post/8920f00e-f286-40a9-88a8-c84a64a24497/image.png)
-
-- 위와 같은 방식은 그냥 코드 상에서 parameter와 같은 request 값을 직접 가져와서 trade_like 테이블에 create 하는 방식임
-
-- 위와 같은 방식을 사용하면 복잡한 관계가 없기에 개발할 때는 편리함
-
-- 하지만 변경 사항이 발생하면 코드 자체를 고치는 경우가 많아지기 때문에 유지 보수 면에서 조금 떨어짐
-
-- 팀원들과의 회의에서 결론이 나지 않아서 튜터님이 도움으로 N:M 관계를 만드는 것으로 결정했음
-
-- 심지어 N:M 방식을 사용해서 trade_like라는 테이블을 직접 만드는 것이 아니라 암시적으로 만들 수 있다는 이야기를 들었음
-
-- 그래서 아래 참고 자료를 바탕으로 스키마를 구성함
-
-- https://dodote10.tistory.com/624
-
-<br>
-
-### 6-2. 소셜 로그인과 기존 인증방식의 호환 (채유일)
-
-- passport를 이용한 소셜 로그인을 구현했을 때 받아오는 토큰을 사용하면 기존 JWT를 사용하던 인증 로직을 재사용 할 수 없음
-
-- 회원 가입 API를 통해 가입한 사용자와의 인증 과정을 어떻게 통합해야 할지 고민함
-
-- passport에서 제공하는 전략을 통해 인증된 사용자의 정보만 받아온 뒤 기존 accesstoken과 refreshtoken을 JWT로 발급한 로직을 그대로 적용.
-
-- 기존의 토큰 발급 함수와, 토큰 미들웨어를 그대로 사용할 수 있게 됨
-
-- 소셜로그인 사용자와 일반 회원가입 사용자 간 구분을 두지 않고 동일한 인증과정을 거쳐 API에 대한 접근을 통제 할 수 있게 구현함
-
-<br>
-
-### 6-3. Prisma 작동 로직의 이해 (구남욱)
-
-- 백엔드 작업에 필수적인 서버를 구현하는 방식인 Prisma의 이해가 잘 되지 않았음
-
-- 다른 사람의 코드를 이해하고, 팀의 코드 양식에 맞추어 코드를 작성하는 것의 연습이 더 필요하다고 느꼈음
-
-- 소통의 중요성을 다시 한 번 체감하였고, 어려운 점이 있을 때 솔직하고 정확한 브리핑을 통해 어려움을 극복하는 방법을 알게 되었음
-
-<br>
-
-### 6-4. 계획, 설계의 부족과 테스트 여러움 (복광수)
-
-- 클라이언트에게 어떤 방향으로 서비스를 제공할 것인지 미리 계획을 잡지 않아 로직 구현 도중 서비스 방향성이 잡히지 않았음
-
-- 프론트 엔드의 작업 없이 데이터 베이스의 스키마와 로직을 통한 insomnia 테스트로만 코드 동작을 판단하기 쉽지 않았음
+![찜 해제 API](./imgs/12-trade-create.png)
