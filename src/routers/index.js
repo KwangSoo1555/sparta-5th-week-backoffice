@@ -29,7 +29,7 @@ const authService = new AuthService(usersRepository);
 
 apiRouter.use("/auth", authRouter, passPortRouter);
 apiRouter.use("/users", requireAccessToken(authService), uploadImage.single("img"), usersRouter);
-apiRouter.use("/refreshToken", requireRefreshToken(authService), reIssueAccessTokenRouter);
+apiRouter.use("/refresh_token", requireRefreshToken(authService), reIssueAccessTokenRouter);
 apiRouter.use("/stores", requireAccessToken(authService), customerStoresRouter);
 apiRouter.use("/reviews", requireAccessToken(authService), reviewsRouter);
 apiRouter.use("/search", requireAccessToken(authService), searchRouter);
