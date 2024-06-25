@@ -8,7 +8,9 @@
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
+    "dev:front": "nodemon public/src/login-customer.js",
+    "dev:back": "nodemon src/app.js",
+    "dev:both": "concurrently \"yarn dev:back\" \"yarn dev:front\"",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --forceExit",
     "test:coverage": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --coverage --forceExit",
     "test:unit": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest __tests__/unit --forceExit"
@@ -27,7 +29,9 @@
     "nodemon": "^3.1.0",
     "passport": "^0.7.0",
     "passport-naver": "^1.0.6",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.3.0",
