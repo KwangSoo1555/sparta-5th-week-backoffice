@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Page</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Manage Orders</h1>
+    <div id="orders"></div>
+
+    <script>
+      const socket = io("http://localhost:3000");
+
+      const storeId = "store1"; // 가게 ID
+      const ordersDiv = document.getElementById("orders");
+
+      socket.emit("joinRoom", storeId);
+
+      socket.on("newOrder", (order) => {
+        const orderDiv = document.createElement("div");
+        orderDiv.innerHTML = `
+                <p>Order from ${order.customerId}: ${order.item} x ${order.quantity}</p>
+                <select data-customer-id="${order.customerId}">
+                    <option value="WAITING">WAITING</option>
+                    <option value="PREPARING">PREPARING</option>
+                    <option value="DELIVERING">DELIVERING</option>
+                    <option value="COMPLETE">COMPLETE</option>
+                </select>
+                <button onclick="updateOrderStatus(this)">Update Status</button>
+            `;
+        ordersDiv.appendChild(orderDiv);
+      });
+
+      function updateOrderStatus(button) {
+        const select = button.previousElementSibling;
+        const update = {
+          customerId: select.getAttribute("data-customer-id"),
+          status: select.value,
+        };
+        socket.emit("updateOrderStatus", update);
+      }
+    </script>
+  </body>
+</html>
