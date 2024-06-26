@@ -67,7 +67,7 @@
 ## 4. API 명세서 및 ERD, 와이어 프레임
 
 - API 명세서 : https://www.notion.so/teamsparta/50-Mt-eb0e8d159d6347ef921fab11e7a95224
-- ERD : https://www.erdcloud.com/d/MmTMgZ2oNvapcnbJj
+- ERD : https://www.erdcloud.com/d/4wf6dPgAjryH6neAJ
 - 와이어프레임 : https://www.figma.com/design/AB9wrnnmUfue8ReWL9VpMZ/5th-backoffice?node-id=0-1&t=Do5HTd2i4ItIbx92-1
 
 ![와이어프레임](./imgs/frame1.png)
