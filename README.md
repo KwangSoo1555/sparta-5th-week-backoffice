@@ -13,10 +13,10 @@
 
 ## 팀원 구성
 
-- 팀장(총통) : 복광수 [@KwangSoo1555](https://github.com/KwangSoo1555)
-- 팀원(사령관) : 김영규 [@ykyu99](https://github.com/ykyu99)
-- 팀원(총장) : 이강산 [@KangSanLee24](https://github.com/KangSanLee24)
-- 팀원(special agent) : 서동현 [@lucetaseo](https://github.com/lucetaseo)
+- 팀장 : 복광수 [@KwangSoo1555](https://github.com/KwangSoo1555)
+- 팀원 : 김영규 [@ykyu99](https://github.com/ykyu99)
+- 팀원 : 이강산 [@KangSanLee24](https://github.com/KangSanLee24)
+- 팀원 : 서동현 [@lucetaseo](https://github.com/lucetaseo)
 
 
 <br>
